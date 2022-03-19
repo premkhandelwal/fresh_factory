@@ -1,0 +1,149 @@
+import 'package:flutter/material.dart';
+
+class PaymentMethodScreen extends StatefulWidget {
+  const PaymentMethodScreen({Key? key}) : super(key: key);
+
+  @override
+  State<PaymentMethodScreen> createState() => _PaymentMethodScreenState();
+}
+
+class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
+  final payTMImage = const AssetImage("assets/paytm.png");
+  final googleImage = const AssetImage("assets/gPay.png");
+  final visaImage = const AssetImage("assets/visa.jpg");
+  final upiImage = const AssetImage("assets/upi.jpg");
+  int _selectedIndex = 0;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Add Payment Method"),
+        backgroundColor: Colors.white,
+        foregroundColor: Color(0xff02096B),
+        titleTextStyle: TextStyle(
+            color: Color(0xff02096B),
+            fontSize: 20,
+            fontWeight: FontWeight.bold),
+        centerTitle: true,
+        automaticallyImplyLeading: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: ListView(
+          children: [
+            ListTile(
+              selected: _selectedIndex == 0,
+              tileColor: Colors.white,
+              shape: _selectedIndex == 0
+                  ? const RoundedRectangleBorder(
+                      side: BorderSide(color: Color(0xFF0D47A1), width: 2),
+                    )
+                  : null,
+              onTap: () {
+                setState(() {
+                  _selectedIndex = 0;
+                });
+              },
+              leading: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: Image(
+                  image: payTMImage,
+                  width: 90,
+                ),
+              ),
+              title: const Center(
+                  child: Text(
+                "Paytm",
+                style: TextStyle(color: Colors.grey),
+              )),
+            ),
+            const SizedBox(height: 40),
+            ListTile(
+              selected: _selectedIndex == 1,
+              tileColor: Colors.white,
+              shape: _selectedIndex == 1
+                  ? const RoundedRectangleBorder(
+                      side: BorderSide(color: Color(0xFF0D47A1), width: 2),
+                    )
+                  : null,
+              onTap: () {
+                setState(() {
+                  _selectedIndex = 1;
+                });
+              },
+              leading: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: Image(
+                  image: googleImage,
+                ),
+              ),
+              title: const Center(
+                  child: Text(
+                "GPay",
+                style: TextStyle(color: Colors.grey),
+              )),
+            ),
+            const SizedBox(height: 40),
+            ListTile(
+              selected: _selectedIndex == 2,
+              tileColor: Colors.white,
+              shape: _selectedIndex == 2
+                  ? const RoundedRectangleBorder(
+                      side: BorderSide(color: Color(0xFF0D47A1), width: 2),
+                    )
+                  : null,
+              onTap: () {
+                setState(() {
+                  _selectedIndex = 2;
+                });
+              },
+              leading: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: Image(
+                  image: visaImage,
+                ),
+              ),
+              title: const Center(
+                  child: Text(
+                "Visa Card",
+                style: TextStyle(color: Colors.grey),
+              )),
+            ),
+            const SizedBox(height: 40),
+            ListTile(
+              selected: _selectedIndex == 3,
+              tileColor: Colors.white,
+              shape: _selectedIndex == 3
+                  ? const RoundedRectangleBorder(
+                      side: BorderSide(color: Color(0xFF0D47A1), width: 2),
+                    )
+                  : null,
+              onTap: () {
+                setState(() {
+                  _selectedIndex = 3;
+                });
+              },
+              leading: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: Image(
+                  image: upiImage,
+                ),
+              ),
+              title: const Center(
+                  child: Text(
+                "UPI",
+                style: TextStyle(color: Colors.grey),
+              )),
+            ),
+            const SizedBox(height: 50),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text("Add Payment Method"),
+              style: ElevatedButton.styleFrom(fixedSize: const Size(353, 57)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
