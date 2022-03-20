@@ -1,5 +1,7 @@
+import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:fresh/presentation/screens/payments/wallet_screen.dart';
 
 class OrderMainPage extends StatefulWidget {
@@ -11,7 +13,10 @@ class OrderMainPage extends StatefulWidget {
 
 class _OrderMainPageState extends State<OrderMainPage> {
   int currIndex = 0;
+  bool orderPresent = false;
   final noOrderImage = AssetImage('assets/noCurrentOrders.png');
+  final order1 = AssetImage('assets/order1.png');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,32 +73,190 @@ class _OrderMainPageState extends State<OrderMainPage> {
             ),
             Expanded(
               child: TabBarView(children: [
-                // WalletWidget(),
-                Column(
-                  children: [
-                    Image(image: noOrderImage),
-                     RichText(
-            text: TextSpan(
-              text: 'Hello ',
-              // style: DefaultTextStyle.of(context).style,
-              children: <TextSpan>[
-                TextSpan(text: 'There is no ongoing order right now.', style: TextStyle(fontWeight: FontWeight.bold)),
-              ],
-            ),
-          ),
-                    RichText(
-                      
-                        text: TextSpan(children: [
-                      TextSpan(
-                        style: TextStyle(fontSize: 20),
-                          text:
-                              "There is no ongoing order right now.\nYou can order from home"),
-                               TextSpan(
-                          text:
-                              "There is no ongoing order right now.\nYou can order from home")
-                    ]))
-                  ],
-                ),
+                orderPresent
+                    ? SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            SizedBox(height: 10),
+                            Container(
+                              height: 55,
+                              width: 412,
+                              color: Colors.indigo[100],
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                      icon: Icon(Icons.calendar_month),
+                                      onPressed: () {}),
+                                  Text(" March 5, 2019"),
+                                  Spacer(),
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 10),
+                                    child: Text("6.30 PM"),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top:30.0),
+                                  child: Column(
+                                    children: [
+                                      OrderTrackWidget(
+                                        stepCompleted: true,
+                                      ),
+                                      Transform.translate(
+                                        offset: Offset(0, -30),
+                                        child: OrderTrackWidget(
+                                          stepCompleted: true,
+                                        ),
+                                      ),
+                                      Transform.translate(
+                                        offset: Offset(0, -60),
+                                        child: OrderTrackWidget(
+                                          stepCompleted: true,
+                                        ),
+                                      ),
+                                      Transform.translate(
+                                        offset: Offset(0, -90),
+                                        child: OrderTrackWidget(
+                                          stepCompleted: true,
+                                        ),
+                                      ),
+                                      Transform.translate(
+                                        offset: Offset(0, -125),
+                                        child: OrderTrackWidget(
+                                          stepCompleted: true,
+                                          lineLength: 0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 25.0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 30.0,left: 50),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Image(
+                                              image: order1,
+                                            ),
+                                            SizedBox(width: 25),
+                                            Text("Your Order is Processing...",style:TextStyle(fontSize: 20)),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(height: 50),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 50),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Image(
+                                              image: order1,
+                                            ),
+                                            SizedBox(width: 25),
+                                            Text("Your Order is Approved..  ",style:TextStyle(fontSize: 20)),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(height: 50),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 50),
+                                       
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Image(
+                                              image: order1,
+                                            ),
+                                            SizedBox(width: 25),
+                                            Text("We are packing your items...",style:TextStyle(fontSize: 20)),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(height: 50),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 50),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Image(
+                                              image: order1,
+                                            ),
+                                            SizedBox(width: 25),
+                                            Text("Your order is delivering to\nyour location...",style:TextStyle(fontSize: 20)),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(height: 60),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 50),
+
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Image(
+                                              image: order1,
+                                            ),
+                                            SizedBox(width: 25),
+                                            Text("Your Order is Recieved...",style:TextStyle(fontSize: 20)),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                    : Column(
+                        children: [
+                          Image(image: noOrderImage),
+                          Text('There is no ongoing order right now.',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: const Color(0xff02096B))),
+                          SizedBox(height: 10),
+                          Text('You can order from home',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: const Color(0xff02096B))),
+                          RichText(
+                              text: TextSpan(children: [
+                            TextSpan(
+                                style: TextStyle(fontSize: 20),
+                                text:
+                                    "There is no ongoing order right now.\nYou can order from home"),
+                            TextSpan(
+                                text:
+                                    "There is no ongoing order right now.\nYou can order from home")
+                          ])),
+                          ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                orderPresent = true;
+                              });
+                            },
+                            child: Text("Change Status"),
+                            style: ElevatedButton.styleFrom(),
+                          ),
+                        ],
+                      ),
                 WalletWidget(
                   isReferralWallet: true,
                 ),
@@ -102,6 +265,37 @@ class _OrderMainPageState extends State<OrderMainPage> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class OrderTrackWidget extends StatelessWidget {
+  final bool stepCompleted;
+  final int lineLength;
+  const OrderTrackWidget({
+    Key? key,
+    required this.stepCompleted,
+    this.lineLength = 100,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Checkbox(
+          value: stepCompleted,
+          onChanged: (val) {},
+          shape: CircleBorder(),
+        ),
+        // SizedBox(height: 0),
+        Transform.translate(
+          offset: Offset(0, -10),
+          child: DottedLine(
+            direction: Axis.vertical,
+            lineLength: lineLength.h,
+          ),
+        ),
+      ],
     );
   }
 }
