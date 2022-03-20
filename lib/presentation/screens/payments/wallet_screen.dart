@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ReferralWalletScreen extends StatefulWidget {
-  const ReferralWalletScreen({Key? key}) : super(key: key);
+class WalletScreen extends StatefulWidget {
+  const WalletScreen({Key? key}) : super(key: key);
 
   @override
-  _ReferralWalletScreenState createState() => _ReferralWalletScreenState();
+  _WalletScreenState createState() => _WalletScreenState();
 }
 
-class _ReferralWalletScreenState extends State<ReferralWalletScreen> {
+class _WalletScreenState extends State<WalletScreen> {
   int currIndex = 0;
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,7 @@ import 'package:fresh/businessLogic/blocs/auth/auth_bloc.dart';
 import 'package:fresh/data/dataProviders/auth_provider.dart';
 import 'package:fresh/main%20copy1.dart';
 import 'package:fresh/presentation/screens/home/home_screen.dart';
-import 'package:fresh/presentation/screens/home/referral_wallet.dart';
+import 'package:fresh/presentation/screens/payments/wallet_screen.dart';
 import 'package:fresh/presentation/screens/payments/bank_details.dart';
 import 'package:fresh/presentation/screens/payments/payment_method_screen.dart';
 import 'package:fresh/presentation/widgets/home/fortune_wheel_widget.dart';
@@ -87,7 +87,7 @@ class NewWidget extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (ctx) => const ReferralWalletScreen()),
+                    builder: (ctx) => const WalletScreen()),
               );
             },
             child: const Text("Referral Wallet Page"),
