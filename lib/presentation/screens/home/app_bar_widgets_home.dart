@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppBarWidgets extends StatelessWidget {
   const AppBarWidgets({
@@ -8,36 +9,29 @@ class AppBarWidgets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
+      
         IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.menu),
-        ),
-        Row(
-          children: [
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.favorite_border,
-                  color: Colors.grey,
-                )),
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.notifications,
-                  color: Colors.grey,
-                )),
-            Container(
-              height: 20,
-              width: 20,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    width: 1,
-                  )),
-            ),
-          ],
+            onPressed: () {},
+            icon: const Icon(
+              Icons.favorite_border,
+              color: Colors.grey,
+            )),
+        IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.notifications,
+              color: Colors.grey,
+            )),
+        Container(
+          height: 20.h,
+          width: 20.w,
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                width: 1.w,
+              )),
         )
       ],
     );

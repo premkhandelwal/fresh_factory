@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fresh/businessLogic/blocs/auth/auth_bloc.dart';
 import 'package:fresh/data/models/user.dart';
 import 'package:fresh/globals/common_function.dart';
@@ -90,19 +91,19 @@ class _LoginScreenState extends State<LoginScreen> {
                             TextFormField(
                               controller: phoneNoController,
                               keyboardType: TextInputType.number,
-                              decoration: const InputDecoration(
+                              decoration:  InputDecoration(
                                 hintText: 'Enter your Phone Number',
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0),
+                                      color: Color(0xff02096B), width: 1.0.w),
                                 ),
                                 disabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0),
+                                      color: Color(0xff02096B), width: 1.0.w),
                                 ),
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0),
+                                      color: Color(0xff02096B), width: 1.0.w),
                                 ),
                               ),
                             ),
@@ -115,11 +116,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               obscureText: true,
                               enableSuggestions: false,
                               autocorrect: false,
-                              decoration: const InputDecoration(
+                              decoration:  InputDecoration(
                                   hintText: 'Enter your password',
                                   border: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: Colors.red, width: 5.0),
+                                        color: Colors.red, width: 5.0.w),
                                   )),
                             ),
                             Row(
@@ -145,8 +146,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               width: double.infinity,
                               padding: const EdgeInsets.only(top: 40.0),
                               child: MaterialButton(
-                                minWidth: 320,
-                                height: 50,
+                                minWidth: 320.w,
+                                height: 50.h,
                                 color: Color(0xff02096B),
                                 shape: new RoundedRectangleBorder(
                                   borderRadius: new BorderRadius.circular(9.0),
@@ -163,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   authBloc.add(SignInRequestedEvent(
                                       user: User(
                                           authToken:
-                                              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ3Njk2NDMxLCJpYXQiOjE2NDc2OTU4MzEsImp0aSI6ImU1Y2UwYTNmNTEyMjQ5OTg4YThhNmNkY2U4MTdiOWI1IiwidXNlcl9pZCI6NX0.qgz8D4lLus94sNlQAQhAst1djM1nwH3fbDS9rsG4Lco",
+                                          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ3NzUzODE5LCJpYXQiOjE2NDc3NTMyMTksImp0aSI6Ijc2ZWVjMjY3YmI4ZTQzNDlhNmRjODRmOThmZjgwZWEzIiwidXNlcl9pZCI6MTB9.lGHK3AlQ6nmE0cY2aDLzGnj7uvh7h1MXIplgEpp9wkk",
                                           phoneNumber: phoneNoController.text,
                                           password: passwordController.text)));
                                 },

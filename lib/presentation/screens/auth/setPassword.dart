@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fresh/presentation/screens/home/uicomponents.dart';
 
 class SetPassword extends StatefulWidget {
@@ -59,19 +60,19 @@ class _SetPasswordState extends State<SetPassword> {
                       TextFormField(
                         obscureText: true,
                         keyboardType: TextInputType.text,
-                        decoration: const InputDecoration(
+                        decoration:  InputDecoration(
                           hintText: 'Enter your new password',
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: Color(0xff02096B), width: 1.0),
+                                color: Color(0xff02096B), width: 1.0.w),
                           ),
                           disabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: Color(0xff02096B), width: 1.0),
+                                color: Color(0xff02096B), width: 1.0.w),
                           ),
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: Color(0xff02096B), width: 1.0),
+                                color: Color(0xff02096B), width: 1.0.w),
                           ),
                         ),
                       ),
@@ -82,19 +83,19 @@ class _SetPasswordState extends State<SetPassword> {
                       TextFormField(
                         obscureText: true,
                         keyboardType: TextInputType.text,
-                        decoration: const InputDecoration(
+                        decoration:  InputDecoration(
                           hintText: 'Enter your new password again',
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: Color(0xff02096B), width: 1.0),
+                                color: Color(0xff02096B), width: 1.0.w),
                           ),
                           disabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: Color(0xff02096B), width: 1.0),
+                                color: Color(0xff02096B), width: 1.0.w),
                           ),
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: Color(0xff02096B), width: 1.0),
+                                color: Color(0xff02096B), width: 1.0.w),
                           ),
                         ),
                       ),
@@ -104,8 +105,8 @@ class _SetPasswordState extends State<SetPassword> {
                       Container(
                         width: double.infinity,
                         child: MaterialButton(
-                          minWidth: 250,
-                          height: 60,
+                          minWidth: 250.w,
+                          height: 60.h,
                           color: Color(0xff02096B),
                           shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(9.0),

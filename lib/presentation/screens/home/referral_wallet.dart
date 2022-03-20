@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ReferralWalletScreen extends StatefulWidget {
   const ReferralWalletScreen({Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class _ReferralWalletScreenState extends State<ReferralWalletScreen> {
         length: 2,
         child: Column(
           children: [
-            const SizedBox(height: 10),
+            SizedBox(height: 10.h),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -90,10 +91,10 @@ class WalletWidget extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
           Container(
-            height: 158,
-            width: 382,
+            height: 158.h,
+            width: 382.w,
             decoration: BoxDecoration(
               color: Color(0xff02096B),
             ),
@@ -102,24 +103,26 @@ class WalletWidget extends StatelessWidget {
               child: Column(
                 children: [
                   Row(
-                    children: const [
+                    children:  [
                       Icon(
                         Icons.add_chart,
                         color: Colors.white,
                         size: 40,
                       ),
-                      SizedBox(width: 10),
+                      SizedBox(
+                        width: 10.w,
+                      ),
                       Text(
                         "Your Balance",
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       )
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                   Row(
                     children: [
                       Container(
-                        width: 51,
+                        width: 51.w,
                       ),
                       const Align(
                           alignment: Alignment.topLeft,
@@ -136,10 +139,10 @@ class WalletWidget extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 15),
+          SizedBox(height: 15.h),
           Container(
-            height: 195,
-            width: 382,
+            height: 195.h,
+            width: 382.w,
             decoration:
                 BoxDecoration(border: Border.all(color: Colors.black12)),
             child: Column(
@@ -159,7 +162,7 @@ class WalletWidget extends StatelessWidget {
                         border: OutlineInputBorder()),
                   ),
                 ),
-                const SizedBox(height: 30),
+                SizedBox(height: 30.h),
                 ElevatedButton(
                   onPressed: () {},
                   child: const Text("Add Money"),
@@ -169,7 +172,7 @@ class WalletWidget extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 15),
+          SizedBox(height: 15.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -202,8 +205,8 @@ class CardWidgetWallet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 186,
-      width: 177,
+      height: 186.h,
+      width: 177.w,
       color: Colors.indigo[100],
       child: Stack(
         //  alignment: MainAxisAlignment.spaceBetween,
@@ -213,8 +216,8 @@ class CardWidgetWallet extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                  height: 56,
-                  width: 56,
+                  height: 56.h,
+                  width: 56.w,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
                       color: Colors.white),

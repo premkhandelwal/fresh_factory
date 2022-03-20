@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fresh/businessLogic/blocs/auth/auth_bloc.dart';
 import 'package:fresh/data/models/user.dart';
 import 'package:fresh/globals/common_function.dart';
@@ -96,19 +97,19 @@ class _SignupScreenState extends State<SignupScreen> {
                             TextFormField(
                               controller: nameController,
                               keyboardType: TextInputType.text,
-                              decoration: const InputDecoration(
+                              decoration:  InputDecoration(
                                 hintText: 'Enter your Name',
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0),
+                                      color: Color(0xff02096B), width: 1.0.w),
                                 ),
                                 disabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0),
+                                      color: Color(0xff02096B), width: 1.0.w),
                                 ),
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0),
+                                      color: Color(0xff02096B), width: 1.0.w),
                                 ),
                               ),
                             ),
@@ -122,19 +123,19 @@ class _SignupScreenState extends State<SignupScreen> {
                             TextFormField(
                               controller: phoneNoController,
                               keyboardType: TextInputType.number,
-                              decoration: const InputDecoration(
+                              decoration:  InputDecoration(
                                 hintText: 'Enter your Phone Number',
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0),
+                                      color: Color(0xff02096B), width: 1.0.w),
                                 ),
                                 disabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0),
+                                      color: Color(0xff02096B), width: 1.0.w),
                                 ),
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0),
+                                      color: Color(0xff02096B), width: 1.0.w),
                                 ),
                               ),
                             ),
@@ -186,19 +187,19 @@ class _SignupScreenState extends State<SignupScreen> {
                             TextFormField(
                               controller: referralCodeController,
                               keyboardType: TextInputType.text,
-                              decoration: const InputDecoration(
+                              decoration:  InputDecoration(
                                 hintText: 'Enter Referral code',
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0),
+                                      color: Color(0xff02096B), width: 1.0.w),
                                 ),
                                 disabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0),
+                                      color: Color(0xff02096B), width: 1.0.w),
                                 ),
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0),
+                                      color: Color(0xff02096B), width: 1.0.w),
                                 ),
                               ),
                             ),

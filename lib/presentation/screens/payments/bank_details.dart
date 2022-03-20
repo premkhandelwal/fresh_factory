@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fresh/presentation/utils/custom_header_widget.dart';
 
 class BankDetailsScreen extends StatefulWidget {
@@ -31,9 +32,9 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const SizedBox(height: 30),
+               SizedBox(height: 30.h),
               const CustomHeaderWidget(title: "Bank Details"),
-              const SizedBox(height: 30),
+               SizedBox(height: 30.h),
               CustomTextFieldWidget(
                 hint: "Anna Deo",
                 label: "Name",
@@ -45,7 +46,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                 label: "Phone",
                 suffixWidget: Container(),
               ),
-              const SizedBox(height: 20),
+               SizedBox(height: 20.h),
               const CustomHeaderWidget(
                 title: "Select Card",
                 fontSize: 15,
@@ -90,7 +91,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                 hint: "",
                 suffixWidget: Row(
                   children: [
-                    SizedBox(width: 10),
+                    SizedBox(width: 10.w),
                     ElevatedButton(
                       onPressed: () {},
                       child: Text("Upload"),
@@ -105,7 +106,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                 hint: "",
                 suffixWidget: Row(
                   children: [
-                    SizedBox(width: 10),
+                    SizedBox(width: 10.w),
                     ElevatedButton(
                       onPressed: () {},
                       child: Text("Upload"),
@@ -130,7 +131,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                 hint: "",
                 suffixWidget: Row(
                   children: [
-                    SizedBox(width: 10),
+                    SizedBox(width: 10.w),
                     ElevatedButton(
                       onPressed: () {},
                       child: Text("Upload"),
@@ -144,7 +145,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                 label: "UPI ID",
                 suffixWidget: Container(),
               ),
-              SizedBox(height: 30),
+              SizedBox(height: 30.h),
               ElevatedButton(
                 onPressed: () {},
                 child: Text("Update Details"),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:fresh/businessLogic/blocs/auth/auth_bloc.dart';
 import 'package:fresh/data/dataProviders/auth_provider.dart';
@@ -23,22 +24,27 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-       BlocProvider(
-         create: (context) => AuthBloc(authProvider: authProvider),
-       )
-      ],
-      child:  MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData(
-              colorScheme: const ColorScheme.light(primary: Color(0xff02096B)),
-              textTheme:
-                  const TextTheme(bodyText1: TextStyle(), bodyText2: TextStyle())
-                      .apply(bodyColor: const Color(0xff02096B))),
-          //0xFF0D47A1
-          home: const NewWidget(),
-        ),
+    return ScreenUtilInit(
+      designSize: const Size(393, 851), //Redmi Note 7
+      builder: () {
+        return MultiBlocProvider(
+          providers: [
+           BlocProvider(
+             create: (context) => AuthBloc(authProvider: authProvider),
+           )
+          ],
+          child:  MaterialApp(
+              title: 'Flutter Demo',
+              theme: ThemeData(
+                  colorScheme: const ColorScheme.light(primary: Color(0xff02096B)),
+                  textTheme:
+                      const TextTheme(bodyText1: TextStyle(), bodyText2: TextStyle())
+                          .apply(bodyColor: const Color(0xff02096B))),
+              //0xFF0D47A1
+              home: const NewWidget(),
+            ),
+        );
+      }
     );
   }
 }

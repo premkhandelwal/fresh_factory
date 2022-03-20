@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fresh/presentation/screens/home/app_bar_widgets_home.dart';
 import 'package:fresh/presentation/utils/custom_header_widget.dart';
 import 'package:fresh/presentation/widgets/home/brands_widget.dart';
@@ -10,12 +11,44 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // drawer: Container(),
-
+      drawer: Drawer(
+          child: ListView(
+        children: [
+          SizedBox(
+            height: 177.h,
+            width: 318.w,
+            child: DrawerHeader(
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Column(
+                  children: [
+                    Container(
+                      height: 76.h,
+                      width: 76.w,
+                      decoration: const BoxDecoration(
+                          color: Colors.grey, shape: BoxShape.circle),
+                    ),
+                    SizedBox(height: 10.h),
+                    Text(
+                      'Anna Deo',
+                      style: TextStyle(fontSize: 22),
+                    ),
+                    SizedBox(height: 10.h),
+                    Text(
+                      "Annadeo@gmail.com",
+                      style: TextStyle(color: Colors.pink),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
+      )),
       appBar: AppBar(
         backgroundColor: Colors.white,
         foregroundColor: Colors.red,
-        automaticallyImplyLeading: false,
+        // automaticallyImplyLeading: false,
         title: const AppBarWidgets(),
       ),
       body: SingleChildScrollView(
@@ -44,20 +77,20 @@ class HomePage extends StatelessWidget {
                 style: TextStyle(color: Colors.white, fontSize: 12),
               ),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.h),
             Container(
-                height: 152,
-                width: 380,
+                height: 152.h,
+                width: 380.w,
                 decoration: const BoxDecoration(
                     color: Colors.grey,
                     borderRadius: BorderRadius.all(Radius.circular(5)))),
-            // const SizedBox(height: 10),
+            // const SizedBox(height: 10).h,
             const CustomHeaderWidget(
               title: "Deal of the Day",
             ),
             Container(
-              height: 152,
-              width: 380,
+              height: 152.h,
+              width: 380.w,
               decoration: const BoxDecoration(
                 color: Colors.grey,
                 borderRadius: BorderRadius.all(
@@ -69,8 +102,8 @@ class HomePage extends StatelessWidget {
               title: "Flash Sales",
             ),
             Container(
-                height: 152,
-                width: 380,
+                height: 152.h,
+                width: 380.w,
                 decoration: const BoxDecoration(
                     color: Colors.grey,
                     borderRadius: BorderRadius.all(Radius.circular(5)))),
@@ -82,11 +115,11 @@ class HomePage extends StatelessWidget {
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: const [
+                  children:  [
                     CategoriesWidget(),
-                    SizedBox(width: 5),
+                    SizedBox(width: 5.w),
                     CategoriesWidget(),
-                    SizedBox(width: 5),
+                    SizedBox(width: 5.w),
                     CategoriesWidget(),
                   ],
                 ),
@@ -100,13 +133,13 @@ class HomePage extends StatelessWidget {
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: const [
+                  children:  [
                     BrandsWidget(),
-                    SizedBox(width: 7),
+                    SizedBox(width: 7.w),
                     BrandsWidget(),
-                    SizedBox(width: 7),
+                    SizedBox(width: 7.w),
                     BrandsWidget(),
-                    SizedBox(width: 7),
+                    SizedBox(width: 7.w),
                     BrandsWidget(),
                   ],
                 ),
@@ -120,13 +153,13 @@ class HomePage extends StatelessWidget {
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: const [
+                  children:  [
                     FeaturedProductsWidget(),
-                    SizedBox(width: 7),
+                    SizedBox(width: 7.w),
                     FeaturedProductsWidget(),
-                    SizedBox(width: 7),
+                    SizedBox(width: 7.w),
                     FeaturedProductsWidget(),
-                    SizedBox(width: 7),
+                    SizedBox(width: 7.w),
                   ],
                 ),
               ),
@@ -135,12 +168,12 @@ class HomePage extends StatelessWidget {
               title: "Testimonial",
             ),
             Container(
-                height: 142,
-                width: 380,
+                height: 142.h,
+                width: 380.w,
                 decoration: const BoxDecoration(
                     color: Colors.grey,
                     borderRadius: BorderRadius.all(Radius.circular(5)))),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.h),
           ],
         ),
       ),
