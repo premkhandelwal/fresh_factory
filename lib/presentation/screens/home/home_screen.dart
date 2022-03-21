@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fresh/businessLogic/blocs/product/product_bloc.dart';
+import 'package:fresh/data/models/item.dart';
 import 'package:fresh/data/models/item_categories.dart';
 import 'package:fresh/presentation/screens/home/app_bar_widgets_home.dart';
 import 'package:fresh/presentation/screens/home/products_page.dart';
@@ -30,10 +31,12 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     productBloc = BlocProvider.of<ProductBloc>(context);
     productBloc.add(FetchCategoriesEvent());
+    productBloc.add(FetchProductsEvent());
     super.initState();
   }
 
   List<ItemCategory> _itemCategoryList = [];
+  List<Item> _itemList = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -206,17 +209,33 @@ class _HomePageState extends State<HomePage> {
       body: BlocConsumer<ProductBloc, ProductState>(
         listener: (context, state) {
           if (state is FetchCategoriesSuccessState) {
-            _itemCategoryList = state.itemCategoryList;
+            _itemCategoryList = List.from(state.itemCategoryList);
             print(_itemCategoryList);
-            /* 
-            [ItemCategory(id: CH12RR6, name: Electronics, priorty: 1, bannerImage: /media/catimage/wallpaper.jpg, icon: /media/caticon/WhatsApp_Image_2021-11-24_at_19.46.03.jpeg, metaTitle: Bags for kids, tags: Touch,keypad, type: Other, masterCategory: 1ce02491-694c-4ee0-b53a-a63a8e689e2d, brandName: 445d0574-8655-4351-8f0b-990f70d05850), ItemCategory(id: CH12RR5, name: Travel, priorty: 1, bannerImage: /media/catimage/banner_876FHOg.jpg, icon: /media/caticon/banner_hnO4Go6.jpg, metaTitle: Usb for transfer, tags: , type: Physical, masterCategory: 1ce02491-694c-4ee0-b53a-a63a8e689e2d, brandName: 445d0574-8655-4351-8f0b-990f70d05850), ItemCategory(id: CH12RR5, name: Electronics123, priorty: 1, bannerImage: /media/catimage/download.png, icon: /media/caticon/images.jfif, metaTitle: Usb for transfer, tags: Touch,keypad, type: Other, masterCategory: 1ce02491-694c-4ee0-b53a-a63a8e689e2d, brandName: 445d0574-8655-4351-8f0b-990f70d05850), ItemCategory(id: CH12RR5, name: Home care, priorty: 1, bannerImage: /media/catimage/downloa
-
-             */
+          } else if (state is FetchProductSuccessState) {
+            _itemList = List.from(state.itemList);
+            for (var item in _itemList) {
+              if (item.category != null) {
+                _itemCategoryList.where((element) {
+                  if (item.category![0]['Name'].toString().toLowerCase() ==
+                      element.name.toLowerCase()) {
+                    element.items.add(item);
+                    return false;
+                  }
+                  return true;
+                });
+              } else {
+                print("Jai ram ji ki");
+              }
+            }
+            // 123456789
+            // print(_itemList);
+            print(_itemCategoryList);
           }
         },
         builder: (context, state) {
-          if (state is FetchCategorieInProgressState) {
-            return CircularProgressIndicator();
+          if (state is FetchCategoriesInProgressState ||
+              state is FetchProductInProgressState) {
+            return Center(child: CircularProgressIndicator());
           }
           return SingleChildScrollView(
             child: Column(

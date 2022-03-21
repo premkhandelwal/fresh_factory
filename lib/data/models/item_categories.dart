@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:fresh/data/models/item.dart';
+
 class ItemCategory {
   String id;
   String name;
@@ -12,19 +14,20 @@ class ItemCategory {
   String? type;
   String? masterCategory;
   String? brandName;
-  ItemCategory({
-    required this.id,
-    required this.name,
-    this.priorty,
-    this.bannerImage,
-    this.icon,
-    this.metaTitle,
-    this.metaDescription,
-    this.tags,
-    this.type,
-    this.masterCategory,
-    this.brandName,
-  });
+  List<Item> items;
+  ItemCategory(
+      {required this.id,
+      required this.name,
+      this.priorty,
+      this.bannerImage,
+      this.icon,
+      this.metaTitle,
+      this.metaDescription,
+      this.tags,
+      this.type,
+      this.masterCategory,
+      this.brandName,
+      this.items = const []});
 
   Map<String, dynamic> toMap() {
     return {
@@ -70,7 +73,8 @@ class ItemCategory {
 
   @override
   String toString() {
-    return 'ItemCategory(id: $id, name: $name, priorty: $priorty, bannerImage: $bannerImage, icon: $icon, metaTitle: $metaTitle, tags: $tags, type: $type, masterCategory: $masterCategory, brandName: $brandName)';
+    return 'items:$items';
+    // return 'ItemCategory(id: $id, name: $name, priorty: $priorty, bannerImage: $bannerImage, icon: $icon, metaTitle: $metaTitle, tags: $tags, type: $type, masterCategory: $masterCategory, brandName: $brandName, items: $items)';
   }
 }
 

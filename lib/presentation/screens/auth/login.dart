@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             labelText("Phone"),
                             TextFormField(
                               controller: phoneNoController,
-                              keyboardType: TextInputType.number,
+                              // keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                 hintText: 'Enter your Phone Number',
                                 focusedBorder: OutlineInputBorder(

@@ -5,7 +5,7 @@ abstract class ProductState {}
 
 class ProductInitial extends ProductState {}
 
-class FetchCategorieInProgressState extends ProductState {}
+class FetchCategoriesInProgressState extends ProductState {}
 
 class FetchCategoriesSuccessState extends ProductState {
   final List<ItemCategory> itemCategoryList;
@@ -15,3 +15,14 @@ class FetchCategoriesSuccessState extends ProductState {
 }
 
 class FetchCategoriesFailureState extends ProductState {}
+
+class FetchProductInProgressState extends ProductState {}
+
+class FetchProductSuccessState extends ProductState {
+  final List<Item> itemList;
+  FetchProductSuccessState({
+    required this.itemList,
+  });
+}
+
+class FetchProductFailureState extends ProductState {}

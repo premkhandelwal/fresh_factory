@@ -4,3 +4,5 @@ part of 'product_bloc.dart';
 abstract class ProductEvent {}
 
 class FetchCategoriesEvent extends ProductEvent{}
+
+class FetchProductsEvent extends ProductEvent{}
