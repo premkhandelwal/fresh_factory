@@ -1,6 +1,8 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fresh/presentation/screens/home/app_bar_widgets_home.dart';
+import 'package:fresh/presentation/screens/home/products_page.dart';
 import 'package:fresh/presentation/screens/orders/order_main_page.dart';
 import 'package:fresh/presentation/screens/payments/bank_details.dart';
 import 'package:fresh/presentation/screens/payments/wallet_screen.dart';
@@ -10,11 +12,18 @@ import 'package:fresh/presentation/widgets/home/brands_widget.dart';
 import 'package:fresh/presentation/widgets/home/categories_widget.dart';
 import 'package:fresh/presentation/widgets/home/featured_product_widget.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final instaLogo = AssetImage('assets/instagram.png');
+
   @override
   Widget build(BuildContext context) {
-    final instaLogo = AssetImage('assets/instagram.png');
     return Scaffold(
       drawer: Drawer(
           child: ListView(
@@ -72,12 +81,11 @@ class HomePage extends StatelessWidget {
                 minVerticalPadding: 0,
                 contentPadding: EdgeInsets.symmetric(horizontal: 64),
                 visualDensity: VisualDensity(horizontal: 1, vertical: -4),
-                onTap: (){
+                onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (ctx) => EditProfileDetailsPage()
-                    ),
+                        builder: (ctx) => EditProfileDetailsPage()),
                   );
                 },
               ),
@@ -86,19 +94,17 @@ class HomePage extends StatelessWidget {
                 dense: true,
                 contentPadding: EdgeInsets.symmetric(horizontal: 64),
                 visualDensity: VisualDensity(horizontal: 1, vertical: -4),
-                onTap: (){
+                onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder: (ctx) => BankDetailsScreen()
-                    ),
+                    MaterialPageRoute(builder: (ctx) => BankDetailsScreen()),
                   );
                 },
               ),
               SizedBox(height: 15),
             ],
           ),
-         /*  ListTile(
+          /*  ListTile(
             leading: Icon(Icons.account_circle_outlined, color: Colors.pink),
             title: Text("My Profile"),
             minLeadingWidth: 8,
@@ -107,12 +113,10 @@ class HomePage extends StatelessWidget {
             leading: Icon(Icons.add_card, color: Colors.pink),
             title: Text("My Wallet"),
             minLeadingWidth: 8,
-            onTap: (){
+            onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (ctx) => WalletScreen()
-                ),
+                MaterialPageRoute(builder: (ctx) => WalletScreen()),
               );
             },
           ),
@@ -120,12 +124,10 @@ class HomePage extends StatelessWidget {
             leading: Icon(Icons.assignment, color: Colors.pink),
             title: Text("My Orders"),
             minLeadingWidth: 8,
-            onTap: (){
+            onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (ctx) => OrderMainPage()
-                ),
+                MaterialPageRoute(builder: (ctx) => OrderMainPage()),
               );
             },
           ),
@@ -216,12 +218,13 @@ class HomePage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10.h),
-            Container(
+            CustomCarouselWidget(),
+            /* Container(
                 height: 152.h,
                 width: 380.w,
                 decoration: const BoxDecoration(
                     color: Colors.grey,
-                    borderRadius: BorderRadius.all(Radius.circular(5)))),
+                    borderRadius: BorderRadius.all(Radius.circular(5)))), */
             // const SizedBox(height: 10).h,
             const CustomHeaderWidget(
               title: "Deal of the Day",
@@ -254,7 +257,14 @@ class HomePage extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    CategoriesWidget(),
+                    GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (ctx) => ProductsPage()),
+                          );
+                        },
+                        child: CategoriesWidget()),
                     SizedBox(width: 5.w),
                     CategoriesWidget(),
                     SizedBox(width: 5.w),
@@ -320,6 +330,99 @@ class HomePage extends StatelessWidget {
         backgroundColor: Color(0xff02096B),
         child: const Icon(Icons.add),
       ),
+    );
+  }
+}
+
+class CustomCarouselWidget extends StatefulWidget {
+  const CustomCarouselWidget({Key? key}) : super(key: key);
+
+  @override
+  State<CustomCarouselWidget> createState() => _CustomCarouselWidgetState();
+}
+
+class _CustomCarouselWidgetState extends State<CustomCarouselWidget> {
+  List<Widget> imgList = [
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Container(
+          height: 152.h,
+          width: 1.sw,
+          // margin: EdgeInsets.all(6.0),
+          decoration: const BoxDecoration(
+              color: Colors.grey,
+              borderRadius: BorderRadius.all(Radius.circular(5)))),
+    ),
+    Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+
+      child: Container(
+          height: 152.h,
+          // margin: EdgeInsets.all(6.0),
+          width: 1.sw,
+          decoration: const BoxDecoration(
+              color: Colors.grey,
+              borderRadius: BorderRadius.all(Radius.circular(5)))),
+    ),
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      
+      child: Container(
+          height: 152.h,
+          width: 380.w,
+          // margin: EdgeInsets.all(6.0),
+          decoration: const BoxDecoration(
+              color: Colors.grey,
+              borderRadius: BorderRadius.all(Radius.circular(5)))),
+    ),
+  ];
+  final CarouselController _controller = CarouselController();
+  int _current = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      // mainAxisSize: MainAxisSize.min,
+      children: [
+        CarouselSlider(
+          carouselController: _controller,
+          items: imgList,
+          options: CarouselOptions(
+              height: 152.h,
+              enableInfiniteScroll: false,
+              viewportFraction: 0.95,
+              // viewportFraction: 0.8,
+              onPageChanged: (index, reason) {
+                setState(() {
+                  _current = index;
+                });
+              }),
+        ),
+        Positioned(
+          bottom: 3,
+          left: 160.w,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: imgList.asMap().entries.map((entry) {
+              return GestureDetector(
+                onTap: () => _controller.animateToPage(entry.key),
+                child: Container(
+                  width: _current == entry.key ? 25.0 : 12,
+                  height: _current == entry.key ? 12 : 18.0,
+                  margin:
+                      EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: (Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black)
+                          .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+                ),
+              );
+            }).toList(),
+          ),
+        ),
+      ],
     );
   }
 }
