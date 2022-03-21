@@ -16,6 +16,10 @@ class _OrderMainPageState extends State<OrderMainPage> {
   bool orderPresent = false;
   final noOrderImage = AssetImage('assets/noCurrentOrders.png');
   final order1 = AssetImage('assets/order1.png');
+  final order2 = AssetImage('assets/order2.png');
+  final order3 = AssetImage('assets/order3.png');
+  final order4 = AssetImage('assets/order4.png');
+  final order5 = AssetImage('assets/order5.png');
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +103,7 @@ class _OrderMainPageState extends State<OrderMainPage> {
                             Stack(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(top:30.0),
+                                  padding: const EdgeInsets.only(top: 30.0),
                                   child: Column(
                                     children: [
                                       OrderTrackWidget(
@@ -139,7 +143,8 @@ class _OrderMainPageState extends State<OrderMainPage> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.only(top: 30.0,left: 50),
+                                        padding: const EdgeInsets.only(
+                                            top: 30.0, left: 50),
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
@@ -148,69 +153,77 @@ class _OrderMainPageState extends State<OrderMainPage> {
                                               image: order1,
                                             ),
                                             SizedBox(width: 25),
-                                            Text("Your Order is Processing...",style:TextStyle(fontSize: 20)),
+                                            Text("Your Order is Processing...",
+                                                style: TextStyle(fontSize: 20)),
                                           ],
                                         ),
                                       ),
                                       SizedBox(height: 50),
                                       Padding(
-                                        padding: const EdgeInsets.only(left: 50),
+                                        padding:
+                                            const EdgeInsets.only(left: 50),
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: [
                                             Image(
-                                              image: order1,
+                                              image: order2,
                                             ),
                                             SizedBox(width: 25),
-                                            Text("Your Order is Approved..  ",style:TextStyle(fontSize: 20)),
+                                            Text("Your Order is Approved..  ",
+                                                style: TextStyle(fontSize: 20)),
                                           ],
                                         ),
                                       ),
                                       SizedBox(height: 50),
                                       Padding(
-                                        padding: const EdgeInsets.only(left: 50),
-                                       
+                                        padding:
+                                            const EdgeInsets.only(left: 50),
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: [
                                             Image(
-                                              image: order1,
+                                              image: order3,
                                             ),
                                             SizedBox(width: 25),
-                                            Text("We are packing your items...",style:TextStyle(fontSize: 20)),
+                                            Text("We are packing your items...",
+                                                style: TextStyle(fontSize: 20)),
                                           ],
                                         ),
                                       ),
                                       SizedBox(height: 50),
                                       Padding(
-                                        padding: const EdgeInsets.only(left: 50),
+                                        padding:
+                                            const EdgeInsets.only(left: 50),
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: [
                                             Image(
-                                              image: order1,
+                                              image: order4,
                                             ),
                                             SizedBox(width: 25),
-                                            Text("Your order is delivering to\nyour location...",style:TextStyle(fontSize: 20)),
+                                            Text(
+                                                "Your order is delivering to\nyour location...",
+                                                style: TextStyle(fontSize: 20)),
                                           ],
                                         ),
                                       ),
                                       SizedBox(height: 60),
                                       Padding(
-                                        padding: const EdgeInsets.only(left: 50),
-
+                                        padding:
+                                            const EdgeInsets.only(left: 50),
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: [
                                             Image(
-                                              image: order1,
+                                              image: order5,
                                             ),
                                             SizedBox(width: 25),
-                                            Text("Your Order is Recieved...",style:TextStyle(fontSize: 20)),
+                                            Text("Your Order is Recieved...",
+                                                style: TextStyle(fontSize: 20)),
                                           ],
                                         ),
                                       ),
@@ -257,14 +270,92 @@ class _OrderMainPageState extends State<OrderMainPage> {
                           ),
                         ],
                       ),
-                WalletWidget(
-                  isReferralWallet: true,
-                ),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    children: [
+                      HistoryItemWidget(),
+                      Divider(
+                        height: 40,
+                      ),
+                      HistoryItemWidget(),
+                      Divider(
+                        height: 40,
+                      ),
+                      HistoryItemWidget(),
+                      Divider(
+                        height: 40,
+                      ),
+                      HistoryItemWidget(),
+                       Divider(
+                        height: 40,
+                      ),
+                    ],
+                  ),
+                )
+                /* LisView.builder(itemBuilder: ((context, index) {
+                        return ListTile();
+                      }))
+ */
               ]),
             )
           ],
         ),
       ),
+    );
+  }
+}
+
+class HistoryItemWidget extends StatelessWidget {
+  const HistoryItemWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Container(
+          height: 63.h,
+          width: 70.w,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5), color: Colors.grey),
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Bell Pepper Red",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.black),
+            ),
+            SizedBox(height: 3),
+            Text(
+              "1 kg Price",
+              style: TextStyle(color: Colors.black26),
+            ),
+            SizedBox(height: 3),
+            Text(
+              "12-01-2022",
+              style: TextStyle(color: Colors.black38),
+            ),
+            SizedBox(height: 7),
+            Text(
+              "\u{20B9}40.00",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            )
+          ],
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+          child: Text("Delivered"),
+          color: Colors.green,
+        )
+      ],
     );
   }
 }
