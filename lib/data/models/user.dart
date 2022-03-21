@@ -4,13 +4,13 @@ class User {
   String? userName;
   String? phoneNumber;
   String? password;
-  String? authToken;
+  String? accessToken;
   String? refreshToken;
   String? referralCode;
   User({
     this.phoneNumber,
     this.password,
-    this.authToken,
+    this.accessToken,
     this.refreshToken,
     this.referralCode,
   });
@@ -27,8 +27,8 @@ class User {
     return User(
       phoneNumber: map['username'],
       password: map['password'],
-      authToken: map['authToken'],
-      refreshToken: map['refreshToken'],
+      accessToken: map['access'],
+      refreshToken: map['refresh'],
     );
   }
 
@@ -38,6 +38,6 @@ class User {
 
   @override
   String toString() {
-    return 'User(userName: $phoneNumber, password: $password, authToken: $authToken, refreshToken: $refreshToken)';
+    return 'User(userName: $phoneNumber, password: $password, authToken: $accessToken, refreshToken: $refreshToken)';
   }
 }

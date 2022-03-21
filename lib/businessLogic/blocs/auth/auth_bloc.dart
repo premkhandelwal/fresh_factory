@@ -15,7 +15,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       String? isSuccess = await authProvider.login(event.user);
       if (isSuccess != null) {
         if (isSuccess == "Success") {
-          emit(SignInSuccessState());
+          emit(SignInSuccessState(user: event.user));
         } else if (isSuccess == "UnAuthorized") {
           emit(UserUnauthorizedState());
         } else {
@@ -27,11 +27,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
     on<SignUpRequestedEvent>((event, emit) async {
       emit(SignUpProgressState());
-      bool isSuccess = await authProvider.signUp(event.user);
-      if (isSuccess) {
+      User _user = await authProvider.signUp(event.user);
+      if (_user.accessToken != null) {
         emit(SignUpSuccessState());
       } else {
         emit(SignUpFailureState());
+      }
+    });
+    on<GenerateAccessTokenEvent>((event, emit) async {
+      emit(GenerateAccessTokenInProgressState());
+      User? user = await authProvider.generateToken(event.user);
+      if (user != null) {
+        add(SignInRequestedEvent(user: user));
+        emit(GenerateAccessTokenSuccessState());
+      } else {
+        emit(GenerateAccessTokenFailureState());
       }
     });
   }

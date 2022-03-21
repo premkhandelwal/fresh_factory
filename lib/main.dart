@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:fresh/businessLogic/blocs/auth/auth_bloc.dart';
+import 'package:fresh/businessLogic/blocs/product/product_bloc.dart';
 import 'package:fresh/data/dataProviders/auth_provider.dart';
+import 'package:fresh/data/dataProviders/product_provider.dart';
 import 'package:fresh/main%20copy1.dart';
 import 'package:fresh/presentation/screens/home/home_screen.dart';
 import 'package:fresh/presentation/screens/payments/wallet_screen.dart';
@@ -12,14 +14,17 @@ import 'package:fresh/presentation/screens/payments/payment_method_screen.dart';
 import 'package:fresh/presentation/widgets/home/fortune_wheel_widget.dart';
 
 void main() {
-  runApp( MyApp(authProvider: AuthProvider(),));
+  runApp( MyApp(authProvider: AuthProvider(),productProvider: ProductProvider(),));
 }
 
 class MyApp extends StatelessWidget {
   final AuthProvider authProvider;
+  final ProductProvider productProvider;
   const MyApp({
     Key? key,
     required this.authProvider,
+    required this.productProvider,
+
   }) : super(key: key);
 
   @override
@@ -31,7 +36,10 @@ class MyApp extends StatelessWidget {
           providers: [
            BlocProvider(
              create: (context) => AuthBloc(authProvider: authProvider),
-           )
+           ),
+            BlocProvider(
+             create: (context) => ProductBloc(productProvider: productProvider),
+           ),
           ],
           child:  MaterialApp(
               title: 'Flutter Demo',
@@ -41,7 +49,7 @@ class MyApp extends StatelessWidget {
                       const TextTheme(bodyText1: TextStyle(), bodyText2: TextStyle())
                           .apply(bodyColor: const Color(0xff02096B))),
               //0xFF0D47A1
-              home: const NewWidget(),
+              home: const MainPage(),
             ),
         );
       }

@@ -4,8 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fresh/businessLogic/blocs/auth/auth_bloc.dart';
 import 'package:fresh/data/models/user.dart';
 import 'package:fresh/globals/common_function.dart';
+import 'package:fresh/globals/constants/sessionConstants.dart';
 import 'package:fresh/presentation/screens/auth/forgot_password_screen.dart';
 import 'package:fresh/presentation/screens/home/home_screen.dart';
+import 'package:fresh/presentation/screens/home/timer.dart';
 import 'package:fresh/presentation/screens/home/uicomponents.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -50,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
         body: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is SignInSuccessState) {
+              SessionConstants.user = state.user;
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (ctx) => HomePage()),
@@ -58,10 +61,11 @@ class _LoginScreenState extends State<LoginScreen> {
               showSnackBar(context, "Failed to sign in. Please try again");
             } else if (state is UserUnauthorizedState) {
               showSnackBar(context, "Unauthorized user access");
-            }
+            } else if (state is GenerateAccessTokenEvent) {}
           },
           builder: (context, state) {
-            if (state is SignInProgressState) {
+            if (state is SignInProgressState ||
+                state is GenerateAccessTokenInProgressState) {
               return Center(child: CircularProgressIndicator());
             }
             return SingleChildScrollView(
@@ -91,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             TextFormField(
                               controller: phoneNoController,
                               keyboardType: TextInputType.number,
-                              decoration:  InputDecoration(
+                              decoration: InputDecoration(
                                 hintText: 'Enter your Phone Number',
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
@@ -116,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               obscureText: true,
                               enableSuggestions: false,
                               autocorrect: false,
-                              decoration:  InputDecoration(
+                              decoration: InputDecoration(
                                   hintText: 'Enter your password',
                                   border: OutlineInputBorder(
                                     borderSide: BorderSide(
@@ -161,10 +165,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                                 onPressed: () {
-                                  authBloc.add(SignInRequestedEvent(
+                                  authBloc.add(GenerateAccessTokenEvent(
                                       user: User(
-                                          authToken:
-                                          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ3NzUzODE5LCJpYXQiOjE2NDc3NTMyMTksImp0aSI6Ijc2ZWVjMjY3YmI4ZTQzNDlhNmRjODRmOThmZjgwZWEzIiwidXNlcl9pZCI6MTB9.lGHK3AlQ6nmE0cY2aDLzGnj7uvh7h1MXIplgEpp9wkk",
                                           phoneNumber: phoneNoController.text,
                                           password: passwordController.text)));
                                 },

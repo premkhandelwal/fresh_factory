@@ -1,6 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fresh/businessLogic/blocs/product/product_bloc.dart';
+import 'package:fresh/data/models/item_categories.dart';
 import 'package:fresh/presentation/screens/home/app_bar_widgets_home.dart';
 import 'package:fresh/presentation/screens/home/products_page.dart';
 import 'package:fresh/presentation/screens/orders/order_main_page.dart';
@@ -22,6 +25,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final instaLogo = AssetImage('assets/instagram.png');
 
+  late ProductBloc productBloc;
+  @override
+  void initState() {
+    productBloc = BlocProvider.of<ProductBloc>(context);
+    productBloc.add(FetchCategoriesEvent());
+    super.initState();
+  }
+
+  List<ItemCategory> _itemCategoryList = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -191,144 +203,172 @@ class _HomePageState extends State<HomePage> {
         // automaticallyImplyLeading: false,
         title: const AppBarWidgets(),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    suffixIcon: Icon(
-                      Icons.search,
-                      color: Colors.red,
-                      size: 30,
-                    )),
-              ),
-            ),
-            Container(
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.all(4),
-              color: Color(0xff02096B),
-              child: const Text(
-                "",
-                overflow: TextOverflow.clip,
-                maxLines: 1,
-                style: TextStyle(color: Colors.white, fontSize: 12),
-              ),
-            ),
-            SizedBox(height: 10.h),
-            CustomCarouselWidget(),
-            /* Container(
-                height: 152.h,
-                width: 380.w,
-                decoration: const BoxDecoration(
+      body: BlocConsumer<ProductBloc, ProductState>(
+        listener: (context, state) {
+          if (state is FetchCategoriesSuccessState) {
+            _itemCategoryList = state.itemCategoryList;
+            print(_itemCategoryList);
+            /* 
+            [ItemCategory(id: CH12RR6, name: Electronics, priorty: 1, bannerImage: /media/catimage/wallpaper.jpg, icon: /media/caticon/WhatsApp_Image_2021-11-24_at_19.46.03.jpeg, metaTitle: Bags for kids, tags: Touch,keypad, type: Other, masterCategory: 1ce02491-694c-4ee0-b53a-a63a8e689e2d, brandName: 445d0574-8655-4351-8f0b-990f70d05850), ItemCategory(id: CH12RR5, name: Travel, priorty: 1, bannerImage: /media/catimage/banner_876FHOg.jpg, icon: /media/caticon/banner_hnO4Go6.jpg, metaTitle: Usb for transfer, tags: , type: Physical, masterCategory: 1ce02491-694c-4ee0-b53a-a63a8e689e2d, brandName: 445d0574-8655-4351-8f0b-990f70d05850), ItemCategory(id: CH12RR5, name: Electronics123, priorty: 1, bannerImage: /media/catimage/download.png, icon: /media/caticon/images.jfif, metaTitle: Usb for transfer, tags: Touch,keypad, type: Other, masterCategory: 1ce02491-694c-4ee0-b53a-a63a8e689e2d, brandName: 445d0574-8655-4351-8f0b-990f70d05850), ItemCategory(id: CH12RR5, name: Home care, priorty: 1, bannerImage: /media/catimage/downloa
+
+             */
+          }
+        },
+        builder: (context, state) {
+          if (state is FetchCategorieInProgressState) {
+            return CircularProgressIndicator();
+          }
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        suffixIcon: Icon(
+                          Icons.search,
+                          color: Colors.red,
+                          size: 30,
+                        )),
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  padding: const EdgeInsets.all(4),
+                  color: Color(0xff02096B),
+                  child: const Text(
+                    "",
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                ),
+                SizedBox(height: 10.h),
+                CustomCarouselWidget(),
+                /* Container(
+                      height: 152.h,
+                      width: 380.w,
+                      decoration: const BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.all(Radius.circular(5)))), */
+                // const SizedBox(height: 10).h,
+                const CustomHeaderWidget(
+                  title: "Deal of the Day",
+                ),
+                Container(
+                  height: 152.h,
+                  width: 380.w,
+                  decoration: const BoxDecoration(
                     color: Colors.grey,
-                    borderRadius: BorderRadius.all(Radius.circular(5)))), */
-            // const SizedBox(height: 10).h,
-            const CustomHeaderWidget(
-              title: "Deal of the Day",
-            ),
-            Container(
-              height: 152.h,
-              width: 380.w,
-              decoration: const BoxDecoration(
-                color: Colors.grey,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(5),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(5),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            const CustomHeaderWidget(
-              title: "Flash Sales",
-            ),
-            Container(
-                height: 152.h,
-                width: 380.w,
-                decoration: const BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.all(Radius.circular(5)))),
-            const CustomHeaderWidget(
-              title: "Categories",
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (ctx) => ProductsPage()),
-                          );
-                        },
-                        child: CategoriesWidget()),
-                    SizedBox(width: 5.w),
-                    CategoriesWidget(),
-                    SizedBox(width: 5.w),
-                    CategoriesWidget(),
-                  ],
+                const CustomHeaderWidget(
+                  title: "Flash Sales",
                 ),
-              ),
-            ),
-            const CustomHeaderWidget(
-              title: "Top Brands",
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    BrandsWidget(),
-                    SizedBox(width: 7.w),
-                    BrandsWidget(),
-                    SizedBox(width: 7.w),
-                    BrandsWidget(),
-                    SizedBox(width: 7.w),
-                    BrandsWidget(),
-                  ],
+                Container(
+                    height: 152.h,
+                    width: 380.w,
+                    decoration: const BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.all(Radius.circular(5)))),
+                const CustomHeaderWidget(
+                  title: "Categories",
                 ),
-              ),
-            ),
-            const CustomHeaderWidget(
-              title: "Featured Product",
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    FeaturedProductsWidget(),
-                    SizedBox(width: 7.w),
-                    FeaturedProductsWidget(),
-                    SizedBox(width: 7.w),
-                    FeaturedProductsWidget(),
-                    SizedBox(width: 7.w),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: SizedBox(
+                    height: 131.h,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: _itemCategoryList.length,
+                      itemBuilder: (context, index) {
+                        return Row(
+                          children: [
+                            GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (ctx) => ProductsPage(
+                                            itemCategory:
+                                                _itemCategoryList[index])),
+                                  );
+                                },
+                                child: CategoriesWidget(
+                                  itemCategory: _itemCategoryList[index],
+                                  bgColor: Colors.green[200],
+                                  borderColor: Colors.green,
+                                )),
+                            SizedBox(width: 5.w),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
                 ),
-              ),
+                const CustomHeaderWidget(
+                  title: "Top Brands",
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        BrandsWidget(),
+                        SizedBox(width: 7.w),
+                        BrandsWidget(),
+                        SizedBox(width: 7.w),
+                        BrandsWidget(),
+                        SizedBox(width: 7.w),
+                        BrandsWidget(),
+                      ],
+                    ),
+                  ),
+                ),
+                const CustomHeaderWidget(
+                  title: "Featured Product",
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        FeaturedProductsWidget(),
+                        SizedBox(width: 7.w),
+                        FeaturedProductsWidget(),
+                        SizedBox(width: 7.w),
+                        FeaturedProductsWidget(),
+                        SizedBox(width: 7.w),
+                      ],
+                    ),
+                  ),
+                ),
+                const CustomHeaderWidget(
+                  title: "Testimonial",
+                ),
+                Container(
+                    height: 142.h,
+                    width: 380.w,
+                    decoration: const BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.all(Radius.circular(5)))),
+                SizedBox(height: 10.h),
+              ],
             ),
-            const CustomHeaderWidget(
-              title: "Testimonial",
-            ),
-            Container(
-                height: 142.h,
-                width: 380.w,
-                decoration: const BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.all(Radius.circular(5)))),
-            SizedBox(height: 10.h),
-          ],
-        ),
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         backgroundColor: Color(0xff02096B),
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }
@@ -354,8 +394,7 @@ class _CustomCarouselWidgetState extends State<CustomCarouselWidget> {
               borderRadius: BorderRadius.all(Radius.circular(5)))),
     ),
     Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Container(
           height: 152.h,
           // margin: EdgeInsets.all(6.0),
@@ -366,7 +405,6 @@ class _CustomCarouselWidgetState extends State<CustomCarouselWidget> {
     ),
     Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      
       child: Container(
           height: 152.h,
           width: 380.w,
@@ -409,14 +447,12 @@ class _CustomCarouselWidgetState extends State<CustomCarouselWidget> {
                 child: Container(
                   width: _current == entry.key ? 25.0 : 12,
                   height: _current == entry.key ? 12 : 18.0,
-                  margin:
-                      EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                  margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
-                      color: (Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.black)
-                          .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+                      color: _current == entry.key
+                          ? Color(0xff02096B)
+                          : Colors.black54),
                 ),
               );
             }).toList(),

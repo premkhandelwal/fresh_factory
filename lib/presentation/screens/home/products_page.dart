@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'package:fresh/data/models/item_categories.dart';
 import 'package:fresh/presentation/screens/home/home_screen.dart';
 import 'package:fresh/presentation/utils/custom_header_widget.dart';
 import 'package:fresh/presentation/widgets/home/categories_widget.dart';
 
 class ProductsPage extends StatefulWidget {
-  const ProductsPage({Key? key}) : super(key: key);
+  final ItemCategory itemCategory;
+  const ProductsPage({
+    Key? key,
+    required this.itemCategory,
+  }) : super(key: key);
 
   @override
   State<ProductsPage> createState() => _ProductsPageState();
@@ -17,7 +23,7 @@ class _ProductsPageState extends State<ProductsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Fruits & Vegetable"),
+        title: Text(widget.itemCategory.name),
         backgroundColor: Colors.white,
         foregroundColor: Color(0xff02096B),
         titleTextStyle: TextStyle(
@@ -39,11 +45,14 @@ class _ProductsPageState extends State<ProductsPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      CategoriesWidget(),
+                      CategoriesWidget(
+                          itemCategory: ItemCategory(id: "", name: "Banana")),
                       SizedBox(width: 5.w),
-                      CategoriesWidget(),
+                      CategoriesWidget(
+                          itemCategory: ItemCategory(id: "", name: "Banana")),
                       SizedBox(width: 5.w),
-                      CategoriesWidget(),
+                      CategoriesWidget(
+                          itemCategory: ItemCategory(id: "", name: "Banana")),
                       SizedBox(width: 5.w),
                     ],
                   ),
@@ -60,7 +69,6 @@ class _ProductsPageState extends State<ProductsPage> {
                   ProductWidget(sampleProduct: sampleProduct),
                   ProductWidget(sampleProduct: sampleProduct),
                   ProductWidget(sampleProduct: sampleProduct)
-      
                 ],
               )
             ],
@@ -113,14 +121,12 @@ class ProductWidget extends StatelessWidget {
                     Text(
                       "Organic\nBananas",
                       textAlign: TextAlign.start,
-                      style: TextStyle(
-                          color: Colors.black, fontSize: 22),
+                      style: TextStyle(color: Colors.black, fontSize: 22),
                     ),
                     SizedBox(height: 5),
                     Text(
                       "12pcs",
-                      style: TextStyle(
-                          color: Colors.grey[600], fontSize: 17),
+                      style: TextStyle(color: Colors.grey[600], fontSize: 17),
                     ),
                     SizedBox(height: 7),
                     RichText(
@@ -129,15 +135,13 @@ class ProductWidget extends StatelessWidget {
                           TextSpan(
                               text: "MRP: \u{20B9}",
                               style: TextStyle(
-                                  color: Colors.black54,
-                                  fontSize: 14)),
+                                  color: Colors.black54, fontSize: 14)),
                           TextSpan(
                             text: "40.00",
                             style: TextStyle(
                                 color: Colors.black54,
                                 fontSize: 15,
-                                decoration:
-                                    TextDecoration.lineThrough,
+                                decoration: TextDecoration.lineThrough,
                                 decorationThickness: 3.5,
                                 decorationColor: Colors.grey),
                           ),
@@ -159,15 +163,17 @@ class ProductWidget extends StatelessWidget {
                   offset: Offset(5, 25),
                   child: Column(
                     // crossAxisAlignment: CrossAxisAlignment.end,
-                
+
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Icon(Icons.favorite_border),
                       SizedBox(height: 20),
                       CircleAvatar(
-                        child: Icon(Icons.add,),
+                        child: Icon(
+                          Icons.add,
+                        ),
                         backgroundColor: Colors.green,
-                      ) 
+                      )
                     ],
                   ),
                 ),

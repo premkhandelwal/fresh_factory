@@ -16,3 +16,11 @@ class SignUpRequestedEvent extends AuthEvent {
     required this.user,
   });
 }
+
+class GenerateAccessTokenEvent extends AuthEvent{
+  final User user;
+  GenerateAccessTokenEvent({
+    required this.user,
+  });
+}
+
