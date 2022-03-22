@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:fresh/businessLogic/cubits/bottomNavigationBar/bottomnavigationbar_cubit.dart';
 import 'package:fresh/presentation/screens/home/app_bar_widgets_home.dart';
 import 'package:fresh/presentation/screens/home/home_screen.dart';
@@ -29,20 +30,19 @@ class _MainHomePageState extends State<MainHomePage> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: DrawerWidget(),
-      bottomNavigationBar: BottomNavBarWidget(),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.red,
-        // automaticallyImplyLeading: false,
-        title: const AppBarWidgets(),
-      ),
-      body: BlocBuilder<BottomnavigationbarCubit, PageState>(
-        builder: (context, state) {
-          return _pages[state.index];
-        },
-      ),
+    return BlocBuilder<BottomnavigationbarCubit, PageState>(
+      builder: (context, state) {
+        return Scaffold(
+            drawer: state.index == 0 ?  DrawerWidget() : null,
+            bottomNavigationBar: BottomNavBarWidget(currentIndex: state.index),
+            appBar: state.index == 0 ?AppBar(
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.red,
+              // automaticallyImplyLeading: false,
+              title: const AppBarWidgets(),
+            ): null,
+            body: _pages[state.index]);
+      },
     );
   }
 }
@@ -225,8 +225,10 @@ class DrawerWidget extends StatelessWidget {
 }
 
 class BottomNavBarWidget extends StatelessWidget {
+  final int currentIndex;
   const BottomNavBarWidget({
     Key? key,
+    required this.currentIndex,
   }) : super(key: key);
 
   @override
