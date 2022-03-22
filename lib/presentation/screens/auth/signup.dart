@@ -21,6 +21,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
   final nameController = TextEditingController();
   final phoneNoController = TextEditingController();
+  final emailIdController = TextEditingController();
   final passwordController = TextEditingController();
   final confPasswordController = TextEditingController();
   final referralCodeController = TextEditingController();
@@ -143,6 +144,32 @@ class _SignupScreenState extends State<SignupScreen> {
                               height: MediaQuery.of(context).size.height / 50,
                             ),
                             CustomHeaderWidget(
+                                title: "Email",
+                                fontSize: 15,
+                                isPaddingReq: false),
+                            TextFormField(
+                              controller: emailIdController,
+                              // keyboardType: TextInputType.number,
+                              decoration:  InputDecoration(
+                                hintText: 'Enter your Email ID Here',
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color(0xff02096B), width: 1.0.w),
+                                ),
+                                disabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color(0xff02096B), width: 1.0.w),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color(0xff02096B), width: 1.0.w),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height / 50,
+                            ),
+                            CustomHeaderWidget(
                                 title: "Password",
                                 fontSize: 15,
                                 isPaddingReq: false),
@@ -242,7 +269,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                   authBloc.add(SignUpRequestedEvent(
                                       user: User(
                                           phoneNumber: phoneNoController.text,
-                                          password: passwordController.text)));
+                                          password: passwordController.text,
+                                          emailId: emailIdController.text)));
                                 },
                               ),
                             ),

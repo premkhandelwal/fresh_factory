@@ -1,3 +1,3 @@
 class Globals {
-  static const host = "https://freshfromfactory.pythonanywhere.com";
+  static const host = "https://freshfromfactory.pythonanywhere.com/";
 }

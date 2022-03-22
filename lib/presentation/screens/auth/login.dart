@@ -62,7 +62,9 @@ class _LoginScreenState extends State<LoginScreen> {
               showSnackBar(context, "Failed to sign in. Please try again");
             } else if (state is UserUnauthorizedState) {
               showSnackBar(context, "Unauthorized user access");
-            } else if (state is GenerateAccessTokenEvent) {}
+            } else if (state is GenerateAccessTokenFailureState) {
+              showSnackBar(context, "No user found with the credentails");
+            }
           },
           builder: (context, state) {
             if (state is SignInProgressState ||

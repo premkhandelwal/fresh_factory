@@ -4,22 +4,24 @@ class User {
   String? userName;
   String? phoneNumber;
   String? password;
+  String? emailId;
   String? accessToken;
   String? refreshToken;
   String? referralCode;
   User({
     this.phoneNumber,
     this.password,
+    this.emailId,
     this.accessToken,
     this.refreshToken,
     this.referralCode,
   });
 
-
   Map<String, dynamic> toMap() {
     return {
       'username': phoneNumber,
       'password': password,
+      'email': emailId
     };
   }
 
@@ -27,6 +29,7 @@ class User {
     return User(
       phoneNumber: map['username'],
       password: map['password'],
+      emailId: map['email'],
       accessToken: map['access'],
       refreshToken: map['refresh'],
     );
@@ -38,6 +41,6 @@ class User {
 
   @override
   String toString() {
-    return 'User(userName: $phoneNumber, password: $password, authToken: $accessToken, refreshToken: $refreshToken)';
+    return 'User(userName: $phoneNumber, password: $password, email: $emailId, authToken: $accessToken, refreshToken: $refreshToken)';
   }
 }

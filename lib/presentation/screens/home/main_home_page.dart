@@ -23,10 +23,10 @@ class MainHomePage extends StatefulWidget {
 class _MainHomePageState extends State<MainHomePage> {
   List<Widget> _pages = [
     HomePage(),
-    Container(),
+    Center(child: Container(child: Text("This is Categories Page"))),
     WalletScreen(),
-    Container(),
-    Container(),
+    Center(child: Container(child: Text("This is Cart Page"))),
+    Center(child: Container(child: Text("This is Support Page"))),
   ];
   @override
   Widget build(BuildContext context) {
