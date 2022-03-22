@@ -1,8 +1,9 @@
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
 import 'package:fresh/data/models/item.dart';
 
-class ItemCategory {
+class ItemCategory extends Equatable{
   String id;
   String name;
   int? priorty;
@@ -27,7 +28,7 @@ class ItemCategory {
       this.type,
       this.masterCategory,
       this.brandName,
-      this.items = const []});
+      }) : items = []  ;
 
   Map<String, dynamic> toMap() {
     return {
@@ -73,9 +74,12 @@ class ItemCategory {
 
   @override
   String toString() {
-    return 'items:$items';
-    // return 'ItemCategory(id: $id, name: $name, priorty: $priorty, bannerImage: $bannerImage, icon: $icon, metaTitle: $metaTitle, tags: $tags, type: $type, masterCategory: $masterCategory, brandName: $brandName, items: $items)';
+    // return 'items:$items';
+    return 'ItemCategory(id: $id, name: $name, priorty: $priorty, bannerImage: $bannerImage, icon: $icon, metaTitle: $metaTitle, tags: $tags, type: $type, masterCategory: $masterCategory, brandName: $brandName, items: $items)';
   }
+
+  @override
+  List<Object?> get props => [name];
 }
 
 /*

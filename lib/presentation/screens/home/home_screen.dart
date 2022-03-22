@@ -7,6 +7,7 @@ import 'package:fresh/data/models/item.dart';
 import 'package:fresh/data/models/item_categories.dart';
 import 'package:fresh/presentation/screens/home/app_bar_widgets_home.dart';
 import 'package:fresh/presentation/screens/home/products_page.dart';
+import 'package:fresh/presentation/screens/offers/offer_page.dart';
 import 'package:fresh/presentation/screens/orders/order_main_page.dart';
 import 'package:fresh/presentation/screens/payments/bank_details.dart';
 import 'package:fresh/presentation/screens/payments/wallet_screen.dart';
@@ -31,7 +32,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     productBloc = BlocProvider.of<ProductBloc>(context);
     productBloc.add(FetchCategoriesEvent());
-    productBloc.add(FetchProductsEvent());
+    // productBloc.add(FetchProductsEvent());
     super.initState();
   }
 
@@ -150,6 +151,12 @@ class _HomePageState extends State<HomePage> {
             leading: Icon(Icons.local_offer_outlined, color: Colors.pink),
             title: Text("My Offers"),
             minLeadingWidth: 8,
+             onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (ctx) => OfferPage()),
+                  );
+                },
           ),
           ListTile(
             leading: Icon(Icons.attach_money, color: Colors.pink),
@@ -215,17 +222,15 @@ class _HomePageState extends State<HomePage> {
             _itemList = List.from(state.itemList);
             for (var item in _itemList) {
               if (item.category != null) {
-                _itemCategoryList.where((element) {
+                int ind = _itemCategoryList.indexWhere((element) {
                   if (item.category![0]['Name'].toString().toLowerCase() ==
                       element.name.toLowerCase()) {
-                    element.items.add(item);
-                    return false;
+                    return true;
                   }
-                  return true;
+                  return false;
                 });
-              } else {
-                print("Jai ram ji ki");
-              }
+                _itemCategoryList[ind].items.add(item);
+              } 
             }
             // 123456789
             // print(_itemList);
@@ -314,6 +319,7 @@ class _HomePageState extends State<HomePage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (ctx) => ProductsPage(
+                                          allItemCategories: _itemCategoryList,
                                             itemCategory:
                                                 _itemCategoryList[index])),
                                   );

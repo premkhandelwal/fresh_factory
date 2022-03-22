@@ -19,6 +19,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           await productProvider.getItemCategories();
       if (fetchItemCategory != null) {
         emit(FetchCategoriesSuccessState(itemCategoryList: fetchItemCategory));
+        add(FetchProductsEvent());
       } else {
         emit(FetchCategoriesFailureState());
       }

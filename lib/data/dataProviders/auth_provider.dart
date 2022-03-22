@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 class AuthProvider {
   Future<String?> login(User user) async {
-    String url = Globals.host + "/login/";
+    String url = Globals.host + "/api/login/";
     Uri uri = Uri.parse(url);
     var res = await http.post(uri,
         headers: <String, String>{
@@ -24,7 +24,7 @@ class AuthProvider {
   }
 
   Future<User> signUp(User user) async {
-    String url = Globals.host + "/register/";
+    String url = Globals.host + "/api/register/";
     Uri uri = Uri.parse(url);
     var res = await http.post(uri,
         headers: <String, String>{
@@ -41,7 +41,7 @@ class AuthProvider {
   }
 
   Future<User?> generateToken(User user) async {
-    String url = Globals.host + "/api/token/";
+    String url = Globals.host + "/api/api/token/";
     Uri uri = Uri.parse(url);
     var res = await http.post(uri,
         headers: <String, String>{
@@ -59,7 +59,7 @@ class AuthProvider {
   }
 
   Future<bool> refreshToken() async {
-    String url = Globals.host + "/api/token/refresh/";
+    String url = Globals.host + "/api/api/token/refresh/";
     Uri uri = Uri.parse(url);
     var res = await http.post(uri,
         headers: <String, String>{

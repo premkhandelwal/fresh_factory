@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 class ProductProvider {
   int attemptRefresh = 3;
   Future<List<ItemCategory>?> getItemCategories() async {
-    String url = Globals.host + "/getcate/";
+    String url = Globals.host + "/api/getcate/";
     Uri uri = Uri.parse(url);
     var res = await http.get(uri, headers: {
       'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ class ProductProvider {
     return null;
   }
   Future<List<Item>?> getProducts() async {
-    String url = Globals.host + "/getpro/";
+    String url = Globals.host + "/api/getpro/";
     Uri uri = Uri.parse(url);
     var res = await http.get(uri, headers: {
       'Content-Type': 'application/json',

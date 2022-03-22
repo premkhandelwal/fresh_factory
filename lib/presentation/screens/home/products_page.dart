@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fresh/data/models/item.dart';
 
 import 'package:fresh/data/models/item_categories.dart';
+import 'package:fresh/globals/constants/globals.dart';
 import 'package:fresh/presentation/screens/home/home_screen.dart';
 import 'package:fresh/presentation/utils/custom_header_widget.dart';
 import 'package:fresh/presentation/widgets/home/categories_widget.dart';
 
 class ProductsPage extends StatefulWidget {
   final ItemCategory itemCategory;
+  final List<ItemCategory> allItemCategories;
   const ProductsPage({
     Key? key,
     required this.itemCategory,
+    required this.allItemCategories,
   }) : super(key: key);
 
   @override
@@ -19,8 +23,21 @@ class ProductsPage extends StatefulWidget {
 
 class _ProductsPageState extends State<ProductsPage> {
   final sampleProduct = AssetImage('assets/sampleProduct.png');
+  final List<CategoriesWidget> _itemSubCategory = [];
   @override
   Widget build(BuildContext context) {
+    print(widget.itemCategory.masterCategory);
+    for (var item in widget.itemCategory.items) {
+      if (item.subcategory != null) {
+        for (var subCat in item.subcategory!) {
+          ItemCategory _itemCat = ItemCategory(id: "", name: subCat['Name']);
+          if (!_itemSubCategory.contains(_itemCat)) {
+            _itemSubCategory.add(CategoriesWidget(itemCategory: _itemCat));
+          }
+        }
+      }
+    }
+    print(_itemSubCategory);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.itemCategory.name),
@@ -32,19 +49,26 @@ class _ProductsPageState extends State<ProductsPage> {
             fontWeight: FontWeight.bold),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              CustomHeaderWidget(title: "Categories"),
-              Padding(
-                padding: const EdgeInsets.only(left: 16.0),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
+      body: widget.itemCategory.items.isEmpty
+          ? Center(
+              child: Text("No Items Present in this Category"),
+            )
+          : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CustomHeaderWidget(title: "Categories"),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16.0),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: _itemSubCategory
+                                .map((e) => e)
+                                .toList() /* [
                       CategoriesWidget(
                           itemCategory: ItemCategory(id: "", name: "Banana")),
                       SizedBox(width: 5.w),
@@ -54,34 +78,39 @@ class _ProductsPageState extends State<ProductsPage> {
                       CategoriesWidget(
                           itemCategory: ItemCategory(id: "", name: "Banana")),
                       SizedBox(width: 5.w),
-                    ],
-                  ),
+                    ], */
+                            ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    CustomCarouselWidget(),
+                    SizedBox(height: 20),
+                    Wrap(
+                        spacing: 5,
+                        runSpacing: 5,
+                        children: widget.itemCategory.items
+                            .map((e) => ProductWidget(
+                                sampleProduct: sampleProduct, product: e))
+                            .toList() /* [
+                  ProductWidget(sampleProduct: sampleProduct, productName: ""),
+                  ProductWidget(sampleProduct: sampleProduct, productName: ""),
+                  ProductWidget(sampleProduct: sampleProduct, productName: ""),
+                  ProductWidget(sampleProduct: sampleProduct, productName: "")
+                ], */
+                        )
+                  ],
                 ),
               ),
-              SizedBox(height: 20),
-              CustomCarouselWidget(),
-              SizedBox(height: 20),
-              Wrap(
-                spacing: 5,
-                runSpacing: 5,
-                children: [
-                  ProductWidget(sampleProduct: sampleProduct),
-                  ProductWidget(sampleProduct: sampleProduct),
-                  ProductWidget(sampleProduct: sampleProduct),
-                  ProductWidget(sampleProduct: sampleProduct)
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }
 
 class ProductWidget extends StatelessWidget {
+  final Item product;
   const ProductWidget({
     Key? key,
+    required this.product,
     required this.sampleProduct,
   }) : super(key: key);
 
@@ -105,7 +134,13 @@ class ProductWidget extends StatelessWidget {
             height: 38.h,
             width: 53.w,
             margin: EdgeInsets.fromLTRB(47, 30, 30, 0),
-            child: Image(image: sampleProduct),
+            child: product.image != null
+                ? Image.network(
+                    Globals.host + product.image!,
+                    height: 100.h,
+                    width: 129.w,
+                  )
+                : Container(),
             decoration: BoxDecoration(
                 // color: Colors.grey,
                 borderRadius: BorderRadius.circular(10)),
@@ -119,13 +154,13 @@ class ProductWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Organic\nBananas",
+                      product.name,
                       textAlign: TextAlign.start,
                       style: TextStyle(color: Colors.black, fontSize: 22),
                     ),
                     SizedBox(height: 5),
                     Text(
-                      "12pcs",
+                      "${product.minPurchaseQty}",
                       style: TextStyle(color: Colors.grey[600], fontSize: 17),
                     ),
                     SizedBox(height: 7),
@@ -150,7 +185,7 @@ class ProductWidget extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      "\u{20B9}4.99",
+                      "\u{20B9}${product.mrp}",
                       style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
