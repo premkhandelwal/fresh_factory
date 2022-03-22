@@ -5,13 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fresh/businessLogic/blocs/product/product_bloc.dart';
 import 'package:fresh/data/models/item.dart';
 import 'package:fresh/data/models/item_categories.dart';
-import 'package:fresh/presentation/screens/home/app_bar_widgets_home.dart';
 import 'package:fresh/presentation/screens/home/products_page.dart';
-import 'package:fresh/presentation/screens/offers/offer_page.dart';
-import 'package:fresh/presentation/screens/orders/order_main_page.dart';
-import 'package:fresh/presentation/screens/payments/bank_details.dart';
-import 'package:fresh/presentation/screens/payments/wallet_screen.dart';
-import 'package:fresh/presentation/screens/profile/edit_profile_details_page.dart';
 import 'package:fresh/presentation/utils/custom_header_widget.dart';
 import 'package:fresh/presentation/widgets/home/brands_widget.dart';
 import 'package:fresh/presentation/widgets/home/categories_widget.dart';
@@ -41,178 +35,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-          child: ListView(
-        children: [
-          SizedBox(
-            height: 177.h,
-            width: 318.w,
-            child: DrawerHeader(
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Column(
-                  children: [
-                    Container(
-                      height: 76.h,
-                      width: 76.w,
-                      decoration: const BoxDecoration(
-                          color: Colors.grey, shape: BoxShape.circle),
-                    ),
-                    SizedBox(height: 10.h),
-                    Text(
-                      'Anna Deo',
-                      style: TextStyle(fontSize: 22),
-                    ),
-                    SizedBox(height: 10.h),
-                    Text(
-                      "Annadeo@gmail.com",
-                      style: TextStyle(color: Colors.pink),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
-          ExpansionTile(
-            leading: Icon(
-              Icons.account_box,
-              color: Colors.pink,
-            ),
-            // tilePadding: EdgeInsets.zero,
-            // childrenPadding: ,
-
-            title: Transform.translate(
-                offset: Offset(-16, 0),
-                child: Text(
-                  "My Account",
-                  style: TextStyle(color: const Color(0xff02096B)),
-                )),
-            collapsedIconColor: Colors.white,
-            iconColor: Colors.white,
-            expandedAlignment: Alignment.centerRight,
-            children: [
-              ListTile(
-                title: Text("Basic Info"),
-                dense: true,
-                minVerticalPadding: 0,
-                contentPadding: EdgeInsets.symmetric(horizontal: 64),
-                visualDensity: VisualDensity(horizontal: 1, vertical: -4),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (ctx) => EditProfileDetailsPage()),
-                  );
-                },
-              ),
-              ListTile(
-                title: Text("Bank Info"),
-                dense: true,
-                contentPadding: EdgeInsets.symmetric(horizontal: 64),
-                visualDensity: VisualDensity(horizontal: 1, vertical: -4),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (ctx) => BankDetailsScreen()),
-                  );
-                },
-              ),
-              SizedBox(height: 15),
-            ],
-          ),
-          /*  ListTile(
-            leading: Icon(Icons.account_circle_outlined, color: Colors.pink),
-            title: Text("My Profile"),
-            minLeadingWidth: 8,
-          ), */
-          ListTile(
-            leading: Icon(Icons.add_card, color: Colors.pink),
-            title: Text("My Wallet"),
-            minLeadingWidth: 8,
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (ctx) => WalletScreen()),
-              );
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.assignment, color: Colors.pink),
-            title: Text("My Orders"),
-            minLeadingWidth: 8,
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (ctx) => OrderMainPage()),
-              );
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.local_offer_outlined, color: Colors.pink),
-            title: Text("My Offers"),
-            minLeadingWidth: 8,
-             onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (ctx) => OfferPage()),
-                  );
-                },
-          ),
-          ListTile(
-            leading: Icon(Icons.attach_money, color: Colors.pink),
-            title: Text("Refer & Earn"),
-            minLeadingWidth: 8,
-          ),
-          ListTile(
-            leading: Icon(Icons.content_paste_go_rounded, color: Colors.pink),
-            title: Text("Legal"),
-            minLeadingWidth: 8,
-          ),
-          ListTile(
-            leading: Icon(Icons.support_agent, color: Colors.pink),
-            title: Text("Support"),
-            minLeadingWidth: 8,
-          ),
-          ListTile(
-            leading: Icon(Icons.rate_review_outlined, color: Colors.pink),
-            title: Text("Rate this app"),
-            minLeadingWidth: 8,
-          ),
-          ListTile(
-            leading: Icon(Icons.thumb_up_alt_outlined, color: Colors.pink),
-            title: Text("Follow Us"),
-            minLeadingWidth: 8,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.facebook_outlined,
-                color: Colors.pink,
-                size: 35,
-              ),
-              SizedBox(width: 10),
-              Image(image: instaLogo)
-            ],
-          ),
-          SizedBox(height: 15),
-          Divider(
-            color: Colors.black54,
-            height: 2,
-          ),
-          ListTile(
-            leading: Icon(Icons.logout_outlined, color: Colors.pink),
-            title: Text("Log Out"),
-            minLeadingWidth: 8,
-          ),
-        ],
-      )),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.red,
-        // automaticallyImplyLeading: false,
-        title: const AppBarWidgets(),
-      ),
       body: BlocConsumer<ProductBloc, ProductState>(
         listener: (context, state) {
           if (state is FetchCategoriesSuccessState) {
@@ -230,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                   return false;
                 });
                 _itemCategoryList[ind].items.add(item);
-              } 
+              }
             }
             // 123456789
             // print(_itemList);
@@ -319,7 +141,8 @@ class _HomePageState extends State<HomePage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (ctx) => ProductsPage(
-                                          allItemCategories: _itemCategoryList,
+                                            allItemCategories:
+                                                _itemCategoryList,
                                             itemCategory:
                                                 _itemCategoryList[index])),
                                   );

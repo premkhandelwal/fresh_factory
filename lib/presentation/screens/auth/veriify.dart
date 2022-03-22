@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fresh/presentation/screens/auth/setPassword.dart';
-import 'package:fresh/presentation/screens/home/home_screen.dart';
+import 'package:fresh/presentation/screens/home/main_home_page.dart';
 import 'package:fresh/presentation/screens/home/uicomponents.dart';
 
 class VerifyOtp extends StatefulWidget {
@@ -132,7 +131,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => HomePage()),
+                                  builder: (context) => MainHomePage()),
                             );
                           },
                         ),

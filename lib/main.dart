@@ -4,10 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:fresh/businessLogic/blocs/auth/auth_bloc.dart';
 import 'package:fresh/businessLogic/blocs/product/product_bloc.dart';
+import 'package:fresh/businessLogic/cubits/bottomNavigationBar/bottomnavigationbar_cubit.dart';
 import 'package:fresh/data/dataProviders/auth_provider.dart';
 import 'package:fresh/data/dataProviders/product_provider.dart';
 import 'package:fresh/main%20copy1.dart';
 import 'package:fresh/presentation/screens/home/home_screen.dart';
+import 'package:fresh/presentation/screens/home/main_home_page.dart';
 import 'package:fresh/presentation/screens/payments/wallet_screen.dart';
 import 'package:fresh/presentation/screens/payments/bank_details.dart';
 import 'package:fresh/presentation/screens/payments/payment_method_screen.dart';
@@ -39,6 +41,9 @@ class MyApp extends StatelessWidget {
            ),
             BlocProvider(
              create: (context) => ProductBloc(productProvider: productProvider),
+           ),
+            BlocProvider(
+             create: (context) => BottomnavigationbarCubit(),
            ),
           ],
           child:  MaterialApp(
@@ -84,7 +89,7 @@ class NewWidget extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (ctx) => const HomePage()),
+                MaterialPageRoute(builder: (ctx) => const MainHomePage()),
               );
             },
             child: const Text("Home Page"),

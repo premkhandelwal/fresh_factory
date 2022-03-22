@@ -7,6 +7,7 @@ import 'package:fresh/globals/common_function.dart';
 import 'package:fresh/globals/constants/sessionConstants.dart';
 import 'package:fresh/presentation/screens/auth/forgot_password_screen.dart';
 import 'package:fresh/presentation/screens/home/home_screen.dart';
+import 'package:fresh/presentation/screens/home/main_home_page.dart';
 import 'package:fresh/presentation/screens/home/timer.dart';
 import 'package:fresh/presentation/screens/home/uicomponents.dart';
 
@@ -55,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
               SessionConstants.user = state.user;
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (ctx) => HomePage()),
+                MaterialPageRoute(builder: (ctx) => MainHomePage()),
               );
             } else if (state is SignInFailureState) {
               showSnackBar(context, "Failed to sign in. Please try again");
