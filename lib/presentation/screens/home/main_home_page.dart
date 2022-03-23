@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:fresh/businessLogic/cubits/bottomNavigationBar/bottomnavigationbar_cubit.dart';
 import 'package:fresh/presentation/screens/home/app_bar_widgets_home.dart';
+import 'package:fresh/presentation/screens/home/cart_page.dart';
 import 'package:fresh/presentation/screens/home/home_screen.dart';
 import 'package:fresh/presentation/screens/offers/offer_page.dart';
 import 'package:fresh/presentation/screens/orders/order_main_page.dart';
@@ -25,7 +26,7 @@ class _MainHomePageState extends State<MainHomePage> {
     HomePage(),
     Center(child: Container(child: Text("This is Categories Page"))),
     WalletScreen(),
-    Center(child: Container(child: Text("This is Cart Page"))),
+    CartPage(),
     Center(child: Container(child: Text("This is Support Page"))),
   ];
   @override
@@ -33,14 +34,16 @@ class _MainHomePageState extends State<MainHomePage> {
     return BlocBuilder<BottomnavigationbarCubit, PageState>(
       builder: (context, state) {
         return Scaffold(
-            drawer: state.index == 0 ?  DrawerWidget() : null,
+            drawer: state.index == 0 ? DrawerWidget() : null,
             bottomNavigationBar: BottomNavBarWidget(currentIndex: state.index),
-            appBar: state.index == 0 ?AppBar(
-              backgroundColor: Colors.white,
-              foregroundColor: Colors.red,
-              // automaticallyImplyLeading: false,
-              title: const AppBarWidgets(),
-            ): null,
+            appBar: state.index == 0
+                ? AppBar(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.red,
+                    // automaticallyImplyLeading: false,
+                    title: const AppBarWidgets(),
+                  )
+                : null,
             body: _pages[state.index]);
       },
     );

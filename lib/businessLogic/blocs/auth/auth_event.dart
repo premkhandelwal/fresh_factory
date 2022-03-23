@@ -17,10 +17,24 @@ class SignUpRequestedEvent extends AuthEvent {
   });
 }
 
-class GenerateAccessTokenEvent extends AuthEvent{
+class GenerateAccessTokenEvent extends AuthEvent {
   final User user;
   GenerateAccessTokenEvent({
     required this.user,
   });
 }
 
+class ForgotPasswordEvent extends AuthEvent {
+  final String email;
+  ForgotPasswordEvent({
+    required this.email,
+  });
+}
+class SetPasswordEvent extends AuthEvent {
+  final String email;
+  final String password;
+  SetPasswordEvent({
+    required this.email,
+    required this.password,
+  });
+}

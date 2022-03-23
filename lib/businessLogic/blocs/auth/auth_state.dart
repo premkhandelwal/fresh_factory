@@ -29,3 +29,14 @@ class GenerateAccessTokenInProgressState extends AuthState {}
 class GenerateAccessTokenSuccessState extends AuthState {}
 
 class GenerateAccessTokenFailureState extends AuthState {}
+
+class ResetPasswordInProgressState extends AuthState {}
+
+class ResetPasswordSuccessState extends AuthState {}
+
+class ResetPasswordFailureState extends AuthState {} 
+class SetPasswordInProgressState extends AuthState {}
+
+class SetPasswordSuccessState extends AuthState {}
+
+class SetPasswordFailureState extends AuthState {} 

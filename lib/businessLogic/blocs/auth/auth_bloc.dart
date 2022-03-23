@@ -44,5 +44,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(GenerateAccessTokenFailureState());
       }
     });
+    on<ForgotPasswordEvent>((event, emit) async {
+      emit(ResetPasswordInProgressState());
+      bool isSuccess = await authProvider.resetPassword(event.email);
+      if (isSuccess) {
+        emit(ResetPasswordSuccessState());
+      } else {
+        emit(ResetPasswordFailureState());
+      }
+    });
+    on<SetPasswordEvent>((event, emit) async {
+      emit(SetPasswordInProgressState());
+      bool isSuccess = await authProvider.setPassword(event.email, event.password);
+      if (isSuccess) {
+        emit(SetPasswordSuccessState());
+      } else {
+        emit(SetPasswordFailureState());
+      }
+    });
   }
 }

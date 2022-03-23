@@ -8,6 +8,8 @@ import 'package:fresh/businessLogic/cubits/bottomNavigationBar/bottomnavigationb
 import 'package:fresh/data/dataProviders/auth_provider.dart';
 import 'package:fresh/data/dataProviders/product_provider.dart';
 import 'package:fresh/main%20copy1.dart';
+import 'package:fresh/presentation/screens/auth/forgot_password_screen.dart';
+import 'package:fresh/presentation/screens/auth/setPassword.dart';
 import 'package:fresh/presentation/screens/home/home_screen.dart';
 import 'package:fresh/presentation/screens/home/main_home_page.dart';
 import 'package:fresh/presentation/screens/payments/wallet_screen.dart';
@@ -135,6 +137,26 @@ class NewWidget extends StatelessWidget {
               );
             },
             child: const Text("Fortune Wheel"),
+            style: ElevatedButton.styleFrom(),
+          ),
+           ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (ctx) => const ForgotPass()),
+              );
+            },
+            child: const Text("Forgot Password"),
+            style: ElevatedButton.styleFrom(),
+          ),
+            ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (ctx) => const SetPassword()),
+              );
+            },
+            child: const Text("Set Password"),
             style: ElevatedButton.styleFrom(),
           ),
         ],
