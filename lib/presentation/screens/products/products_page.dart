@@ -6,6 +6,7 @@ import 'package:fresh/data/models/item_categories.dart';
 import 'package:fresh/globals/constants/globals.dart';
 import 'package:fresh/presentation/screens/home/home_screen.dart';
 import 'package:fresh/presentation/screens/products/product_detail_page.dart';
+import 'package:fresh/presentation/screens/products/temp_product_page.dart';
 import 'package:fresh/presentation/utils/custom_app_bar.dart';
 import 'package:fresh/presentation/utils/custom_header_widget.dart';
 import 'package:fresh/presentation/widgets/home/categories_widget.dart';
@@ -89,7 +90,7 @@ class _ProductsPageState extends State<ProductsPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (ctx) => ProductDetailPage() 
+                                    builder: (ctx) => TempPageForProduct() 
                                   ),
                                 );
                               },

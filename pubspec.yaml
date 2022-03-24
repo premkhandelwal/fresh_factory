@@ -35,8 +35,10 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.0.1
   flutter_fortune_wheel: ^1.2.0
+  flutter_rating_bar: ^4.0.0
   flutter_screenutil: ^5.3.1
   http: ^0.13.4
+  lorem_ipsum: ^0.0.1
   screen_utils: ^0.0.1
 
 dev_dependencies:
