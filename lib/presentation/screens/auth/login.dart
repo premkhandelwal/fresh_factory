@@ -149,9 +149,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ],
                             ),
+                            SizedBox(height: 40.h),
                             Container(
                               width: double.infinity,
-                              padding: const EdgeInsets.only(top: 40.0),
+                              height: 60.h,
                               child: MaterialButton(
                                 minWidth: 320.w,
                                 height: 50.h,

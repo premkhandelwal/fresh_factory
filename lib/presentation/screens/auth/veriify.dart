@@ -60,7 +60,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
                       labelText("Enter your OTP"),
                       TextFormField(
                         keyboardType: TextInputType.text,
-                        decoration:  InputDecoration(
+                        decoration: InputDecoration(
                           hintText: 'Enter your six digit OTP',
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -112,6 +112,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
                       ),
                       Container(
                         width: double.infinity,
+                        height: 60.h,
                         child: MaterialButton(
                           minWidth: 280.w,
                           height: 58.h,

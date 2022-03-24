@@ -104,6 +104,7 @@ class _ForgotPassState extends State<ForgotPass> {
                           ),
                           Container(
                             width: double.infinity,
+                            height: 60.h,
                             child: MaterialButton(
                               minWidth: 280.w,
                               height: 58.h,

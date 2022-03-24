@@ -54,7 +54,7 @@ class _SignupScreenState extends State<SignupScreen> {
           backgroundColor: Colors.white,
         ),
         body: BlocConsumer<AuthBloc, AuthState>(
-        listener: (context, state) {
+          listener: (context, state) {
             if (state is SignUpSuccessState) {
               Navigator.push(
                 context,
@@ -62,7 +62,7 @@ class _SignupScreenState extends State<SignupScreen> {
               );
             } else if (state is SignUpFailureState) {
               showSnackBar(context, "Failed to sign up. Please try again");
-            } 
+            }
           },
           builder: (context, state) {
             if (state is SignUpProgressState) {
@@ -98,7 +98,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             TextFormField(
                               controller: nameController,
                               keyboardType: TextInputType.text,
-                              decoration:  InputDecoration(
+                              decoration: InputDecoration(
                                 hintText: 'Enter your Name',
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
@@ -124,7 +124,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             TextFormField(
                               controller: phoneNoController,
                               keyboardType: TextInputType.number,
-                              decoration:  InputDecoration(
+                              decoration: InputDecoration(
                                 hintText: 'Enter your Phone Number',
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
@@ -150,7 +150,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             TextFormField(
                               controller: emailIdController,
                               // keyboardType: TextInputType.number,
-                              decoration:  InputDecoration(
+                              decoration: InputDecoration(
                                 hintText: 'Enter your Email ID Here',
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
@@ -214,7 +214,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             TextFormField(
                               controller: referralCodeController,
                               keyboardType: TextInputType.text,
-                              decoration:  InputDecoration(
+                              decoration: InputDecoration(
                                 hintText: 'Enter Referral code',
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
@@ -247,12 +247,13 @@ class _SignupScreenState extends State<SignupScreen> {
                                 labelText("Terms and Condition Apply")
                               ],
                             ),
+                            SizedBox(height: 20.h),
                             Container(
                               width: double.infinity,
-                              padding: const EdgeInsets.only(top: 20.0),
+                              height: 60.h,
                               child: MaterialButton(
-                                minWidth: 280,
-                                height: 55,
+                                minWidth: 280.w,
+                                height: 55.h,
                                 color: Color(0xff02096B),
                                 shape: new RoundedRectangleBorder(
                                   borderRadius: new BorderRadius.circular(9.0),

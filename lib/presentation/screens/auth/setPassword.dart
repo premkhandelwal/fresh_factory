@@ -125,6 +125,7 @@ class _SetPasswordState extends State<SetPassword> {
                           ),
                           Container(
                             width: double.infinity,
+                            height: 60.h,
                             child: MaterialButton(
                               minWidth: 250.w,
                               height: 60.h,

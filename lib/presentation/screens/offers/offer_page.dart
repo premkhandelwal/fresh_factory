@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fresh/presentation/utils/custom_app_bar.dart';
 
 class OfferPage extends StatefulWidget {
   const OfferPage({Key? key}) : super(key: key);
@@ -13,16 +14,8 @@ class _OfferPageState extends State<OfferPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Offers"),
-        backgroundColor: Colors.white,
-        foregroundColor: Color(0xff02096B),
-        titleTextStyle: TextStyle(
-            color: Color(0xff02096B),
-            fontSize: 20,
-            fontWeight: FontWeight.bold),
-        centerTitle: true,
-        automaticallyImplyLeading: true,
+      appBar: CustomAppBar(
+        title: "Offers"
       ),
       body: Padding(
         padding: const EdgeInsets.all(26.0),

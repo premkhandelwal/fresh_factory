@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fresh/presentation/utils/custom_app_bar.dart';
 
 class WalletScreen extends StatefulWidget {
   const WalletScreen({Key? key}) : super(key: key);
@@ -13,16 +14,8 @@ class _WalletScreenState extends State<WalletScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(currIndex == 0 ? "My Wallet" : "My Referral Wallet"),
-        backgroundColor: Colors.white,
-        foregroundColor: Color(0xff02096B),
-        titleTextStyle: TextStyle(
-            color: Color(0xff02096B),
-            fontSize: 20,
-            fontWeight: FontWeight.bold),
-        centerTitle: true,
-        automaticallyImplyLeading: true,
+      appBar: CustomAppBar(
+        title: currIndex == 0 ? "My Wallet" : "My Referral Wallet"
       ),
       body: DefaultTabController(
         length: 2,

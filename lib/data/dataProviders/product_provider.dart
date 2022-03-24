@@ -27,11 +27,12 @@ class ProductProvider {
       if (!refreshToken) {
         attemptRefresh -= 1;
       }
-        getItemCategories();
+      getItemCategories();
     }
     attemptRefresh = 3;
     return null;
   }
+
   Future<List<Item>?> getProducts() async {
     String url = Globals.host + "/api/getpro/";
     Uri uri = Uri.parse(url);
@@ -52,9 +53,13 @@ class ProductProvider {
       if (!refreshToken) {
         attemptRefresh -= 1;
       }
-        getItemCategories();
+      getItemCategories();
     }
     attemptRefresh = 3;
     return null;
+  }
+
+  Future<bool> getProductDetails(String itemId) async {
+    return true;
   }
 }

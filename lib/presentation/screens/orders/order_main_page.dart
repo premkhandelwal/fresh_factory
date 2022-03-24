@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fresh/presentation/screens/orders/history_order_widget.dart';
 
 import 'package:fresh/presentation/screens/payments/wallet_screen.dart';
+import 'package:fresh/presentation/utils/custom_app_bar.dart';
 
 class OrderMainPage extends StatefulWidget {
   const OrderMainPage({Key? key}) : super(key: key);
@@ -25,16 +26,8 @@ class _OrderMainPageState extends State<OrderMainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Orders"),
-        backgroundColor: Colors.white,
-        foregroundColor: Color(0xff02096B),
-        titleTextStyle: TextStyle(
-            color: Color(0xff02096B),
-            fontSize: 20,
-            fontWeight: FontWeight.bold),
-        centerTitle: true,
-        automaticallyImplyLeading: true,
+      appBar: CustomAppBar(
+        title: "Orders"
       ),
       body: DefaultTabController(
         length: 2,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fresh/presentation/utils/custom_app_bar.dart';
 
 class PaymentMethodScreen extends StatefulWidget {
   const PaymentMethodScreen({Key? key}) : super(key: key);
@@ -17,17 +18,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Add Payment Method"),
-        backgroundColor: Colors.white,
-        foregroundColor: Color(0xff02096B),
-        titleTextStyle: TextStyle(
-            color: Color(0xff02096B),
-            fontSize: 20,
-            fontWeight: FontWeight.bold),
-        centerTitle: true,
-        automaticallyImplyLeading: true,
-      ),
+      appBar: CustomAppBar(title: "Add Payment Method"),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: ListView(
@@ -36,7 +27,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
               selected: _selectedIndex == 0,
               tileColor: Colors.white,
               shape: _selectedIndex == 0
-                  ?  RoundedRectangleBorder(
+                  ? RoundedRectangleBorder(
                       side: BorderSide(color: Color(0xFF0D47A1), width: 2.w),
                     )
                   : null,
@@ -63,7 +54,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
               selected: _selectedIndex == 1,
               tileColor: Colors.white,
               shape: _selectedIndex == 1
-                  ?  RoundedRectangleBorder(
+                  ? RoundedRectangleBorder(
                       side: BorderSide(color: Color(0xFF0D47A1), width: 2.w),
                     )
                   : null,
@@ -89,7 +80,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
               selected: _selectedIndex == 2,
               tileColor: Colors.white,
               shape: _selectedIndex == 2
-                  ?  RoundedRectangleBorder(
+                  ? RoundedRectangleBorder(
                       side: BorderSide(color: Color(0xFF0D47A1), width: 2.w),
                     )
                   : null,
@@ -115,7 +106,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
               selected: _selectedIndex == 3,
               tileColor: Colors.white,
               shape: _selectedIndex == 3
-                  ?  RoundedRectangleBorder(
+                  ? RoundedRectangleBorder(
                       side: BorderSide(color: Color(0xFF0D47A1), width: 2.w),
                     )
                   : null,
@@ -148,3 +139,4 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
     );
   }
 }
+

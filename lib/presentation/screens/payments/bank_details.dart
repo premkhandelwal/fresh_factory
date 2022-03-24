@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fresh/presentation/utils/custom_app_bar.dart';
 import 'package:fresh/presentation/utils/custom_header_widget.dart';
 import 'package:fresh/presentation/widgets/utils/custom_text_field_widget.dart';
 
@@ -16,16 +17,8 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Bank Details Screen"),
-        backgroundColor: Colors.white,
-        foregroundColor: Color(0xff02096B),
-        titleTextStyle: TextStyle(
-            color: Color(0xff02096B),
-            fontSize: 20,
-            fontWeight: FontWeight.bold),
-        centerTitle: true,
-        automaticallyImplyLeading: true,
+      appBar: CustomAppBar(
+        title: "Bank Details Screen"
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

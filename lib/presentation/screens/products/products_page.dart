@@ -5,6 +5,8 @@ import 'package:fresh/data/models/item.dart';
 import 'package:fresh/data/models/item_categories.dart';
 import 'package:fresh/globals/constants/globals.dart';
 import 'package:fresh/presentation/screens/home/home_screen.dart';
+import 'package:fresh/presentation/screens/products/product_detail_page.dart';
+import 'package:fresh/presentation/utils/custom_app_bar.dart';
 import 'package:fresh/presentation/utils/custom_header_widget.dart';
 import 'package:fresh/presentation/widgets/home/categories_widget.dart';
 
@@ -39,15 +41,8 @@ class _ProductsPageState extends State<ProductsPage> {
     }
     print(_itemSubCategory);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.itemCategory.name),
-        backgroundColor: Colors.white,
-        foregroundColor: Color(0xff02096B),
-        titleTextStyle: TextStyle(
-            color: Color(0xff02096B),
-            fontSize: 20,
-            fontWeight: FontWeight.bold),
-        centerTitle: true,
+      appBar: CustomAppBar(
+        title: widget.itemCategory.name
       ),
       body: widget.itemCategory.items.isEmpty
           ? Center(
@@ -89,8 +84,18 @@ class _ProductsPageState extends State<ProductsPage> {
                         spacing: 5,
                         runSpacing: 5,
                         children: widget.itemCategory.items
-                            .map((e) => ProductWidget(
-                                sampleProduct: sampleProduct, product: e))
+                            .map((e) => GestureDetector(
+                              onTap: (){
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (ctx) => ProductDetailPage() 
+                                  ),
+                                );
+                              },
+                              child: ProductWidget(
+                                  sampleProduct: sampleProduct, product: e),
+                            ))
                             .toList() /* [
                   ProductWidget(sampleProduct: sampleProduct, productName: ""),
                   ProductWidget(sampleProduct: sampleProduct, productName: ""),
