@@ -18,11 +18,18 @@ class SortSelectionChanged extends RadioButtonState {
   SortSelectionChanged({
     required this.sortOptionVal,
   });
+
+  @override
+  List<Object> get props => [DateTime.now()];
 }
+
 class FilterSelectionChanged extends RadioButtonState {
   @override
   final FilterOptions? filterOptionVal;
   FilterSelectionChanged({
     required this.filterOptionVal,
   });
+
+  @override
+  List<Object> get props => [DateTime.now()];
 }
