@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fresh/data/models/item_categories.dart';
-import 'package:fresh/presentation/screens/products/products_page.dart';
 import 'package:fresh/presentation/utils/custom_app_bar.dart';
-import 'package:fresh/presentation/widgets/home/categories_widget.dart';
 
-class ProductDetailPage1 extends StatefulWidget {
-  const ProductDetailPage1({Key? key}) : super(key: key);
+class ProductDetailPage3 extends StatefulWidget {
+  const ProductDetailPage3({Key? key}) : super(key: key);
 
   @override
-  _ProductDetailPage1State createState() => _ProductDetailPage1State();
+  _ProductDetailPage3State createState() => _ProductDetailPage3State();
 }
 
-class _ProductDetailPage1State extends State<ProductDetailPage1> {
+class _ProductDetailPage3State extends State<ProductDetailPage3> {
   final productBig = AssetImage("assets/product_detail_big.png");
   final productSmall = AssetImage("assets/product_detail_small.png");
   @override
@@ -23,65 +20,88 @@ class _ProductDetailPage1State extends State<ProductDetailPage1> {
       body: ListView(
         // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: 413.w,
-            height: 371.h,
-            decoration: BoxDecoration(
-                color: Colors.grey[350],
-                borderRadius:
-                    BorderRadius.vertical(bottom: Radius.circular(30))),
-            child: Stack(
-              children: [
-                Image(image: productBig),
-                Positioned(
-                    bottom: 30,
-                    left: 20,
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 70.w,
-                          height: 56.h,
-                          decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Image(image: productSmall),
-                        ),
-                        SizedBox(width: 10.w),
-                        Container(
-                          width: 70.w,
-                          height: 56.h,
-                          decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Image(image: productSmall),
-                        ),
-                        SizedBox(width: 10.w),
-                        Container(
-                          width: 70.w,
-                          height: 56.h,
-                          decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Image(image: productSmall),
-                        ),
-                        SizedBox(width: 10.w),
-                        Container(
-                          width: 70.w,
-                          height: 56.h,
-                          decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Center(
-                              child: Text(
-                            "+3",
-                            style: TextStyle(fontSize: 30, color: Colors.grey),
-                          )),
-                        ),
-                        SizedBox(width: 10.w),
-                      ],
-                    ))
-              ],
-            ),
+          Stack(
+            children: [
+              Container(
+                width: 413.w,
+                height: 371.h,
+                decoration: BoxDecoration(
+                    color: Colors.grey[350],
+                    borderRadius:
+                        BorderRadius.vertical(bottom: Radius.circular(30))),
+                child: Stack(
+                  children: [
+                    Image(image: productBig),
+                    Positioned(
+                        bottom: 30,
+                        left: 20,
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 70.w,
+                              height: 56.h,
+                              decoration: BoxDecoration(
+                                  border: Border.all(),
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Image(image: productSmall),
+                            ),
+                            SizedBox(width: 10.w),
+                            Container(
+                              width: 70.w,
+                              height: 56.h,
+                              decoration: BoxDecoration(
+                                  border: Border.all(),
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Image(image: productSmall),
+                            ),
+                            SizedBox(width: 10.w),
+                            Container(
+                              width: 70.w,
+                              height: 56.h,
+                              decoration: BoxDecoration(
+                                  border: Border.all(),
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Image(image: productSmall),
+                            ),
+                            SizedBox(width: 10.w),
+                            Container(
+                              width: 70.w,
+                              height: 56.h,
+                              decoration: BoxDecoration(
+                                  border: Border.all(),
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Center(
+                                  child: Text(
+                                "+3",
+                                style:
+                                    TextStyle(fontSize: 30, color: Colors.grey),
+                              )),
+                            ),
+                            SizedBox(width: 10.w),
+                          ],
+                        ))
+                  ],
+                ),
+              ),
+              Positioned(
+                top: 50,
+                left: 5,
+                child: Container(
+                  height: 30,
+                  width: 100,
+                  // padding: EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                      color: Color(0xff02096B),
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: Center(
+                    child: Text(
+                      "20% off",
+                      style: TextStyle(fontSize: 15, color: Colors.white),
+                    ),
+                  ),
+                ),
+              )
+            ],
           ),
           Padding(
             padding: const EdgeInsets.all(20.0),
@@ -127,12 +147,26 @@ class _ProductDetailPage1State extends State<ProductDetailPage1> {
                         ),
                       ),
                     ),
-                    Text(
-                      "\u{20B9}140.00",
-                      style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text("\u{20B9}140.00",
+                            style: TextStyle(
+                                fontSize: 20,
+                                decoration: TextDecoration.lineThrough,
+                                decorationThickness: 2,
+
+                                // fontWeight: FontWeight.bold,
+                                color: Colors.grey),
+                            textAlign: TextAlign.right),
+                        Text(
+                          "\u{20B9}140.00",
+                          style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ),
+                      ],
                     )
                   ],
                 ),
