@@ -96,6 +96,15 @@ class _SignupScreenState extends State<SignupScreen> {
                                 fontSize: 15,
                                 isPaddingReq: false),
                             TextFormField(
+                              validator: (val) {
+                                if (val == null || val.isEmpty) {
+                                  return "This is a required field";
+                                }
+                                if (val.length < 2) {
+                                  return "Please enter a valid name";
+                                }
+                                return null;
+                              },
                               controller: nameController,
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
@@ -122,6 +131,15 @@ class _SignupScreenState extends State<SignupScreen> {
                                 fontSize: 15,
                                 isPaddingReq: false),
                             TextFormField(
+                              validator: (val) {
+                                if (val == null || val.isEmpty) {
+                                  return "This is a required field";
+                                }
+                                if (val.length < 2) {
+                                  return "Please enter a valid name";
+                                }
+                                return null;
+                              },
                               controller: phoneNoController,
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
@@ -148,6 +166,17 @@ class _SignupScreenState extends State<SignupScreen> {
                                 fontSize: 15,
                                 isPaddingReq: false),
                             TextFormField(
+                              validator: (val) {
+                                if (val == null || val.isEmpty) {
+                                  return "This is a required field";
+                                }
+                                RegExp regExp = RegExp(
+                                    r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
+                                if (!regExp.hasMatch(val)) {
+                                  return "Please enter a valid email";
+                                }
+                                return null;
+                              },
                               controller: emailIdController,
                               // keyboardType: TextInputType.number,
                               decoration: InputDecoration(
@@ -174,6 +203,17 @@ class _SignupScreenState extends State<SignupScreen> {
                                 fontSize: 15,
                                 isPaddingReq: false),
                             TextFormField(
+                              validator: (val) {
+                                if (val == null || val.isEmpty) {
+                                  return "This is a required field";
+                                }
+                                RegExp reg = RegExp(
+                                    r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$');
+                                if (!reg.hasMatch(val)) {
+                                  return "Please enter a strong password";
+                                }
+                                return null;
+                              },
                               controller: passwordController,
                               obscureText: true,
                               enableSuggestions: false,
@@ -193,6 +233,12 @@ class _SignupScreenState extends State<SignupScreen> {
                                 fontSize: 15,
                                 isPaddingReq: false),
                             TextFormField(
+                              validator: (val) {
+                                if (val != passwordController.text) {
+                                  return "Passwords do not match";
+                                }
+                                return null;
+                              },
                               controller: confPasswordController,
                               obscureText: true,
                               enableSuggestions: false,
@@ -254,6 +300,8 @@ class _SignupScreenState extends State<SignupScreen> {
                               child: MaterialButton(
                                 minWidth: 280.w,
                                 height: 55.h,
+                                disabledColor:
+                                    Color.fromARGB(255, 106, 109, 141),
                                 color: Color(0xff02096B),
                                 shape: new RoundedRectangleBorder(
                                   borderRadius: new BorderRadius.circular(9.0),
@@ -266,13 +314,26 @@ class _SignupScreenState extends State<SignupScreen> {
                                     fontSize: 17,
                                   ),
                                 ),
-                                onPressed: () {
-                                  authBloc.add(SignUpRequestedEvent(
-                                      user: User(
-                                          phoneNumber: phoneNoController.text,
-                                          password: passwordController.text,
-                                          emailId: emailIdController.text)));
-                                },
+                                onPressed: value == false
+                                    ? null
+                                    : () {
+                                        if (_formKey.currentState != null) {
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            authBloc.add(SignUpRequestedEvent(
+                                                user: User(
+                                                    phoneNumber:
+                                                        phoneNoController.text,
+                                                    password:
+                                                        passwordController.text,
+                                                    emailId: emailIdController
+                                                        .text)));
+                                          }
+                                        } else {
+                                          showSnackBar(
+                                              context, "Failed to submit form");
+                                        }
+                                      },
                               ),
                             ),
                           ],

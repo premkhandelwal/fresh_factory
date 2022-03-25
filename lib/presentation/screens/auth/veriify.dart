@@ -59,6 +59,12 @@ class _VerifyOtpState extends State<VerifyOtp> {
                     children: <Widget>[
                       labelText("Enter your OTP"),
                       TextFormField(
+                         validator: (val) {
+                                if (val == null || val.isEmpty ||val.length < 6) {
+                                  return "Please enter a 6-Digit OTP";
+                                }
+                                return null;
+                              },
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           hintText: 'Enter your six digit OTP',

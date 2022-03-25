@@ -79,6 +79,17 @@ class _SetPasswordState extends State<SetPassword> {
                         children: <Widget>[
                           labelText("Your Password"),
                           TextFormField(
+                            validator: (val) {
+                              if (val == null || val.isEmpty) {
+                                return "This is a required field";
+                              }
+                              RegExp reg = RegExp(
+                                  r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$');
+                              if (!reg.hasMatch(val)) {
+                                return "Please enter a strong password";
+                              }
+                              return null;
+                            },
                             obscureText: true,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
@@ -102,6 +113,12 @@ class _SetPasswordState extends State<SetPassword> {
                           ),
                           labelText("Confirm Password"),
                           TextFormField(
+                            validator: (val) {
+                              if (val != passwordController.text) {
+                                return "Passwords do not match";
+                              }
+                              return null;
+                            },
                             obscureText: true,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
@@ -142,9 +159,16 @@ class _SetPasswordState extends State<SetPassword> {
                                 ),
                               ),
                               onPressed: () {
-                                authBloc.add(SetPasswordEvent(
-                                    email: "abcd@gmail.com",
-                                    password: passwordController.text));
+                                if (_formKey.currentState != null) {
+                                  if (_formKey.currentState!.validate()) {
+                                    authBloc.add(SetPasswordEvent(
+                                        email: "abcd@gmail.com",
+                                        password: passwordController.text));
+                                  }
+                                } else {
+                                  showSnackBar(
+                                      context, "Failed to submit form");
+                                }
                               },
                             ),
                           ),

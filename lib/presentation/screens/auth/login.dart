@@ -6,9 +6,7 @@ import 'package:fresh/data/models/user.dart';
 import 'package:fresh/globals/common_function.dart';
 import 'package:fresh/globals/constants/sessionConstants.dart';
 import 'package:fresh/presentation/screens/auth/forgot_password_screen.dart';
-import 'package:fresh/presentation/screens/home/home_screen.dart';
 import 'package:fresh/presentation/screens/home/main_home_page.dart';
-import 'package:fresh/presentation/screens/home/timer.dart';
 import 'package:fresh/presentation/screens/home/uicomponents.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -96,6 +94,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: <Widget>[
                             labelText("Phone"),
                             TextFormField(
+                              validator: (val) {
+                                if (val == null || val.isEmpty) {
+                                  return "This is a required field";
+                                }
+                                /*  if (val.length < 10) {
+                                  return "Please enter a valid phone number";
+                                } */
+                                return null;
+                              },
                               controller: phoneNoController,
                               // keyboardType: TextInputType.number,
                               decoration: InputDecoration(
@@ -119,6 +126,17 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             labelText("Password"),
                             TextFormField(
+                              validator: (val) {
+                                if (val == null || val.isEmpty) {
+                                  return "This is a required field";
+                                }
+                               /*  RegExp reg = RegExp(
+                                    r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$');
+                                if (!reg.hasMatch(val)) {
+                                  return "Please enter a strong password";
+                                } */
+                                return null;
+                              },
                               controller: passwordController,
                               obscureText: true,
                               enableSuggestions: false,
@@ -169,10 +187,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                                 onPressed: () {
-                                  authBloc.add(GenerateAccessTokenEvent(
-                                      user: User(
-                                          phoneNumber: phoneNoController.text,
-                                          password: passwordController.text)));
+                                  if (_formKey.currentState != null) {
+                                    if (_formKey.currentState!.validate()) {
+                                      authBloc.add(GenerateAccessTokenEvent(
+                                          user: User(
+                                              phoneNumber:
+                                                  phoneNoController.text,
+                                              password:
+                                                  passwordController.text)));
+                                    }
+                                  } else {
+                                    showSnackBar(context,
+                                        "Failed to submit form");
+                                  }
                                 },
                               ),
                             ),

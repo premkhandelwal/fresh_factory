@@ -71,7 +71,11 @@ class _ProductDetailPage1State extends State<ProductDetailPage1> {
                           decoration: BoxDecoration(
                               border: Border.all(),
                               borderRadius: BorderRadius.circular(5)),
-                          child: Center(child: Text("+3", style: TextStyle(fontSize: 30, color: Colors.grey),)),
+                          child: Center(
+                              child: Text(
+                            "+3",
+                            style: TextStyle(fontSize: 30, color: Colors.grey),
+                          )),
                         ),
                         SizedBox(width: 10.w),
                       ],
@@ -213,10 +217,9 @@ class _ProductDetailPage1State extends State<ProductDetailPage1> {
                   color: Colors.grey,
                 ),
                 Row(
-                  children: [
-                    Text("Review")
-                  ],
-                )              ],
+                  children: [Text("Review")],
+                )
+              ],
             ),
           )
         ],
