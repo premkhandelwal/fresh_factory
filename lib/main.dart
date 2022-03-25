@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fresh/businessLogic/blocs/auth/auth_bloc.dart';
 import 'package:fresh/businessLogic/blocs/product/product_bloc.dart';
 import 'package:fresh/businessLogic/cubits/bottomNavigationBar/bottomnavigationbar_cubit.dart';
+import 'package:fresh/businessLogic/cubits/radioButtonCubit/radio_button_cubit.dart';
+import 'package:fresh/businessLogic/cubits/sortFilterProduct/sort_filter_product_cubit.dart';
 import 'package:fresh/data/dataProviders/auth_provider.dart';
 import 'package:fresh/data/dataProviders/product_provider.dart';
 import 'package:fresh/main%20copy1.dart';
@@ -46,6 +48,12 @@ class MyApp extends StatelessWidget {
            ),
             BlocProvider(
              create: (context) => BottomnavigationbarCubit(),
+           ),
+            BlocProvider(
+             create: (context) => SortFilterProductCubit(),
+           ),
+            BlocProvider(
+             create: (context) => RadioButtonCubit(),
            ),
           ],
           child:  MaterialApp(

@@ -56,10 +56,12 @@ class _SignupScreenState extends State<SignupScreen> {
         body: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is SignUpSuccessState) {
-              Navigator.push(
+              Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (ctx) => VerifyOtp()),
-              );
+                MaterialPageRoute(
+                  builder: (ctx) =>  VerifyOtp()
+                ),
+                (route) => false);
             } else if (state is SignUpFailureState) {
               showSnackBar(context, "Failed to sign up. Please try again");
             }

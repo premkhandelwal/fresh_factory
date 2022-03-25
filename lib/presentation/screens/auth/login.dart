@@ -52,10 +52,10 @@ class _LoginScreenState extends State<LoginScreen> {
           listener: (context, state) {
             if (state is SignInSuccessState) {
               SessionConstants.user = state.user;
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (ctx) => MainHomePage()),
-              );
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (ctx) => MainHomePage()),
+                  (route) => false);
             } else if (state is SignInFailureState) {
               showSnackBar(context, "Failed to sign in. Please try again");
             } else if (state is UserUnauthorizedState) {
@@ -130,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 if (val == null || val.isEmpty) {
                                   return "This is a required field";
                                 }
-                               /*  RegExp reg = RegExp(
+                                /*  RegExp reg = RegExp(
                                     r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$');
                                 if (!reg.hasMatch(val)) {
                                   return "Please enter a strong password";
@@ -197,8 +197,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   passwordController.text)));
                                     }
                                   } else {
-                                    showSnackBar(context,
-                                        "Failed to submit form");
+                                    showSnackBar(
+                                        context, "Failed to submit form");
                                   }
                                 },
                               ),
