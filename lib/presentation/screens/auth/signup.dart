@@ -296,7 +296,41 @@ class _SignupScreenState extends State<SignupScreen> {
                               ],
                             ),
                             SizedBox(height: 20.h),
-                            Container(
+                            ElevatedButton(
+                              onPressed: value == false
+                                    ? null
+                                    : () {
+                                        if (_formKey.currentState != null) {
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            authBloc.add(SignUpRequestedEvent(
+                                                user: User(
+                                                    phoneNumber:
+                                                        phoneNoController.text,
+                                                    password:
+                                                        passwordController.text,
+                                                    emailId: emailIdController
+                                                        .text)));
+                                          }
+                                        } else {
+                                          showSnackBar(
+                                              context, "Failed to submit form");
+                                        }
+                                      },
+
+                              child: Text("Signup",style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 17,
+                                  ),),
+                              style: ElevatedButton.styleFrom(
+                                 shape: new RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(9.0),
+                                ),
+                                fixedSize: Size(353, 62)
+                              ),
+                            ),
+                            /* Container(
                               width: double.infinity,
                               height: 60.h,
                               child: MaterialButton(
@@ -337,7 +371,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                         }
                                       },
                               ),
-                            ),
+                            ), */
                           ],
                         ),
                       ),

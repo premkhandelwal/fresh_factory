@@ -72,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
             return SingleChildScrollView(
               child: Container(
                 height: MediaQuery.of(context).size.height,
-                width: double.infinity,
+                // width: double.infinity,
                 child: Column(
                   children: [
                     SizedBox(
@@ -167,8 +167,37 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 40.h),
-                            Container(
+                            SizedBox(height: 40),
+                            ElevatedButton(
+                              
+                               onPressed: () {
+                                  if (_formKey.currentState != null) {
+                                    if (_formKey.currentState!.validate()) {
+                                      authBloc.add(GenerateAccessTokenEvent(
+                                          user: User(
+                                              phoneNumber:
+                                                  phoneNoController.text,
+                                              password:
+                                                  passwordController.text)));
+                                    }
+                                  } else {
+                                    showSnackBar(
+                                        context, "Failed to submit form");
+                                  }
+                                },
+                              child: Text("Login", style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 17,
+                                  ),),
+                              style: ElevatedButton.styleFrom(
+                                shape: new RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(9.0),
+                                ),
+                                fixedSize: Size(353, 62)
+                              ),
+                            ),
+                            /* Container(
                               width: double.infinity,
                               height: 60.h,
                               child: MaterialButton(
@@ -202,7 +231,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   }
                                 },
                               ),
-                            ),
+                            ), */
                           ],
                         ),
                       ),

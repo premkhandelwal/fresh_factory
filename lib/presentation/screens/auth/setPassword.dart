@@ -140,37 +140,31 @@ class _SetPasswordState extends State<SetPassword> {
                           SizedBox(
                             height: MediaQuery.of(context).size.height / 5,
                           ),
-                          Container(
-                            width: double.infinity,
-                            height: 60.h,
-                            child: MaterialButton(
-                              minWidth: 250.w,
-                              height: 60.h,
-                              color: Color(0xff02096B),
-                              shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(9.0),
-                              ),
-                              child: const Text(
-                                "Submit",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 17,
-                                ),
-                              ),
-                              onPressed: () {
-                                if (_formKey.currentState != null) {
-                                  if (_formKey.currentState!.validate()) {
-                                    authBloc.add(SetPasswordEvent(
-                                        email: "abcd@gmail.com",
-                                        password: passwordController.text));
-                                  }
-                                } else {
-                                  showSnackBar(
-                                      context, "Failed to submit form");
+                          ElevatedButton(
+                            onPressed: () {
+                              if (_formKey.currentState != null) {
+                                if (_formKey.currentState!.validate()) {
+                                  authBloc.add(SetPasswordEvent(
+                                      email: "abcd@gmail.com",
+                                      password: passwordController.text));
                                 }
-                              },
+                              } else {
+                                showSnackBar(context, "Failed to submit form");
+                              }
+                            },
+                            child: Text(
+                              "Submit",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 17,
+                              ),
                             ),
+                            style: ElevatedButton.styleFrom(
+                                shape: new RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(9.0),
+                                ),
+                                fixedSize: Size(353, 62)),
                           ),
                         ],
                       ),

@@ -102,34 +102,29 @@ class _ForgotPassState extends State<ForgotPass> {
                           SizedBox(
                             height: MediaQuery.of(context).size.height / 3,
                           ),
-                          Container(
-                            width: double.infinity,
-                            height: 60.h,
-                            child: MaterialButton(
-                              minWidth: 280.w,
-                              height: 58.h,
-                              color: Color(0xff02096B),
-                              shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(9.0),
-                              ),
-                              child: const Text(
-                                "Send OTP",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 17,
-                                ),
-                              ),
-                              onPressed: () {
-                                authBloc.add(ForgotPasswordEvent(
-                                    email: emailController.text));
-                                /*  Navigator.push(
+                          ElevatedButton(
+                            onPressed: () {
+                              authBloc.add(ForgotPasswordEvent(
+                                  email: emailController.text));
+                              /*  Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => VerifyOtp()),
                                     ); */
-                              },
+                            },
+                            child: Text(
+                              "Send OTP",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 17,
+                              ),
                             ),
+                            style: ElevatedButton.styleFrom(
+                                shape: new RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(9.0),
+                                ),
+                                fixedSize: Size(353, 62)),
                           ),
                         ],
                       ),

@@ -59,12 +59,12 @@ class _VerifyOtpState extends State<VerifyOtp> {
                     children: <Widget>[
                       labelText("Enter your OTP"),
                       TextFormField(
-                         validator: (val) {
-                                if (val == null || val.isEmpty ||val.length < 6) {
-                                  return "Please enter a 6-Digit OTP";
-                                }
-                                return null;
-                              },
+                        validator: (val) {
+                          if (val == null || val.isEmpty || val.length < 6) {
+                            return "Please enter a 6-Digit OTP";
+                          }
+                          return null;
+                        },
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           hintText: 'Enter your six digit OTP',
@@ -116,33 +116,27 @@ class _VerifyOtpState extends State<VerifyOtp> {
                       SizedBox(
                         height: MediaQuery.of(context).size.height / 9,
                       ),
-                      Container(
-                        width: double.infinity,
-                        height: 60.h,
-                        child: MaterialButton(
-                          minWidth: 280.w,
-                          height: 58.h,
-                          color: Color(0xff02096B),
-                          shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(9.0),
-                          ),
-                          child: const Text(
-                            "Verify",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 17,
-                            ),
-                          ),
-                          onPressed: () {
-                            Navigator.pushAndRemoveUntil(
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                builder: (ctx) => MainHomePage()
-                              ),
+                                  builder: (ctx) => MainHomePage()),
                               (route) => false);
-                          },
+                        },
+                        child: Text(
+                          "Verify",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.normal,
+                            fontSize: 17,
+                          ),
                         ),
+                        style: ElevatedButton.styleFrom(
+                            shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(9.0),
+                            ),
+                            fixedSize: Size(353, 62)),
                       ),
                     ],
                   ),
