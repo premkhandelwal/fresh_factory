@@ -24,8 +24,8 @@ class _ProductDetailPage1State extends State<ProductDetailPage1> {
         // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 413.w,
-            height: 371.h,
+            width: 413,
+            height: 371,
             decoration: BoxDecoration(
                 color: Colors.grey[350],
                 borderRadius:
@@ -39,35 +39,35 @@ class _ProductDetailPage1State extends State<ProductDetailPage1> {
                     child: Row(
                       children: [
                         Container(
-                          width: 70.w,
-                          height: 56.h,
+                          width: 70,
+                          height: 56,
                           decoration: BoxDecoration(
                               border: Border.all(),
                               borderRadius: BorderRadius.circular(5)),
                           child: Image(image: productSmall),
                         ),
-                        SizedBox(width: 10.w),
+                        SizedBox(width: 10),
                         Container(
-                          width: 70.w,
-                          height: 56.h,
+                          width: 70,
+                          height: 56,
                           decoration: BoxDecoration(
                               border: Border.all(),
                               borderRadius: BorderRadius.circular(5)),
                           child: Image(image: productSmall),
                         ),
-                        SizedBox(width: 10.w),
+                        SizedBox(width: 10),
                         Container(
-                          width: 70.w,
-                          height: 56.h,
+                          width: 70,
+                          height: 56,
                           decoration: BoxDecoration(
                               border: Border.all(),
                               borderRadius: BorderRadius.circular(5)),
                           child: Image(image: productSmall),
                         ),
-                        SizedBox(width: 10.w),
+                        SizedBox(width: 10),
                         Container(
-                          width: 70.w,
-                          height: 56.h,
+                          width: 70,
+                          height: 56,
                           decoration: BoxDecoration(
                               border: Border.all(),
                               borderRadius: BorderRadius.circular(5)),
@@ -77,7 +77,7 @@ class _ProductDetailPage1State extends State<ProductDetailPage1> {
                             style: TextStyle(fontSize: 30, color: Colors.grey),
                           )),
                         ),
-                        SizedBox(width: 10.w),
+                        SizedBox(width: 10),
                       ],
                     ))
               ],
@@ -109,7 +109,7 @@ class _ProductDetailPage1State extends State<ProductDetailPage1> {
                       "-",
                       style: TextStyle(fontSize: 60, color: Colors.grey),
                     ),
-                    SizedBox(width: 15.w),
+                    SizedBox(width: 15),
                     Container(
                       padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
@@ -118,7 +118,7 @@ class _ProductDetailPage1State extends State<ProductDetailPage1> {
                           borderRadius: BorderRadius.circular(15)),
                       child: Text("1"),
                     ),
-                    SizedBox(width: 15.w),
+                    SizedBox(width: 15),
                     Expanded(
                       child: Text(
                         "+",
@@ -137,7 +137,7 @@ class _ProductDetailPage1State extends State<ProductDetailPage1> {
                   ],
                 ),
                 Divider(
-                  height: 30.h,
+                  height: 30,
                   color: Colors.grey,
                 ),
                 Row(
@@ -157,13 +157,13 @@ class _ProductDetailPage1State extends State<ProductDetailPage1> {
                     )
                   ],
                 ),
-                SizedBox(height: 10.h),
+                SizedBox(height: 10),
                 Text(
                   "Lorem ipsum dolor sit amet. Et repellat nemo qui sint consequatur eum provident nobis ut illum eligendi",
                   style: TextStyle(color: Colors.black54, fontSize: 18),
                 ),
                 Divider(
-                  height: 40.h,
+                  height: 40,
                   color: Colors.grey,
                 ),
                 Row(
@@ -184,7 +184,7 @@ class _ProductDetailPage1State extends State<ProductDetailPage1> {
                   ],
                 ),
                 Divider(
-                  height: 50.h,
+                  height: 50,
                   color: Colors.grey,
                 ),
                 Row(
@@ -220,14 +220,14 @@ class _ProductDetailPage1State extends State<ProductDetailPage1> {
                         print(rating);
                       },
                     ),
-                    SizedBox(width: 2.w),
+                    SizedBox(width: 2),
                     Icon(
                       Icons.arrow_forward_ios,
                       size: 15,
                     )
                   ],
                 ),
-                SizedBox(height: 20.h),
+                SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {},
                   child: Text("Add to Basket"),

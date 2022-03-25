@@ -96,15 +96,15 @@ class _SetPasswordState extends State<SetPassword> {
                               hintText: 'Enter your new password',
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Color(0xff02096B), width: 1.0.w),
+                                    color: Color(0xff02096B), width: 1.0),
                               ),
                               disabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Color(0xff02096B), width: 1.0.w),
+                                    color: Color(0xff02096B), width: 1.0),
                               ),
                               border: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Color(0xff02096B), width: 1.0.w),
+                                    color: Color(0xff02096B), width: 1.0),
                               ),
                             ),
                           ),
@@ -125,15 +125,15 @@ class _SetPasswordState extends State<SetPassword> {
                               hintText: 'Enter your new password again',
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Color(0xff02096B), width: 1.0.w),
+                                    color: Color(0xff02096B), width: 1.0),
                               ),
                               disabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Color(0xff02096B), width: 1.0.w),
+                                    color: Color(0xff02096B), width: 1.0),
                               ),
                               border: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Color(0xff02096B), width: 1.0.w),
+                                    color: Color(0xff02096B), width: 1.0),
                               ),
                             ),
                           ),

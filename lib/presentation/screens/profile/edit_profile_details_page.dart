@@ -25,9 +25,9 @@ class _EditProfileDetailsPageState extends State<EditProfileDetailsPage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(height: 10.h),
+              SizedBox(height: 10),
               const CustomHeaderWidget(title: "Basic Info"),
-              SizedBox(height: 10.h),
+              SizedBox(height: 10),
               CustomTextFieldWidget(
                 hint: "+91XXXXXXXXXX",
                 label: "Phone",
@@ -54,11 +54,11 @@ class _EditProfileDetailsPageState extends State<EditProfileDetailsPage> {
                 suffixWidget: Container(),
               ),
               AddressFields(),
-              SizedBox(height: 10.h),
+              SizedBox(height: 10),
               const CustomHeaderWidget(title: "Delivery Address"),
               AddressFields(),
-              SizedBox(height: 30.h),
-               ElevatedButton(
+              SizedBox(height: 30),
+              ElevatedButton(
                 onPressed: () {},
                 child: Text("Update Profile"),
                 style: ElevatedButton.styleFrom(fixedSize: Size(353, 50)),

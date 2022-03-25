@@ -294,7 +294,7 @@ class _SortFilterProductPageState extends State<SortFilterProductPage> {
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           // childAspectRatio: 170 / 200,
-                          mainAxisExtent: 1.sw / 2,
+                          mainAxisExtent: MediaQuery.of(context).size.width / 2,
                           crossAxisSpacing: 5,
                           mainAxisSpacing: 5),
                       itemBuilder: (ctx, ind) {

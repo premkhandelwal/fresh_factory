@@ -12,8 +12,8 @@ class HistoryItemWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Container(
-          height: 63.h,
-          width: 70.w,
+          height: 63,
+          width: 70,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5), color: Colors.grey),
         ),

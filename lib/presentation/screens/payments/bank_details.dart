@@ -17,18 +17,16 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: "Bank Details Screen"
-      ),
+      appBar: CustomAppBar(title: "Bank Details Screen"),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-               SizedBox(height: 30.h),
+              SizedBox(height: 30),
               const CustomHeaderWidget(title: "Bank Details"),
-               SizedBox(height: 30.h),
+              SizedBox(height: 30),
               CustomTextFieldWidget(
                 hint: "Anna Deo",
                 label: "Name",
@@ -40,7 +38,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                 label: "Phone",
                 suffixWidget: Container(),
               ),
-               SizedBox(height: 20.h),
+              SizedBox(height: 20),
               const CustomHeaderWidget(
                 title: "Select Card",
                 fontSize: 15,
@@ -85,7 +83,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                 hint: "",
                 suffixWidget: Row(
                   children: [
-                    SizedBox(width: 10.w),
+                    SizedBox(width: 10),
                     ElevatedButton(
                       onPressed: () {},
                       child: Text("Upload"),
@@ -100,7 +98,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                 hint: "",
                 suffixWidget: Row(
                   children: [
-                    SizedBox(width: 10.w),
+                    SizedBox(width: 10),
                     ElevatedButton(
                       onPressed: () {},
                       child: Text("Upload"),
@@ -125,7 +123,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                 hint: "",
                 suffixWidget: Row(
                   children: [
-                    SizedBox(width: 10.w),
+                    SizedBox(width: 10),
                     ElevatedButton(
                       onPressed: () {},
                       child: Text("Upload"),
@@ -139,7 +137,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                 label: "UPI ID",
                 suffixWidget: Container(),
               ),
-              SizedBox(height: 30.h),
+              SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {},
                 child: Text("Update Details"),
@@ -152,4 +150,3 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
     );
   }
 }
-

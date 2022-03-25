@@ -14,19 +14,20 @@ class _OfferPageState extends State<OfferPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: "Offers"
-      ),
+      appBar: CustomAppBar(title: "Offers"),
       body: Padding(
         padding: const EdgeInsets.all(26.0),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              OffersSubWidget(sampleProduct: sampleProduct,bgColor: Colors.green),
+              OffersSubWidget(
+                  sampleProduct: sampleProduct, bgColor: Colors.green),
               SizedBox(height: 30),
-              OffersSubWidget(sampleProduct: sampleProduct,bgColor: Colors.red),
+              OffersSubWidget(
+                  sampleProduct: sampleProduct, bgColor: Colors.red),
               SizedBox(height: 30),
-              OffersSubWidget(sampleProduct: sampleProduct,bgColor: Colors.deepPurple),
+              OffersSubWidget(
+                  sampleProduct: sampleProduct, bgColor: Colors.deepPurple),
             ],
           ),
         ),
@@ -52,8 +53,8 @@ class OffersSubWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Container(
-          height: 161.h,
-          width: 346.w,
+          height: 161,
+          width: 346,
           color: bgColor,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

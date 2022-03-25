@@ -20,8 +20,8 @@ class CategoriesWidget extends StatelessWidget {
     return Container(
       // padding: const EdgeInsets.all(50),
 
-      height: 131.h,
-      width: 129.w,
+      height: 131,
+      width: 129,
       decoration: BoxDecoration(
           // color: bgColor,
           border: Border.all(),
@@ -32,8 +32,8 @@ class CategoriesWidget extends StatelessWidget {
           itemCategory.bannerImage != null
               ? Image.network(
                   Globals.host + itemCategory.bannerImage!,
-                  height: 100.h,
-                  width: 129.w,
+                  height: 100,
+                  width: 129,
                 )
               : Container(),
           Center(

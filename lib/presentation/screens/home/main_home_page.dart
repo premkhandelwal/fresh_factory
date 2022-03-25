@@ -63,25 +63,25 @@ class DrawerWidget extends StatelessWidget {
         child: ListView(
       children: [
         SizedBox(
-          height: 177.h,
-          width: 318.w,
+          height: 177,
+          width: 318,
           child: DrawerHeader(
             child: Align(
               alignment: Alignment.centerLeft,
               child: Column(
                 children: [
                   Container(
-                    height: 76.h,
-                    width: 76.w,
+                    height: 76,
+                    width: 76,
                     decoration: const BoxDecoration(
                         color: Colors.grey, shape: BoxShape.circle),
                   ),
-                  SizedBox(height: 10.h),
+                  SizedBox(height: 10),
                   Text(
                     'Anna Deo',
                     style: TextStyle(fontSize: 22),
                   ),
-                  SizedBox(height: 10.h),
+                  SizedBox(height: 10),
                   Text(
                     "Annadeo@gmail.com",
                     style: TextStyle(color: Colors.pink),

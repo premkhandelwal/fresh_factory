@@ -26,14 +26,12 @@ class _OrderMainPageState extends State<OrderMainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: "Orders"
-      ),
+      appBar: CustomAppBar(title: "Orders"),
       body: DefaultTabController(
         length: 2,
         child: Column(
           children: [
-            SizedBox(height: 10.h),
+            SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -281,7 +279,7 @@ class _OrderMainPageState extends State<OrderMainPage> {
                         height: 40,
                       ),
                       HistoryItemWidget(),
-                       Divider(
+                      Divider(
                         height: 40,
                       ),
                     ],
@@ -300,10 +298,9 @@ class _OrderMainPageState extends State<OrderMainPage> {
   }
 }
 
-
 class OrderTrackWidget extends StatelessWidget {
   final bool stepCompleted;
-  final int lineLength;
+  final double lineLength;
   const OrderTrackWidget({
     Key? key,
     required this.stepCompleted,
@@ -324,7 +321,7 @@ class OrderTrackWidget extends StatelessWidget {
           offset: Offset(0, -10),
           child: DottedLine(
             direction: Axis.vertical,
-            lineLength: lineLength.h,
+            lineLength: lineLength,
           ),
         ),
       ],

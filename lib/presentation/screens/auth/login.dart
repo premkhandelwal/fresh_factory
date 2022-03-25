@@ -109,15 +109,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                 hintText: 'Enter your Phone Number',
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0.w),
+                                      color: Color(0xff02096B), width: 1.0),
                                 ),
                                 disabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0.w),
+                                      color: Color(0xff02096B), width: 1.0),
                                 ),
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0.w),
+                                      color: Color(0xff02096B), width: 1.0),
                                 ),
                               ),
                             ),
@@ -145,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   hintText: 'Enter your password',
                                   border: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: Colors.red, width: 5.0.w),
+                                        color: Colors.red, width: 5.0),
                                   )),
                             ),
                             Row(
@@ -169,40 +169,41 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             SizedBox(height: 40),
                             ElevatedButton(
-                              
-                               onPressed: () {
-                                  if (_formKey.currentState != null) {
-                                    if (_formKey.currentState!.validate()) {
-                                      authBloc.add(GenerateAccessTokenEvent(
-                                          user: User(
-                                              phoneNumber:
-                                                  phoneNoController.text,
-                                              password:
-                                                  passwordController.text)));
-                                    }
-                                  } else {
-                                    showSnackBar(
-                                        context, "Failed to submit form");
+                              onPressed: () {
+                                if (_formKey.currentState != null) {
+                                  if (_formKey.currentState!.validate()) {
+                                    authBloc.add(GenerateAccessTokenEvent(
+                                        user: User(
+                                            phoneNumber: phoneNoController.text,
+                                            password:
+                                                passwordController.text)));
                                   }
-                                },
-                              child: Text("Login", style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 17,
-                                  ),),
-                              style: ElevatedButton.styleFrom(
-                                shape: new RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(9.0),
+                                } else {
+                                  showSnackBar(
+                                      context, "Failed to submit form");
+                                }
+                              },
+                              child: Text(
+                                "Login",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 17,
                                 ),
-                                fixedSize: Size(353, 62)
                               ),
+                              style: ElevatedButton.styleFrom(
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(9.0),
+                                  ),
+                                  fixedSize: Size(353, 62)),
                             ),
                             /* Container(
                               width: double.infinity,
-                              height: 60.h,
+                              height: 60,
                               child: MaterialButton(
-                                minWidth: 320.w,
-                                height: 50.h,
+                                minWidth: 320,
+                                height: 50,
                                 color: Color(0xff02096B),
                                 shape: new RoundedRectangleBorder(
                                   borderRadius: new BorderRadius.circular(9.0),

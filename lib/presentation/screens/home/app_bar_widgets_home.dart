@@ -11,7 +11,6 @@ class AppBarWidgets extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-      
         IconButton(
             onPressed: () {},
             icon: const Icon(
@@ -25,12 +24,12 @@ class AppBarWidgets extends StatelessWidget {
               color: Colors.grey,
             )),
         Container(
-          height: 20.h,
-          width: 20.w,
+          height: 20,
+          width: 20,
           decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
-                width: 1.w,
+                width: 1,
               )),
         )
       ],

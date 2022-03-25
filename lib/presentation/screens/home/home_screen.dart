@@ -90,21 +90,21 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(color: Colors.white, fontSize: 12),
                   ),
                 ),
-                SizedBox(height: 10.h),
+                SizedBox(height: 10),
                 CustomCarouselWidget(),
-                /* Container(
-                      height: 152.h,
-                      width: 380.w,
+               /*  Container(
+                      height: 152,
+                      width: 380,
                       decoration: const BoxDecoration(
                           color: Colors.grey,
                           borderRadius: BorderRadius.all(Radius.circular(5)))), */
-                // const SizedBox(height: 10).h,
+                // const SizedBox(height: 10),
                 const CustomHeaderWidget(
                   title: "Deal of the Day",
                 ),
                 Container(
-                  height: 152.h,
-                  width: 380.w,
+                  height: 152,
+                  width: 380,
                   decoration: const BoxDecoration(
                     color: Colors.grey,
                     borderRadius: BorderRadius.all(
@@ -116,8 +116,8 @@ class _HomePageState extends State<HomePage> {
                   title: "Flash Sales",
                 ),
                 Container(
-                    height: 152.h,
-                    width: 380.w,
+                    height: 152,
+                    width: 380,
                     decoration: const BoxDecoration(
                         color: Colors.grey,
                         borderRadius: BorderRadius.all(Radius.circular(5)))),
@@ -127,7 +127,7 @@ class _HomePageState extends State<HomePage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 16.0),
                   child: SizedBox(
-                    height: 131.h,
+                    height: 131,
                     child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
@@ -152,7 +152,7 @@ class _HomePageState extends State<HomePage> {
                                   bgColor: Colors.green[200],
                                   borderColor: Colors.green,
                                 )),
-                            SizedBox(width: 5.w),
+                            SizedBox(width: 5),
                           ],
                         );
                       },
@@ -169,11 +169,11 @@ class _HomePageState extends State<HomePage> {
                     child: Row(
                       children: [
                         BrandsWidget(),
-                        SizedBox(width: 7.w),
+                        SizedBox(width: 7),
                         BrandsWidget(),
-                        SizedBox(width: 7.w),
+                        SizedBox(width: 7),
                         BrandsWidget(),
-                        SizedBox(width: 7.w),
+                        SizedBox(width: 7),
                         BrandsWidget(),
                       ],
                     ),
@@ -189,11 +189,11 @@ class _HomePageState extends State<HomePage> {
                     child: Row(
                       children: [
                         FeaturedProductsWidget(),
-                        SizedBox(width: 7.w),
+                        SizedBox(width: 7),
                         FeaturedProductsWidget(),
-                        SizedBox(width: 7.w),
+                        SizedBox(width: 7),
                         FeaturedProductsWidget(),
-                        SizedBox(width: 7.w),
+                        SizedBox(width: 7),
                       ],
                     ),
                   ),
@@ -202,12 +202,12 @@ class _HomePageState extends State<HomePage> {
                   title: "Testimonial",
                 ),
                 Container(
-                    height: 142.h,
-                    width: 380.w,
+                    height: 142,
+                    width: 380,
                     decoration: const BoxDecoration(
                         color: Colors.grey,
                         borderRadius: BorderRadius.all(Radius.circular(5)))),
-                SizedBox(height: 10.h),
+                SizedBox(height: 10),
               ],
             ),
           );
@@ -230,12 +230,18 @@ class CustomCarouselWidget extends StatefulWidget {
 }
 
 class _CustomCarouselWidgetState extends State<CustomCarouselWidget> {
-  List<Widget> imgList = [
+  
+  final CarouselController _controller = CarouselController();
+  int _current = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> imgList = [
     Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Container(
-          height: 152.h,
-          width: 1.sw,
+          height: 152,
+          width: MediaQuery.of(context).size.width,
           // margin: EdgeInsets.all(6.0),
           decoration: const BoxDecoration(
               color: Colors.grey,
@@ -244,9 +250,9 @@ class _CustomCarouselWidgetState extends State<CustomCarouselWidget> {
     Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Container(
-          height: 152.h,
+          height: 152,
           // margin: EdgeInsets.all(6.0),
-          width: 1.sw,
+          width: MediaQuery.of(context).size.width,
           decoration: const BoxDecoration(
               color: Colors.grey,
               borderRadius: BorderRadius.all(Radius.circular(5)))),
@@ -254,19 +260,14 @@ class _CustomCarouselWidgetState extends State<CustomCarouselWidget> {
     Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Container(
-          height: 152.h,
-          width: 380.w,
+          height: 152,
+          width: 380,
           // margin: EdgeInsets.all(6.0),
           decoration: const BoxDecoration(
               color: Colors.grey,
               borderRadius: BorderRadius.all(Radius.circular(5)))),
     ),
   ];
-  final CarouselController _controller = CarouselController();
-  int _current = 0;
-
-  @override
-  Widget build(BuildContext context) {
     return Stack(
       // mainAxisSize: MainAxisSize.min,
       children: [
@@ -274,7 +275,7 @@ class _CustomCarouselWidgetState extends State<CustomCarouselWidget> {
           carouselController: _controller,
           items: imgList,
           options: CarouselOptions(
-              height: 152.h,
+              height: 152,
               enableInfiniteScroll: false,
               viewportFraction: 0.95,
               // viewportFraction: 0.8,
@@ -286,7 +287,7 @@ class _CustomCarouselWidgetState extends State<CustomCarouselWidget> {
         ),
         Positioned(
           bottom: 3,
-          left: 160.w,
+          left: 160,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: imgList.asMap().entries.map((entry) {

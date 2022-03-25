@@ -57,11 +57,9 @@ class _SignupScreenState extends State<SignupScreen> {
           listener: (context, state) {
             if (state is SignUpSuccessState) {
               Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (ctx) =>  VerifyOtp()
-                ),
-                (route) => false);
+                  context,
+                  MaterialPageRoute(builder: (ctx) => VerifyOtp()),
+                  (route) => false);
             } else if (state is SignUpFailureState) {
               showSnackBar(context, "Failed to sign up. Please try again");
             }
@@ -113,15 +111,15 @@ class _SignupScreenState extends State<SignupScreen> {
                                 hintText: 'Enter your Name',
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0.w),
+                                      color: Color(0xff02096B), width: 1.0),
                                 ),
                                 disabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0.w),
+                                      color: Color(0xff02096B), width: 1.0),
                                 ),
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0.w),
+                                      color: Color(0xff02096B), width: 1.0),
                                 ),
                               ),
                             ),
@@ -148,15 +146,15 @@ class _SignupScreenState extends State<SignupScreen> {
                                 hintText: 'Enter your Phone Number',
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0.w),
+                                      color: Color(0xff02096B), width: 1.0),
                                 ),
                                 disabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0.w),
+                                      color: Color(0xff02096B), width: 1.0),
                                 ),
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0.w),
+                                      color: Color(0xff02096B), width: 1.0),
                                 ),
                               ),
                             ),
@@ -185,15 +183,15 @@ class _SignupScreenState extends State<SignupScreen> {
                                 hintText: 'Enter your Email ID Here',
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0.w),
+                                      color: Color(0xff02096B), width: 1.0),
                                 ),
                                 disabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0.w),
+                                      color: Color(0xff02096B), width: 1.0),
                                 ),
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0.w),
+                                      color: Color(0xff02096B), width: 1.0),
                                 ),
                               ),
                             ),
@@ -266,15 +264,15 @@ class _SignupScreenState extends State<SignupScreen> {
                                 hintText: 'Enter Referral code',
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0.w),
+                                      color: Color(0xff02096B), width: 1.0),
                                 ),
                                 disabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0.w),
+                                      color: Color(0xff02096B), width: 1.0),
                                 ),
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff02096B), width: 1.0.w),
+                                      color: Color(0xff02096B), width: 1.0),
                                 ),
                               ),
                             ),
@@ -295,47 +293,48 @@ class _SignupScreenState extends State<SignupScreen> {
                                 labelText("Terms and Condition Apply")
                               ],
                             ),
-                            SizedBox(height: 20.h),
+                            SizedBox(height: 20),
                             ElevatedButton(
                               onPressed: value == false
-                                    ? null
-                                    : () {
-                                        if (_formKey.currentState != null) {
-                                          if (_formKey.currentState!
-                                              .validate()) {
-                                            authBloc.add(SignUpRequestedEvent(
-                                                user: User(
-                                                    phoneNumber:
-                                                        phoneNoController.text,
-                                                    password:
-                                                        passwordController.text,
-                                                    emailId: emailIdController
-                                                        .text)));
-                                          }
-                                        } else {
-                                          showSnackBar(
-                                              context, "Failed to submit form");
+                                  ? null
+                                  : () {
+                                      if (_formKey.currentState != null) {
+                                        if (_formKey.currentState!.validate()) {
+                                          authBloc.add(SignUpRequestedEvent(
+                                              user: User(
+                                                  phoneNumber:
+                                                      phoneNoController.text,
+                                                  password:
+                                                      passwordController.text,
+                                                  emailId:
+                                                      emailIdController.text)));
                                         }
-                                      },
-
-                              child: Text("Signup",style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 17,
-                                  ),),
-                              style: ElevatedButton.styleFrom(
-                                 shape: new RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(9.0),
+                                      } else {
+                                        showSnackBar(
+                                            context, "Failed to submit form");
+                                      }
+                                    },
+                              child: Text(
+                                "Signup",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 17,
                                 ),
-                                fixedSize: Size(353, 62)
                               ),
+                              style: ElevatedButton.styleFrom(
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(9.0),
+                                  ),
+                                  fixedSize: Size(353, 62)),
                             ),
                             /* Container(
                               width: double.infinity,
-                              height: 60.h,
+                              height: 60,
                               child: MaterialButton(
-                                minWidth: 280.w,
-                                height: 55.h,
+                                minWidth: 280,
+                                height: 55,
                                 disabledColor:
                                     Color.fromARGB(255, 106, 109, 141),
                                 color: Color(0xff02096B),

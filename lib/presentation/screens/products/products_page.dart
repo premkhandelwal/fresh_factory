@@ -74,13 +74,13 @@ class _ProductsPageState extends State<ProductsPage> {
                                 .toList() /* [
                       CategoriesWidget(
                           itemCategory: ItemCategory(id: "", name: "Banana")),
-                      SizedBox(width: 5.w),
+                      SizedBox(width: 5),
                       CategoriesWidget(
                           itemCategory: ItemCategory(id: "", name: "Banana")),
-                      SizedBox(width: 5.w),
+                      SizedBox(width: 5),
                       CategoriesWidget(
                           itemCategory: ItemCategory(id: "", name: "Banana")),
-                      SizedBox(width: 5.w),
+                      SizedBox(width: 5),
                     ], */
                             ),
                       ),
@@ -130,8 +130,8 @@ class ProductWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 180.h,
-      width: 120.w,
+      height: 180,
+      width: 120,
       decoration: BoxDecoration(
           border: Border.all(color: Colors.black54),
 
@@ -143,18 +143,18 @@ class ProductWidget extends StatelessWidget {
         children: [
           Flexible(
             child: Container(
-              height: 28.h,
-              width: 43.w,
+              height: 28,
+              width: 43,
               margin: EdgeInsets.fromLTRB(47, 30, 30, 0),
               child: product.image != null
                   ? Image.network(
                       Globals.host + product.image!,
-                      height: 100.h,
-                      width: 129.w,
+                      height: 100,
+                      width: 129,
                     )
                   : Container(
-                      height: 28.h,
-                      width: 43.w,
+                      height: 28,
+                      width: 43,
                     ),
               decoration: BoxDecoration(
                   // color: Colors.grey,
@@ -180,25 +180,27 @@ class ProductWidget extends StatelessWidget {
                       style: TextStyle(color: Colors.grey[600], fontSize: 14),
                     ),
                     SizedBox(height: 7),
-                    isDiscount ? RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                              text: "MRP: \u{20B9}",
-                              style: TextStyle(
-                                  color: Colors.black54, fontSize: 12)),
-                          TextSpan(
-                            text: "40.00",
-                            style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 12,
-                                decoration: TextDecoration.lineThrough,
-                                decorationThickness: 3.5,
-                                decorationColor: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ):Container(),
+                    isDiscount
+                        ? RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                    text: "MRP: \u{20B9}",
+                                    style: TextStyle(
+                                        color: Colors.black54, fontSize: 12)),
+                                TextSpan(
+                                  text: "40.00",
+                                  style: TextStyle(
+                                      color: Colors.black54,
+                                      fontSize: 12,
+                                      decoration: TextDecoration.lineThrough,
+                                      decorationThickness: 3.5,
+                                      decorationColor: Colors.grey),
+                                ),
+                              ],
+                            ),
+                          )
+                        : Container(),
                     SizedBox(height: 10),
                     Text(
                       "\u{20B9}${product.mrp}",

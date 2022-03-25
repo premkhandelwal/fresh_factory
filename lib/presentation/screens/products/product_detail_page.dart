@@ -31,8 +31,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 413.w,
-            height: 371.h,
+            width: 413,
+            height: 371,
             decoration: BoxDecoration(
                 color: Colors.grey[350],
                 borderRadius:
@@ -44,7 +44,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   carouselController: _controller,
                   items: imgList,
                   options: CarouselOptions(
-                      // height: 152.h,
+                      // height: 152,
                       enableInfiniteScroll: false,
                       viewportFraction: 0.95,
                       // viewportFraction: 0.8,
@@ -56,7 +56,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 ),
                 Positioned(
                   bottom: 3,
-                  left: 160.w,
+                  left: 160,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: imgList.asMap().entries.map((entry) {
@@ -122,7 +122,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       },
                     ),
                     SizedBox(
-                      width: 10.w,
+                      width: 10,
                     ),
                     Expanded(child: Text("4.5")),
                     IconButton(
@@ -135,7 +135,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       "-",
                       style: TextStyle(fontSize: 60, color: Colors.grey),
                     ),
-                    SizedBox(width: 15.w),
+                    SizedBox(width: 15),
                     Container(
                       padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
@@ -144,7 +144,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           borderRadius: BorderRadius.circular(15)),
                       child: Text("1"),
                     ),
-                    SizedBox(width: 15.w),
+                    SizedBox(width: 15),
                     Expanded(
                       child: Text(
                         "+",
@@ -163,7 +163,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   ],
                 ),
                 Divider(
-                  height: 30.h,
+                  height: 30,
                   color: Colors.grey,
                 ),
                 Row(
@@ -183,13 +183,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     )
                   ],
                 ),
-                SizedBox(height: 10.h),
+                SizedBox(height: 10),
                 Text(
                   "Lorem ipsum dolor sit amet. Et repellat nemo qui sint consequatur eum provident nobis ut illum eligendi",
                   style: TextStyle(color: Colors.black54, fontSize: 18),
                 ),
                 Divider(
-                  height: 40.h,
+                  height: 40,
                   color: Colors.grey,
                 ),
                 Row(
@@ -210,7 +210,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   ],
                 ),
                 Divider(
-                  height: 50.h,
+                  height: 50,
                   color: Colors.grey,
                 ),
                 Row(
@@ -220,7 +220,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       Icons.join_full,
                       color: Colors.grey,
                     ),
-                    SizedBox(width: 8.w),
+                    SizedBox(width: 8),
                     Text(
                       "View Similar",
                       style: TextStyle(
@@ -231,7 +231,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   ],
                 ),
                 Divider(
-                  height: 50.h,
+                  height: 50,
                   color: Colors.grey,
                 ),
                 Row(
@@ -250,14 +250,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           fontWeight: FontWeight.bold,
                           fontSize: 18),
                     ),
-                    SizedBox(width: 30.w),
+                    SizedBox(width: 30),
                     Container(
                         padding: EdgeInsets.all(10),
                         color: Colors.grey[350],
                         child: Text("Home"))
                   ],
                 ),
-                SizedBox(height: 10.h),
+                SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -275,14 +275,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 25.h),
+                SizedBox(height: 25),
                 Row(
                   children: [
                     Icon(
                       Icons.delivery_dining,
                       color: Color(0xff02096B),
                     ),
-                    SizedBox(width: 10.w),
+                    SizedBox(width: 10),
                     Text(
                       "Delivery by 14 Mar, Monday",
                       style: TextStyle(
@@ -292,14 +292,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     )
                   ],
                 ),
-                SizedBox(height: 5.h),
+                SizedBox(height: 5),
                 Row(
                   children: [
                     Icon(
                       Icons.money_sharp,
                       color: Color(0xff02096B),
                     ),
-                    SizedBox(width: 10.w),
+                    SizedBox(width: 10),
                     Text(
                       "Cash on Delivery Available",
                       style: TextStyle(
@@ -309,7 +309,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     )
                   ],
                 ),
-                SizedBox(height: 30.h),
+                SizedBox(height: 30),
                 Row(
                   children: [
                     Expanded(
@@ -324,21 +324,21 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     Icon(Icons.arrow_forward_ios, size: 18)
                   ],
                 ),
-                SizedBox(height: 25.h),
+                SizedBox(height: 25),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
                       CategoriesWidget(
                           itemCategory: ItemCategory(id: "", name: "Banana")),
-                      SizedBox(width: 10.w),
+                      SizedBox(width: 10),
                       CategoriesWidget(
                           itemCategory: ItemCategory(id: "", name: "Banana")),
-                      SizedBox(width: 10.w),
-                      SizedBox(width: 10.w),
+                      SizedBox(width: 10),
+                      SizedBox(width: 10),
                       CategoriesWidget(
                           itemCategory: ItemCategory(id: "", name: "Banana")),
-                      SizedBox(width: 10.w),
+                      SizedBox(width: 10),
                       CategoriesWidget(
                           itemCategory: ItemCategory(id: "", name: "Banana")),
                     ],

@@ -70,15 +70,15 @@ class _VerifyOtpState extends State<VerifyOtp> {
                           hintText: 'Enter your six digit OTP',
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: Color(0xff02096B), width: 1.0.w),
+                                color: Color(0xff02096B), width: 1.0),
                           ),
                           disabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: Color(0xff02096B), width: 1.0.w),
+                                color: Color(0xff02096B), width: 1.0),
                           ),
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: Color(0xff02096B), width: 1.0.w),
+                                color: Color(0xff02096B), width: 1.0),
                           ),
                         ),
                       ),

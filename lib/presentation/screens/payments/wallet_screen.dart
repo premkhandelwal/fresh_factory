@@ -15,13 +15,12 @@ class _WalletScreenState extends State<WalletScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: currIndex == 0 ? "My Wallet" : "My Referral Wallet"
-      ),
+          title: currIndex == 0 ? "My Wallet" : "My Referral Wallet"),
       body: DefaultTabController(
         length: 2,
         child: Column(
           children: [
-            SizedBox(height: 10.h),
+            SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -84,10 +83,10 @@ class WalletWidget extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          SizedBox(height: 20.h),
+          SizedBox(height: 20),
           Container(
-            height: 158.h,
-            width: 382.w,
+            height: 158,
+            width: 382,
             decoration: BoxDecoration(
               color: Color(0xff02096B),
             ),
@@ -96,14 +95,14 @@ class WalletWidget extends StatelessWidget {
               child: Column(
                 children: [
                   Row(
-                    children:  [
+                    children: [
                       Icon(
                         Icons.add_chart,
                         color: Colors.white,
                         size: 40,
                       ),
                       SizedBox(
-                        width: 10.w,
+                        width: 10,
                       ),
                       Text(
                         "Your Balance",
@@ -111,11 +110,11 @@ class WalletWidget extends StatelessWidget {
                       )
                     ],
                   ),
-                  SizedBox(height: 20.h),
+                  SizedBox(height: 20),
                   Row(
                     children: [
                       Container(
-                        width: 51.w,
+                        width: 51,
                       ),
                       const Align(
                           alignment: Alignment.topLeft,
@@ -132,10 +131,10 @@ class WalletWidget extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 15.h),
+          SizedBox(height: 15),
           Container(
-            height: 195.h,
-            width: 382.w,
+            height: 195,
+            width: 382,
             decoration:
                 BoxDecoration(border: Border.all(color: Colors.black12)),
             child: Column(
@@ -155,7 +154,7 @@ class WalletWidget extends StatelessWidget {
                         border: OutlineInputBorder()),
                   ),
                 ),
-                SizedBox(height: 30.h),
+                SizedBox(height: 30),
                 ElevatedButton(
                   onPressed: () {},
                   child: const Text("Add Money"),
@@ -165,7 +164,7 @@ class WalletWidget extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 15.h),
+          SizedBox(height: 15),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -198,8 +197,8 @@ class CardWidgetWallet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 186.h,
-      width: 177.w,
+      height: 186,
+      width: 177,
       color: Colors.indigo[100],
       child: Stack(
         //  alignment: MainAxisAlignment.spaceBetween,
@@ -209,8 +208,8 @@ class CardWidgetWallet extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                  height: 56.h,
-                  width: 56.w,
+                  height: 56,
+                  width: 56,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
                       color: Colors.white),

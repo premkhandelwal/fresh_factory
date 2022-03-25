@@ -12,9 +12,7 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: "Cart Page"
-      ),
+      appBar: CustomAppBar(title: "Cart Page"),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 20),
         child: Stack(children: [
@@ -70,10 +68,10 @@ class CartPage extends StatelessWidget {
                     onPressed: () {
                       showModalBottomSheet(
                           context: context,
-                          
                           builder: (ctx) {
                             return Padding(
-                              padding: const EdgeInsets.only(left:16.0, top:12),
+                              padding:
+                                  const EdgeInsets.only(left: 16.0, top: 12),
                               child: Column(
                                 children: [
                                   Row(
@@ -81,7 +79,7 @@ class CartPage extends StatelessWidget {
                                     children: [
                                       Expanded(
                                           child: CustomHeaderWidget(
-                                            isPaddingReq: false,
+                                              isPaddingReq: false,
                                               title: "Checkout")),
                                       IconButton(
                                           onPressed: () {
@@ -90,35 +88,34 @@ class CartPage extends StatelessWidget {
                                           icon: Icon(Icons.close))
                                     ],
                                   ),
-                                  SizedBox(height: 10.h),
+                                  SizedBox(height: 10),
                                   CheckOutModalItemWidget(
                                     leftHeading: "Delivery",
                                     rightHeading: "Select Method",
                                   ),
-                                  SizedBox(height: 10.h),
+                                  SizedBox(height: 10),
                                   CheckOutModalItemWidget(
                                     leftHeading: "Wallet",
                                     rightHeading: "\u{20B9} 1040.00",
                                   ),
-                                  SizedBox(height: 10.h),
+                                  SizedBox(height: 10),
                                   CheckOutModalItemWidget(
                                     leftHeading: "Promo Code",
                                     rightHeading: "Pick Discount",
-                                    onTap: (){
+                                    onTap: () {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (ctx) => OfferPage()
-                                        ),
+                                            builder: (ctx) => OfferPage()),
                                       );
                                     },
                                   ),
-                                  SizedBox(height: 10.h),
+                                  SizedBox(height: 10),
                                   CheckOutModalItemWidget(
                                     leftHeading: "Total Amount",
                                     rightHeading: "\u{20B9} 140.00",
                                   ),
-                                  SizedBox(height: 40.h),
+                                  SizedBox(height: 40),
                                   ElevatedButton(
                                     onPressed: () {},
                                     child: Text("Place Order"),
@@ -187,13 +184,13 @@ class _CartItemWidgetState extends State<CartItemWidget> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        height: 60.h,
+        height: 60,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
-              height: 64.h,
-              width: 70.w,
+              height: 64,
+              width: 70,
               decoration: BoxDecoration(color: Colors.grey),
             ),
             Column(
@@ -201,7 +198,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
               children: [
                 Text("Bell Pepper Red"),
                 Text("1 Kg Price"),
-                SizedBox(height: 10.h),
+                SizedBox(height: 10),
                 Text("\u{20B9} 40.00")
               ],
             ),

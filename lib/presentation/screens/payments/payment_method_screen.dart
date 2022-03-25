@@ -28,7 +28,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
               tileColor: Colors.white,
               shape: _selectedIndex == 0
                   ? RoundedRectangleBorder(
-                      side: BorderSide(color: Color(0xFF0D47A1), width: 2.w),
+                      side: BorderSide(color: Color(0xFF0D47A1), width: 2),
                     )
                   : null,
               onTap: () {
@@ -40,7 +40,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                 padding: const EdgeInsets.all(6.0),
                 child: Image(
                   image: payTMImage,
-                  width: 90.w,
+                  width: 90,
                 ),
               ),
               title: const Center(
@@ -49,13 +49,13 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                 style: TextStyle(color: Colors.grey),
               )),
             ),
-            SizedBox(height: 40.h),
+            SizedBox(height: 40),
             ListTile(
               selected: _selectedIndex == 1,
               tileColor: Colors.white,
               shape: _selectedIndex == 1
                   ? RoundedRectangleBorder(
-                      side: BorderSide(color: Color(0xFF0D47A1), width: 2.w),
+                      side: BorderSide(color: Color(0xFF0D47A1), width: 2),
                     )
                   : null,
               onTap: () {
@@ -75,13 +75,13 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                 style: TextStyle(color: Colors.grey),
               )),
             ),
-            SizedBox(height: 40.h),
+            SizedBox(height: 40),
             ListTile(
               selected: _selectedIndex == 2,
               tileColor: Colors.white,
               shape: _selectedIndex == 2
                   ? RoundedRectangleBorder(
-                      side: BorderSide(color: Color(0xFF0D47A1), width: 2.w),
+                      side: BorderSide(color: Color(0xFF0D47A1), width: 2),
                     )
                   : null,
               onTap: () {
@@ -101,13 +101,13 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                 style: TextStyle(color: Colors.grey),
               )),
             ),
-            SizedBox(height: 40.h),
+            SizedBox(height: 40),
             ListTile(
               selected: _selectedIndex == 3,
               tileColor: Colors.white,
               shape: _selectedIndex == 3
                   ? RoundedRectangleBorder(
-                      side: BorderSide(color: Color(0xFF0D47A1), width: 2.w),
+                      side: BorderSide(color: Color(0xFF0D47A1), width: 2),
                     )
                   : null,
               onTap: () {
@@ -127,7 +127,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                 style: TextStyle(color: Colors.grey),
               )),
             ),
-            SizedBox(height: 50.h),
+            SizedBox(height: 50),
             ElevatedButton(
               onPressed: () {},
               child: const Text("Add Payment Method"),
@@ -139,4 +139,3 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
     );
   }
 }
-
