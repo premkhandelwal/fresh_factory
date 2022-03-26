@@ -58,7 +58,7 @@ class _SignupScreenState extends State<SignupScreen> {
             if (state is SignUpSuccessState) {
               Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (ctx) => VerifyOtp()),
+                  MaterialPageRoute(builder: (ctx) => VerifyOtp(emailId: emailIdController.text,)),
                   (route) => false);
             } else if (state is SignUpFailureState) {
               showSnackBar(context, "Failed to sign up. Please try again");
@@ -302,6 +302,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                         if (_formKey.currentState!.validate()) {
                                           authBloc.add(SignUpRequestedEvent(
                                               user: User(
+                                                userName: nameController.text,
                                                   phoneNumber:
                                                       phoneNoController.text,
                                                   password:

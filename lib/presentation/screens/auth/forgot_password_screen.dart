@@ -49,7 +49,7 @@ class _ForgotPassState extends State<ForgotPass> {
             if (state is ResetPasswordSuccessState) {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => VerifyOtp()),
+                MaterialPageRoute(builder: (context) => VerifyOtp(emailId: emailController.text,)),
               );
             } else if (state is ResetPasswordFailureState) {
               showSnackBar(

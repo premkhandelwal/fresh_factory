@@ -174,7 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   if (_formKey.currentState!.validate()) {
                                     authBloc.add(GenerateAccessTokenEvent(
                                         user: User(
-                                            phoneNumber: phoneNoController.text,
+                                            userName: phoneNoController.text,
                                             password:
                                                 passwordController.text)));
                                   }

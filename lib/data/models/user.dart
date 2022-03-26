@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:fresh/globals/constants/globals.dart';
+
 class User {
   String? userName;
   String? phoneNumber;
@@ -9,6 +11,7 @@ class User {
   String? refreshToken;
   String? referralCode;
   User({
+    this.userName,
     this.phoneNumber,
     this.password,
     this.emailId,
@@ -19,9 +22,11 @@ class User {
 
   Map<String, dynamic> toMap() {
     return {
-      'username': phoneNumber,
+      'username': userName,
       'password': password,
-      'email': emailId
+      'email': emailId,
+      'number': phoneNumber,
+      'company_id':Globals.companyId
     };
   }
 
@@ -41,6 +46,6 @@ class User {
 
   @override
   String toString() {
-    return 'User(userName: $phoneNumber, password: $password, email: $emailId, authToken: $accessToken, refreshToken: $refreshToken)';
+    return 'User(userName: $phoneNumber, password: $password)';
   }
 }

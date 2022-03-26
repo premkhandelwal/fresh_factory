@@ -30,11 +30,32 @@ class ForgotPasswordEvent extends AuthEvent {
     required this.email,
   });
 }
+
 class SetPasswordEvent extends AuthEvent {
   final String email;
   final String password;
   SetPasswordEvent({
     required this.email,
     required this.password,
+  });
+}
+
+class VerifyOtpEvent extends AuthEvent {
+  final String email;
+  final String otp;
+  VerifyOtpEvent({
+    required this.email,
+    required this.otp,
+  });
+}
+
+class ChangePasswordEvent extends AuthEvent {
+  final String userName;
+  final String oldPassword;
+  final String newPassword;
+  ChangePasswordEvent({
+    required this.userName,
+    required this.oldPassword,
+    required this.newPassword,
   });
 }

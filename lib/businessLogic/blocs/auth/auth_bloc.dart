@@ -55,11 +55,31 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
     on<SetPasswordEvent>((event, emit) async {
       emit(SetPasswordInProgressState());
-      bool isSuccess = await authProvider.setPassword(event.email, event.password);
+      bool isSuccess =
+          await authProvider.setPassword(event.email, event.password);
       if (isSuccess) {
         emit(SetPasswordSuccessState());
       } else {
         emit(SetPasswordFailureState());
+      }
+    });
+    on<VerifyOtpEvent>((event, emit) async {
+      emit(VerifyOTPInProgressState());
+      bool isSuccess = await authProvider.verifyOtp(event.email, event.otp);
+      if (isSuccess) {
+        emit(VerifyOTPSuccessState());
+      } else {
+        emit(VerifyOTPFailureState());
+      }
+    });
+    on<ChangePasswordEvent>((event, emit) async {
+      emit(ChangePasswordInProgressState());
+      bool isSuccess = await authProvider.changePassword(
+          event.userName, event.oldPassword, event.newPassword);
+      if (isSuccess) {
+        emit(ChangePasswordSuccessState());
+      } else {
+        emit(ChangePasswordFailureState());
       }
     });
   }

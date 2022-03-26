@@ -34,9 +34,22 @@ class ResetPasswordInProgressState extends AuthState {}
 
 class ResetPasswordSuccessState extends AuthState {}
 
-class ResetPasswordFailureState extends AuthState {} 
+class ResetPasswordFailureState extends AuthState {}
+
 class SetPasswordInProgressState extends AuthState {}
 
 class SetPasswordSuccessState extends AuthState {}
 
-class SetPasswordFailureState extends AuthState {} 
+class SetPasswordFailureState extends AuthState {}
+
+class VerifyOTPInProgressState extends AuthState {}
+
+class VerifyOTPSuccessState extends AuthState {}
+
+class VerifyOTPFailureState extends AuthState {}
+
+class ChangePasswordInProgressState extends AuthState {}
+
+class ChangePasswordSuccessState extends AuthState {}
+
+class ChangePasswordFailureState extends AuthState {}

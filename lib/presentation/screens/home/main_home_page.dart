@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:fresh/businessLogic/cubits/bottomNavigationBar/bottomnavigationbar_cubit.dart';
+import 'package:fresh/presentation/screens/auth/changePassword.dart';
 import 'package:fresh/presentation/screens/home/app_bar_widgets_home.dart';
 import 'package:fresh/presentation/screens/home/cart_page.dart';
 import 'package:fresh/presentation/screens/home/home_screen.dart';
@@ -199,6 +200,17 @@ class DrawerWidget extends StatelessWidget {
           leading: Icon(Icons.thumb_up_alt_outlined, color: Colors.pink),
           title: Text("Follow Us"),
           minLeadingWidth: 8,
+        ),
+        ListTile(
+          leading: Icon(Icons.password, color: Colors.pink),
+          title: Text("Change Password"),
+          minLeadingWidth: 8,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (ctx) => ChangePassword()),
+            );
+          },
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

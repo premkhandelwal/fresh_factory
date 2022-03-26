@@ -5,17 +5,18 @@ import 'package:fresh/businessLogic/blocs/auth/auth_bloc.dart';
 import 'package:fresh/globals/common_function.dart';
 import 'package:fresh/presentation/screens/home/uicomponents.dart';
 
-class SetPassword extends StatefulWidget {
-  const SetPassword({Key? key}) : super(key: key);
+class ChangePassword extends StatefulWidget {
+  const ChangePassword({Key? key}) : super(key: key);
 
   @override
-  State<SetPassword> createState() => _SetPasswordState();
+  State<ChangePassword> createState() => _ChangePasswordState();
 }
 
-class _SetPasswordState extends State<SetPassword> {
+class _ChangePasswordState extends State<ChangePassword> {
   final _formKey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final userNameController = TextEditingController();
+  final newPasswordController = TextEditingController();
+  final oldPasswordController = TextEditingController();
   late AuthBloc authBloc;
 
   @override
@@ -36,7 +37,7 @@ class _SetPasswordState extends State<SetPassword> {
           ),
           centerTitle: true,
           title: Text(
-            "Set Password",
+            "Change Password",
             style: TextStyle(
               color: Color(0xff02096B),
               fontWeight: FontWeight.bold,
@@ -46,14 +47,14 @@ class _SetPasswordState extends State<SetPassword> {
         ),
         body: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
-            if (state is SetPasswordSuccessState) {
+            if (state is ChangePasswordSuccessState) {
               showSnackBar(context, "Successfully generated password");
-            } else if (state is SetPasswordFailureState) {
+            } else if (state is ChangePasswordFailureState) {
               showSnackBar(context, "Failed to generated password");
             }
           },
           builder: (context, state) {
-            if (state is SetPasswordInProgressState) {
+            if (state is ChangePasswordInProgressState) {
               return Center(
                 child: CircularProgressIndicator(),
               );
@@ -78,23 +79,52 @@ class _SetPasswordState extends State<SetPassword> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            labelText("Email"),
+                            labelText("UserName / Email"),
                             TextFormField(
-                              controller: emailController,
+                              controller: userNameController,
                               validator: (val) {
-                                  if (val == null || val.isEmpty) {
-                                    return "This is a required field";
-                                  }
-                                  RegExp regExp = RegExp(
-                                      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
-                                  if (!regExp.hasMatch(val)) {
-                                    return "Please enter a valid email";
-                                  }
-                                  return null;
-                                },
-                              keyboardType: TextInputType.emailAddress,
+                                if (val == null || val.isEmpty) {
+                                  return "This is a required field";
+                                }
+                                return null;
+                              },
                               decoration: InputDecoration(
-                                hintText: 'Enter your email Id',
+                                hintText: 'Enter your user name',
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color(0xff02096B), width: 1.0),
+                                ),
+                                disabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color(0xff02096B), width: 1.0),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color(0xff02096B), width: 1.0),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height / 50,
+                            ),
+                            labelText("Old Password"),
+                            TextFormField(
+                              controller: oldPasswordController,
+                              validator: (val) {
+                                if (val == null || val.isEmpty) {
+                                  return "This is a required field";
+                                }
+                                RegExp reg = RegExp(
+                                    r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$');
+                                if (!reg.hasMatch(val)) {
+                                  return "Please enter a strong password";
+                                }
+                                return null;
+                              },
+                              obscureText: true,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                hintText: 'Enter your current password here',
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       color: Color(0xff02096B), width: 1.0),
@@ -114,8 +144,8 @@ class _SetPasswordState extends State<SetPassword> {
                             ),
                             labelText("New Password"),
                             TextFormField(
-                              controller: passwordController,
-                              validator: (val) {
+                              controller: newPasswordController,
+                              /* validator: (val) {
                                 if (val == null || val.isEmpty) {
                                   return "This is a required field";
                                 }
@@ -125,7 +155,7 @@ class _SetPasswordState extends State<SetPassword> {
                                   return "Please enter a strong password";
                                 }
                                 return null;
-                              },
+                              }, */
                               obscureText: true,
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
@@ -151,12 +181,15 @@ class _SetPasswordState extends State<SetPassword> {
                               onPressed: () {
                                 if (_formKey.currentState != null) {
                                   if (_formKey.currentState!.validate()) {
-                                    authBloc.add(SetPasswordEvent(
-                                        email: emailController.text,
-                                        password: passwordController.text));
+                                    authBloc.add(ChangePasswordEvent(
+                                        userName: userNameController.text,
+                                        oldPassword: oldPasswordController.text,
+                                        newPassword:
+                                            newPasswordController.text));
                                   }
                                 } else {
-                                  showSnackBar(context, "Failed to submit form");
+                                  showSnackBar(
+                                      context, "Failed to submit form");
                                 }
                               },
                               child: Text(
@@ -169,7 +202,8 @@ class _SetPasswordState extends State<SetPassword> {
                               ),
                               style: ElevatedButton.styleFrom(
                                   shape: new RoundedRectangleBorder(
-                                    borderRadius: new BorderRadius.circular(9.0),
+                                    borderRadius:
+                                        new BorderRadius.circular(9.0),
                                   ),
                                   fixedSize: Size(353, 62)),
                             ),
