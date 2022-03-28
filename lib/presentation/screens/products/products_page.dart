@@ -98,7 +98,7 @@ class _ProductsPageState extends State<ProductsPage> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (ctx) =>
-                                              TempPageForProduct()),
+                                              TempPageForProduct(item: e,)),
                                     );
                                   },
                                   child: ProductWidget(product: e),
@@ -143,15 +143,23 @@ class ProductWidget extends StatelessWidget {
         children: [
           Flexible(
             child: Container(
-              height: 28,
-              width: 43,
+              height: 100,
+              width: 129,
               margin: EdgeInsets.fromLTRB(47, 30, 30, 0),
               child: product.image != null
-                  ? Image.network(
-                      Globals.host + product.image!,
-                      height: 100,
-                      width: 129,
-                    )
+                  ? Center(
+                    child: Image.network(
+                      Globals.mediaUrl + product.image!,
+                        height: 100,
+                        width: 129,
+                        errorBuilder: (ctx, _, _1) {
+                          return Container(
+                            height: 28,
+                            width: 43,
+                          );
+                        },
+                      ),
+                  )
                   : Container(
                       height: 28,
                       width: 43,

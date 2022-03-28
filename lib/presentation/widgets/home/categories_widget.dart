@@ -30,11 +30,19 @@ class CategoriesWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           itemCategory.bannerImage != null
-              ? Image.network(
-                  Globals.host + itemCategory.bannerImage!,
-                  height: 100,
-                  width: 129,
-                )
+              ? Center(
+                child: Image.network(
+                itemCategory.bannerImage!.contains("media") ? Globals.host + itemCategory.bannerImage!:  Globals.mediaUrl + itemCategory.bannerImage!,
+                    height: 100,
+                    width: 129,
+                     errorBuilder: (ctx, _, _1) {
+                          return Container(
+                            height: 28,
+                            width: 43,
+                          );
+                        },
+                  ),
+              )
               : Container(),
           Center(
               child: Text(

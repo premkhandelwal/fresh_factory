@@ -59,11 +59,14 @@ class _VerifyOtpState extends State<VerifyOtp> {
                   (route) => false);
             } else if (state is VerifyOTPFailureState) {
               showSnackBar(context, "Failed to verify OTP");
+            } else if (state is ResetPasswordSuccessState) {
+              Navigator.pop(context);
             }
           },
           builder: (context, state) {
-            if (state is VerifyOTPInProgressState) {
-              return CircularProgressIndicator();
+            if (state is VerifyOTPInProgressState ||
+                state is ResetPasswordInProgressState) {
+              return Center(child: CircularProgressIndicator());
             }
             return Container(
               height: double.infinity,
@@ -131,7 +134,10 @@ class _VerifyOtpState extends State<VerifyOtp> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: InkWell(
                                       radius: 30.0,
-                                      onTap: () {},
+                                      onTap: () {
+                                        authBloc.add(ForgotPasswordEvent(
+                                            email: widget.emailId));
+                                      },
                                       child: Icon(
                                         Icons.arrow_forward_ios,
                                         size: 20.0,

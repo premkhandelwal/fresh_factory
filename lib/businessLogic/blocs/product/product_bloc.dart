@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:fresh/data/models/item.dart';
 import 'package:fresh/data/models/item_categories.dart';
+import 'package:fresh/data/models/item_details.dart';
 import 'package:meta/meta.dart';
 
 import 'package:fresh/data/dataProviders/product_provider.dart';
@@ -31,6 +32,15 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         emit(FetchProductSuccessState(itemList: fetchItemCategory));
       } else {
         emit(FetchProductFailureState());
+      }
+    });
+    on<FetchProductDetailsEvent>((event, emit) async {
+      emit(FetchProductDetailInProgressState());
+      ItemDetails? fetchItemDetails = await productProvider.getProductDetails(event.itemId);
+      if (fetchItemDetails != null) {
+        emit(FetchProductDetailSuccessState(itemList: fetchItemDetails));
+      } else {
+        emit(FetchProductDetailFailureState());
       }
     });
   }

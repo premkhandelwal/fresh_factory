@@ -26,3 +26,13 @@ class FetchProductSuccessState extends ProductState {
 }
 
 class FetchProductFailureState extends ProductState {}
+class FetchProductDetailInProgressState extends ProductState {}
+
+class FetchProductDetailSuccessState extends ProductState {
+  final ItemDetails itemList;
+  FetchProductDetailSuccessState({
+    required this.itemList,
+  });
+}
+
+class FetchProductDetailFailureState extends ProductState {}

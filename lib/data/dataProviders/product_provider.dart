@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:fresh/data/dataProviders/auth_provider.dart';
 import 'package:fresh/data/models/item.dart';
 import 'package:fresh/data/models/item_categories.dart';
+import 'package:fresh/data/models/item_details.dart';
 import 'package:fresh/globals/constants/globals.dart';
 import 'package:fresh/globals/constants/sessionConstants.dart';
 import 'package:http/http.dart' as http;
@@ -10,11 +13,17 @@ class ProductProvider {
   Future<List<ItemCategory>?> getItemCategories() async {
     String url = Globals.host + "api/getcate/";
     Uri uri = Uri.parse(url);
-    var res = await http.get(uri, headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-      "Accept": "application/json",
-      'Authorization': "Bearer " + SessionConstants.user.accessToken!
-    });
+    var res = await http.post(
+      uri,
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        "Accept": "application/json",
+        'Authorization': "Bearer " + SessionConstants.user.accessToken!
+      },
+      body: jsonEncode(<String, dynamic>{
+        "company_id": Globals.companyId
+      })
+    );
     if (res.statusCode == 200) {
       attemptRefresh = 3;
       return ItemCategory.fromJsonList(res.body);
@@ -36,11 +45,15 @@ class ProductProvider {
   Future<List<Item>?> getProducts() async {
     String url = Globals.host + "/api/getpro/";
     Uri uri = Uri.parse(url);
-    var res = await http.get(uri, headers: {
+    var res = await http.post(uri, headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Authorization': 'Bearer ${SessionConstants.user.accessToken}',
-    });
+    },
+    body: jsonEncode(<String, dynamic>{
+        "company_id": Globals.companyId
+      })
+    );
     if (res.statusCode == 200) {
       attemptRefresh = 3;
       return Item.fromJsonList(res.body);
@@ -59,7 +72,22 @@ class ProductProvider {
     return null;
   }
 
-  Future<bool> getProductDetails(String itemId) async {
-    return true;
+  Future<ItemDetails?> getProductDetails(String itemId) async {
+    String url = Globals.host + "api/pro_detail/$itemId";
+    Uri uri = Uri.parse(url);
+    var res = await http.post(uri, headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      "Accept": "application/json",
+      // 'Authorization': "Bearer " + SessionConstants.user.accessToken!
+    },
+    body: jsonEncode(<String, dynamic>{
+        "company_id": Globals.companyId
+      })
+    );
+    if (res.statusCode == 200) {
+      attemptRefresh = 3;
+      return ItemDetails.fromJson(res.body);
+    }
+    return null;
   }
 }

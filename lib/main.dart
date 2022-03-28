@@ -17,10 +17,15 @@ import 'package:fresh/presentation/screens/home/main_home_page.dart';
 import 'package:fresh/presentation/screens/payments/wallet_screen.dart';
 import 'package:fresh/presentation/screens/payments/bank_details.dart';
 import 'package:fresh/presentation/screens/payments/payment_method_screen.dart';
+import 'package:fresh/presentation/screens/products/product_detail_page1.dart';
+import 'package:fresh/presentation/screens/products/product_detail_page4.dart';
 import 'package:fresh/presentation/widgets/home/fortune_wheel_widget.dart';
 
 void main() {
-  runApp( MyApp(authProvider: AuthProvider(),productProvider: ProductProvider(),));
+  runApp(MyApp(
+    authProvider: AuthProvider(),
+    productProvider: ProductProvider(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -30,45 +35,45 @@ class MyApp extends StatelessWidget {
     Key? key,
     required this.authProvider,
     required this.productProvider,
-
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(393, 851), //Redmi Note 7
-      builder: () {
-        return MultiBlocProvider(
-          providers: [
-           BlocProvider(
-             create: (context) => AuthBloc(authProvider: authProvider),
-           ),
-            BlocProvider(
-             create: (context) => ProductBloc(productProvider: productProvider),
-           ),
-            BlocProvider(
-             create: (context) => BottomnavigationbarCubit(),
-           ),
-            BlocProvider(
-             create: (context) => SortFilterProductCubit(),
-           ),
-            BlocProvider(
-             create: (context) => RadioButtonCubit(),
-           ),
-          ],
-          child:  MaterialApp(
+        designSize: const Size(393, 851), //Redmi Note 7
+        builder: () {
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => AuthBloc(authProvider: authProvider),
+              ),
+              BlocProvider(
+                create: (context) =>
+                    ProductBloc(productProvider: productProvider),
+              ),
+              BlocProvider(
+                create: (context) => BottomnavigationbarCubit(),
+              ),
+              BlocProvider(
+                create: (context) => SortFilterProductCubit(),
+              ),
+              BlocProvider(
+                create: (context) => RadioButtonCubit(),
+              ),
+            ],
+            child: MaterialApp(
               title: 'Flutter Demo',
               theme: ThemeData(
-                  colorScheme: const ColorScheme.light(primary: Color(0xff02096B)),
-                  textTheme:
-                      const TextTheme(bodyText1: TextStyle(), bodyText2: TextStyle())
-                          .apply(bodyColor: const Color(0xff02096B))),
+                  colorScheme:
+                      const ColorScheme.light(primary: Color(0xff02096B)),
+                  textTheme: const TextTheme(
+                          bodyText1: TextStyle(), bodyText2: TextStyle())
+                      .apply(bodyColor: const Color(0xff02096B))),
               //0xFF0D47A1
               home: const NewWidget(),
             ),
-        );
-      }
-    );
+          );
+        });
   }
 }
 
@@ -95,7 +100,7 @@ class NewWidget extends StatelessWidget {
             child: const Text("Login / SignUp"),
             style: ElevatedButton.styleFrom(),
           ),
-          ElevatedButton(
+          /* ElevatedButton(
             onPressed: () {
               Navigator.push(
                 context,
@@ -109,8 +114,7 @@ class NewWidget extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (ctx) => const WalletScreen()),
+                MaterialPageRoute(builder: (ctx) => const WalletScreen()),
               );
             },
             child: const Text("Referral Wallet Page"),
@@ -147,7 +151,7 @@ class NewWidget extends StatelessWidget {
             child: const Text("Fortune Wheel"),
             style: ElevatedButton.styleFrom(),
           ),
-           ElevatedButton(
+          ElevatedButton(
             onPressed: () {
               Navigator.push(
                 context,
@@ -156,8 +160,8 @@ class NewWidget extends StatelessWidget {
             },
             child: const Text("Forgot Password"),
             style: ElevatedButton.styleFrom(),
-          ),
-            ElevatedButton(
+          ), */
+          ElevatedButton(
             onPressed: () {
               Navigator.push(
                 context,
