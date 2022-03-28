@@ -32,6 +32,7 @@ dependencies:
   dotted_line: ^3.1.0
   enum_to_string: ^2.0.1
   equatable: ^2.0.3
+  file_picker: ^4.5.1
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
@@ -39,6 +40,7 @@ dependencies:
   flutter_rating_bar: ^4.0.0
   flutter_screenutil: ^5.3.1
   http: ^0.13.4
+  intl: ^0.17.0
   lorem_ipsum: ^0.0.1
   screen_utils: ^0.0.1
 

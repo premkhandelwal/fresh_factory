@@ -4,18 +4,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:fresh/businessLogic/blocs/auth/auth_bloc.dart';
 import 'package:fresh/businessLogic/blocs/product/product_bloc.dart';
+import 'package:fresh/businessLogic/blocs/profile/profile_bloc.dart';
 import 'package:fresh/businessLogic/cubits/bottomNavigationBar/bottomnavigationbar_cubit.dart';
 import 'package:fresh/businessLogic/cubits/radioButtonCubit/radio_button_cubit.dart';
 import 'package:fresh/businessLogic/cubits/sortFilterProduct/sort_filter_product_cubit.dart';
 import 'package:fresh/data/dataProviders/auth_provider.dart';
 import 'package:fresh/data/dataProviders/product_provider.dart';
+import 'package:fresh/data/dataProviders/profile_provider.dart';
 import 'package:fresh/presentation/screens/auth/forgot_password_screen.dart';
 import 'package:fresh/presentation/screens/auth/login_sign_up.dart';
 import 'package:fresh/presentation/screens/auth/setPassword.dart';
 import 'package:fresh/presentation/screens/home/home_screen.dart';
 import 'package:fresh/presentation/screens/home/main_home_page.dart';
 import 'package:fresh/presentation/screens/payments/wallet_screen.dart';
-import 'package:fresh/presentation/screens/payments/bank_details.dart';
+import 'package:fresh/presentation/screens/payments/bank_details_screen.dart';
 import 'package:fresh/presentation/screens/payments/payment_method_screen.dart';
 import 'package:fresh/presentation/screens/products/product_detail_page1.dart';
 import 'package:fresh/presentation/screens/products/product_detail_page4.dart';
@@ -25,16 +27,19 @@ void main() {
   runApp(MyApp(
     authProvider: AuthProvider(),
     productProvider: ProductProvider(),
+    profileProvider: ProfileProvider(),
   ));
 }
 
 class MyApp extends StatelessWidget {
   final AuthProvider authProvider;
   final ProductProvider productProvider;
+  final ProfileProvider profileProvider;
   const MyApp({
     Key? key,
     required this.authProvider,
     required this.productProvider,
+    required this.profileProvider,
   }) : super(key: key);
 
   @override
@@ -59,6 +64,9 @@ class MyApp extends StatelessWidget {
               ),
               BlocProvider(
                 create: (context) => RadioButtonCubit(),
+              ),
+              BlocProvider(
+                create: (context) => ProfileBloc(profileProvider: profileProvider),
               ),
             ],
             child: MaterialApp(

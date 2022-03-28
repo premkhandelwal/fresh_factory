@@ -15,7 +15,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       String? isSuccess = await authProvider.login(event.user);
       if (isSuccess != null) {
         if (isSuccess == "Success") {
-          emit(SignInSuccessState(user: event.user));
+          emit(SignInSuccessState());
         } else if (isSuccess == "UnAuthorized") {
           emit(UserUnauthorizedState());
         } else {

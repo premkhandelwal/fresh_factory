@@ -9,13 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fresh/data/dataProviders/auth_provider.dart';
 import 'package:fresh/data/dataProviders/product_provider.dart';
+import 'package:fresh/data/dataProviders/profile_provider.dart';
 import 'package:fresh/main.dart';
 
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget( MyApp(authProvider: AuthProvider(), productProvider: ProductProvider(),));
+    await tester.pumpWidget( MyApp(authProvider: AuthProvider(), productProvider: ProductProvider(), profileProvider: ProfileProvider(),));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

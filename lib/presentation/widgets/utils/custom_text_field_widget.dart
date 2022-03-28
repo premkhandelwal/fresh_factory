@@ -5,9 +5,11 @@ class CustomTextFieldWidget extends StatelessWidget {
   final String label;
   final String hint;
   final Widget suffixWidget;
+  final TextEditingController? controller;
   CustomTextFieldWidget({
     required this.label,
     required this.hint,
+    required this.controller,
     required this.suffixWidget,
     Key? key,
   }) : super(key: key);
@@ -26,6 +28,7 @@ class CustomTextFieldWidget extends StatelessWidget {
             children: [
               Flexible(
                 child: TextFormField(
+                  controller: controller,
                   decoration: InputDecoration(
                       hintText: hint, border: const OutlineInputBorder()),
                 ),

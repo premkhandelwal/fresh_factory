@@ -9,7 +9,7 @@ import 'package:fresh/presentation/screens/home/cart_page.dart';
 import 'package:fresh/presentation/screens/home/home_screen.dart';
 import 'package:fresh/presentation/screens/offers/offer_page.dart';
 import 'package:fresh/presentation/screens/orders/order_main_page.dart';
-import 'package:fresh/presentation/screens/payments/bank_details.dart';
+import 'package:fresh/presentation/screens/payments/bank_details_screen.dart';
 import 'package:fresh/presentation/screens/payments/wallet_screen.dart';
 import 'package:fresh/presentation/screens/profile/edit_profile_details_page.dart';
 

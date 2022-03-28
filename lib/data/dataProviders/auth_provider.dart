@@ -15,8 +15,10 @@ class AuthProvider {
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': "Bearer " + user.accessToken!
         },
-        body: user.toJson());
+        body: user.toJsonLogin());
     if (res.statusCode == 201) {
+      user.userId = json.decode(res.body)["id"];
+      SessionConstants.user = user;
       return "Success";
     } else if (res.statusCode == 401) {
       return "UnAuthorized";
@@ -31,7 +33,7 @@ class AuthProvider {
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: user.toJson());
+        body: user.toJsonLogin());
     print(res.body);
     if (res.statusCode == 200) {
       user.accessToken = jsonDecode(res.body)['access'];

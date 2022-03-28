@@ -1,0 +1,18 @@
+part of 'profile_bloc.dart';
+
+abstract class ProfileState extends Equatable {
+  const ProfileState();
+  
+  @override
+  List<Object> get props => [];
+}
+
+class ProfileInitial extends ProfileState {}
+
+class UpdateUserDetailsSuccessState extends ProfileState{}
+class UpdateUserDetailsFailureState extends ProfileState{}
+class UpdateUserDetailsInProgressState extends ProfileState{}
+
+class UpdateBankDetailsSuccessState extends ProfileState{}
+class UpdateBankDetailsFailureState extends ProfileState{}
+class UpdateBankDetailsInProgressState extends ProfileState{}

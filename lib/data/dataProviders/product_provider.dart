@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 class ProductProvider {
   int attemptRefresh = 3;
   Future<List<ItemCategory>?> getItemCategories() async {
-    String url = Globals.host + "api/getcate/";
+    String url = Globals.host + "/api/getcate/";
     Uri uri = Uri.parse(url);
     var res = await http.post(
       uri,
@@ -73,7 +73,7 @@ class ProductProvider {
   }
 
   Future<ItemDetails?> getProductDetails(String itemId) async {
-    String url = Globals.host + "api/pro_detail/$itemId";
+    String url = Globals.host + "/api/pro_detail/$itemId";
     Uri uri = Uri.parse(url);
     var res = await http.post(uri, headers: {
       'Content-Type': 'application/json; charset=UTF-8',

@@ -51,7 +51,6 @@ class _LoginScreenState extends State<LoginScreen> {
         body: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is SignInSuccessState) {
-              SessionConstants.user = state.user;
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (ctx) => MainHomePage()),
