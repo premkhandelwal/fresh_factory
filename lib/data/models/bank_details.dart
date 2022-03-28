@@ -27,10 +27,10 @@ class BankDetails {
     Map<String, String> toMap() {
     return {
       'customerId': customerId.toString(),
-      'accountName': customerName,
-      'phoneNumber': phoneNumber,
+      'accName': customerName,
+      'phoneNumber': phoneNumber,      
       'bankName': bankName,
-      'accountNumber': accountNumber,
+      'accNumber': accountNumber,
       'upiNumber': upiNumber,
     };
   }

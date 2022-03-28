@@ -29,6 +29,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
   final gstNoController = TextEditingController();
   final bankNameController = TextEditingController();
   final bankAccountNoController = TextEditingController();
+  final bankCancelledChequeController = TextEditingController();
   final upiIDController = TextEditingController();
   CustomFile? panCard;
   CustomFile? gst;
@@ -46,7 +47,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
     return Scaffold(
       appBar: CustomAppBar(title: "Bank Details Screen"),
       body: BlocConsumer<ProfileBloc, ProfileState>(
-         listener: (context, state) {
+        listener: (context, state) {
           if (state is UpdateBankDetailsSuccessState) {
             showSnackBar(context, "Updated details successfully");
           } else if (state is UpdateBankDetailsFailureState) {
@@ -54,7 +55,11 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
           }
         },
         builder: (context, state) {
-          
+          if (state is UpdateBankDetailsInProgressState) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: SingleChildScrollView(
@@ -136,6 +141,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                               field: "pan",
                               length: await file.length(),
                             );
+                            showSnackBar(context, "Uploaded Successfully");
                           },
                           child: Text("Upload"),
                           style: ElevatedButton.styleFrom(),
@@ -163,6 +169,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                               field: "pan",
                               length: await file.length(),
                             );
+                            showSnackBar(context, "Uploaded Successfully");
                           },
                           child: Text("Upload"),
                           style: ElevatedButton.styleFrom(),
@@ -184,7 +191,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                   ),
                   Flexible(
                       child: CustomTextFieldWidget(
-                    controller: bankAccountNoController,
+                    controller: bankCancelledChequeController,
                     label: "Bank Cancelled Cheque",
                     hint: "",
                     suffixWidget: Row(
@@ -201,6 +208,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                               field: "pan",
                               length: await file.length(),
                             );
+                            showSnackBar(context, "Uploaded Successfully");
                           },
                           child: Text("Upload"),
                           style: ElevatedButton.styleFrom(),
