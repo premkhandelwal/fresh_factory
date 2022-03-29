@@ -13,3 +13,12 @@ class FetchProductDetailsEvent extends ProductEvent {
     required this.itemId,
   });
 }
+
+class AddToCartEvent extends ProductEvent {
+  final Item item;
+  final int quantity;
+  AddToCartEvent({
+    required this.item,
+    required this.quantity,
+  });
+}

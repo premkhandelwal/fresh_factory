@@ -43,5 +43,14 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         emit(FetchProductDetailFailureState());
       }
     });
+    on<AddToCartEvent>((event, emit) async {
+      emit(AddtoCartInProgressState());
+      bool isAdded = await productProvider.addtoCart(event.item, event.quantity);
+      if (isAdded) {
+        emit(AddtoCartSuccessState());
+      } else {
+        emit(AddtoCartFailureState());
+      }
+    });
   }
 }

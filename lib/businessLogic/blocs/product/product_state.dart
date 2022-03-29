@@ -1,7 +1,8 @@
 part of 'product_bloc.dart';
 
 @immutable
-abstract class ProductState {}
+abstract class ProductState {
+}
 
 class ProductInitial extends ProductState {}
 
@@ -36,3 +37,7 @@ class FetchProductDetailSuccessState extends ProductState {
 }
 
 class FetchProductDetailFailureState extends ProductState {}
+
+class AddtoCartSuccessState extends ProductState{}
+class AddtoCartFailureState extends ProductState{}
+class AddtoCartInProgressState extends ProductState{}
