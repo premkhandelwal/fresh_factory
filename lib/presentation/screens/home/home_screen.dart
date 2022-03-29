@@ -9,6 +9,8 @@ import 'package:fresh/presentation/screens/products/products_page.dart';
 import 'package:fresh/presentation/utils/custom_header_widget.dart';
 import 'package:fresh/presentation/widgets/home/brands_widget.dart';
 import 'package:fresh/presentation/widgets/home/categories_widget.dart';
+import 'package:fresh/presentation/widgets/home/deal_for_the_day_widget.dart';
+import 'package:fresh/presentation/widgets/home/exclusive_product_widget.dart';
 import 'package:fresh/presentation/widgets/home/featured_product_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -32,6 +34,7 @@ class _HomePageState extends State<HomePage> {
 
   List<ItemCategory> _itemCategoryList = [];
   List<Item> _itemList = [];
+  final ScrollController scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,6 +68,7 @@ class _HomePageState extends State<HomePage> {
             return Center(child: CircularProgressIndicator());
           }
           return SingleChildScrollView(
+            controller: scrollController,
             child: Column(
               children: [
                 Padding(
@@ -92,14 +96,16 @@ class _HomePageState extends State<HomePage> {
                 ),
                 SizedBox(height: 10),
                 CustomCarouselWidget(),
-               /*  Container(
+                SizedBox(height: 10),
+                /*  Container(
                       height: 152,
                       width: 380,
                       decoration: const BoxDecoration(
                           color: Colors.grey,
                           borderRadius: BorderRadius.all(Radius.circular(5)))), */
                 // const SizedBox(height: 10),
-                const CustomHeaderWidget(
+                /* //?<Deal of the day 
+               const CustomHeaderWidget(
                   title: "Deal of the Day",
                 ),
                 Container(
@@ -111,16 +117,8 @@ class _HomePageState extends State<HomePage> {
                       Radius.circular(5),
                     ),
                   ),
-                ),
-                const CustomHeaderWidget(
-                  title: "Flash Sales",
-                ),
-                Container(
-                    height: 152,
-                    width: 380,
-                    decoration: const BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.all(Radius.circular(5)))),
+                ),//?> 
+                */
                 const CustomHeaderWidget(
                   title: "Categories",
                 ),
@@ -159,6 +157,100 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
+                SizedBox(height: 10),
+                const CustomHeaderWidget(
+                  title: "Flash Sales",
+                ),
+
+                Container(
+                    height: 152,
+                    width: 380,
+                    decoration: const BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.all(Radius.circular(5)))),
+                SizedBox(height: 10),
+                const CustomHeaderWidget(
+                  title: "New Arrivals",
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0, right: 5),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        ProductWidget(
+                            product: Item(
+                                id: "",
+                                name: "Banana",
+                                minPurchaseQty: 2,
+                                mrp: 20)),
+                        SizedBox(width: 5),
+                        ProductWidget(
+                            product: Item(
+                                id: "",
+                                name: "Banana",
+                                minPurchaseQty: 2,
+                                mrp: 20)),
+                        SizedBox(width: 5),
+                        ProductWidget(
+                            product: Item(
+                                id: "",
+                                name: "Banana",
+                                minPurchaseQty: 2,
+                                mrp: 20)),
+                        SizedBox(width: 5),
+                        ProductWidget(
+                            product: Item(
+                                id: "",
+                                name: "Banana",
+                                minPurchaseQty: 2,
+                                mrp: 20)),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                const CustomHeaderWidget(
+                  title: "Exclusive Offer",
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        ExclusiveOfferWidget(),
+                        SizedBox(width: 7),
+                        ExclusiveOfferWidget(),
+                        SizedBox(width: 7),
+                        ExclusiveOfferWidget(),
+                        SizedBox(width: 7),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                const CustomHeaderWidget(
+                  title: "Festival Offer",
+                ), SizedBox(height: 10),
+
+                CustomCarouselWidget(showDots: false),
+                SizedBox(height: 10),
+                const CustomHeaderWidget(
+                  title: "Deal for the Day",
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GridView(
+                    shrinkWrap: true,
+                    controller: scrollController,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 4,
+                        crossAxisSpacing: 4),
+                    children: List.generate(9, (index) => DealofDayWidget()),
+                  ),
+                ),
                 const CustomHeaderWidget(
                   title: "Top Brands",
                 ),
@@ -180,6 +272,37 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 const CustomHeaderWidget(
+                  title: "Taste of India",
+                ),
+                CustomCarouselWidget(showDots: false),
+                SizedBox(height: 10),
+                const CustomHeaderWidget(
+                  title: "Organic Store",
+                ),
+                CustomCarouselWidget(showDots: false),
+                SizedBox(height: 10),
+                const CustomHeaderWidget(
+                  title: "Refer and Earn",
+                ),
+                CustomCarouselWidget(showDots: false),
+                SizedBox(height: 10),
+                 
+                const CustomHeaderWidget(
+                  title: "Sample1",
+                ),
+                CustomCarouselWidget(showDots: false),
+                SizedBox(height: 10), 
+                const CustomHeaderWidget(
+                  title: "Sample1",
+                ),
+                CustomCarouselWidget(showDots: false),
+                SizedBox(height: 10),
+                const CustomHeaderWidget(
+                  title: "Sample1",
+                ),
+                CustomCarouselWidget(showDots: false),
+                /* SizedBox(height: 10),
+                const CustomHeaderWidget(
                   title: "Featured Product",
                 ),
                 Padding(
@@ -198,6 +321,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
+ */
                 const CustomHeaderWidget(
                   title: "Testimonial",
                 ),
@@ -223,51 +347,51 @@ class _HomePageState extends State<HomePage> {
 }
 
 class CustomCarouselWidget extends StatefulWidget {
-  const CustomCarouselWidget({Key? key}) : super(key: key);
+  final bool showDots;
+  const CustomCarouselWidget({Key? key, this.showDots = true}) : super(key: key);
 
   @override
   State<CustomCarouselWidget> createState() => _CustomCarouselWidgetState();
 }
 
 class _CustomCarouselWidgetState extends State<CustomCarouselWidget> {
-  
   final CarouselController _controller = CarouselController();
   int _current = 0;
 
   @override
   Widget build(BuildContext context) {
     List<Widget> imgList = [
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Container(
-          height: 152,
-          width: MediaQuery.of(context).size.width,
-          // margin: EdgeInsets.all(6.0),
-          decoration: const BoxDecoration(
-              color: Colors.grey,
-              borderRadius: BorderRadius.all(Radius.circular(5)))),
-    ),
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Container(
-          height: 152,
-          // margin: EdgeInsets.all(6.0),
-          width: MediaQuery.of(context).size.width,
-          decoration: const BoxDecoration(
-              color: Colors.grey,
-              borderRadius: BorderRadius.all(Radius.circular(5)))),
-    ),
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Container(
-          height: 152,
-          width: 380,
-          // margin: EdgeInsets.all(6.0),
-          decoration: const BoxDecoration(
-              color: Colors.grey,
-              borderRadius: BorderRadius.all(Radius.circular(5)))),
-    ),
-  ];
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Container(
+            height: 152,
+            width: MediaQuery.of(context).size.width,
+            // margin: EdgeInsets.all(6.0),
+            decoration: const BoxDecoration(
+                color: Colors.grey,
+                borderRadius: BorderRadius.all(Radius.circular(5)))),
+      ),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Container(
+            height: 152,
+            // margin: EdgeInsets.all(6.0),
+            width: MediaQuery.of(context).size.width,
+            decoration: const BoxDecoration(
+                color: Colors.grey,
+                borderRadius: BorderRadius.all(Radius.circular(5)))),
+      ),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Container(
+            height: 152,
+            width: 380,
+            // margin: EdgeInsets.all(6.0),
+            decoration: const BoxDecoration(
+                color: Colors.grey,
+                borderRadius: BorderRadius.all(Radius.circular(5)))),
+      ),
+    ];
     return Stack(
       // mainAxisSize: MainAxisSize.min,
       children: [
@@ -285,7 +409,7 @@ class _CustomCarouselWidgetState extends State<CustomCarouselWidget> {
                 });
               }),
         ),
-        Positioned(
+       widget.showDots ? Positioned(
           bottom: 3,
           left: 160,
           child: Row(
@@ -306,7 +430,7 @@ class _CustomCarouselWidgetState extends State<CustomCarouselWidget> {
               );
             }).toList(),
           ),
-        ),
+        ): Container(),
       ],
     );
   }
