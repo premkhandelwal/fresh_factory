@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:fresh/businessLogic/blocs/product/product_bloc.dart';
 import 'package:fresh/data/models/item.dart';
-import 'package:fresh/data/models/item_categories.dart';
 import 'package:fresh/data/models/item_details.dart';
 import 'package:fresh/globals/common_function.dart';
 import 'package:fresh/globals/constants/globals.dart';
-import 'package:fresh/presentation/screens/products/products_page.dart';
 import 'package:fresh/presentation/utils/custom_app_bar.dart';
-import 'package:fresh/presentation/widgets/home/categories_widget.dart';
 
 class ProductDetailPage4 extends StatefulWidget {
   final Item item;

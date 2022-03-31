@@ -43,73 +43,75 @@ class _SortFilterProductPageState extends State<SortFilterProductPage> {
                     builder: (ctx) =>
                         BlocBuilder<RadioButtonCubit, RadioButtonState>(
                           builder: (context, state) {
-                            return Column(
-                                children: List<Widget>.from(
-                              SortOptions.values.map(
-                                (e) {
-                                  return Column(
-                                    children: [
-                                      e.index == 0
-                                          ? Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Row(
-                                                children: [
-                                                  Expanded(
-                                                      child: Text(
-                                                    "Sort",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 20,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  )),
-                                                  IconButton(
-                                                      onPressed: () {
-                                                        Navigator.pop(ctx);
-                                                      },
-                                                      icon: Icon(Icons.close))
-                                                ],
+                            return SingleChildScrollView(
+                              child: Column(
+                                  children: List<Widget>.from(
+                                SortOptions.values.map(
+                                  (e) {
+                                    return Column(
+                                      children: [
+                                        e.index == 0
+                                            ? Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  children: [
+                                                    Expanded(
+                                                        child: Text(
+                                                      "Sort",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )),
+                                                    IconButton(
+                                                        onPressed: () {
+                                                          Navigator.pop(ctx);
+                                                        },
+                                                        icon: Icon(Icons.close))
+                                                  ],
+                                                ),
+                                              )
+                                            : Container(),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 16.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                e.value,
+                                                style: TextStyle(
+                                                    color: Colors.grey,
+                                                    fontSize: 17,
+                                                    fontWeight: FontWeight.bold),
                                               ),
-                                            )
-                                          : Container(),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 16.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              e.value,
-                                              style: TextStyle(
-                                                  color: Colors.grey,
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Radio<SortOptions>(
-                                                value: e,
-                                                groupValue: state.sortOptionVal,
-                                                onChanged: (val) {
-                                                  radioButtonCubit
-                                                      .sortOptionSelected(val);
-                                                })
-                                          ],
+                                              Radio<SortOptions>(
+                                                  value: e,
+                                                  groupValue: state.sortOptionVal,
+                                                  onChanged: (val) {
+                                                    radioButtonCubit
+                                                        .sortOptionSelected(val);
+                                                  })
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ); /* RadioListTile<SortOptions>(
-                                      value: e,
-                                      groupValue: state.sortOptionVal,
-
-                                      title: Text(e.value),
-                                      onChanged: (val) {
-                                        radioButtonCubit
-                                            .sortOptionSelected(val);
-                                      }); */
-                                },
-                              ).toList(),
-                            ));
+                                      ],
+                                    ); /* RadioListTile<SortOptions>(
+                                        value: e,
+                                        groupValue: state.sortOptionVal,
+                            
+                                        title: Text(e.value),
+                                        onChanged: (val) {
+                                          radioButtonCubit
+                                              .sortOptionSelected(val);
+                                        }); */
+                                  },
+                                ).toList(),
+                              )),
+                            );
                           },
                         ));
               } else if (state.tabIndex == 1) {

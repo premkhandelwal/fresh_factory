@@ -2,10 +2,12 @@ enum SortOptions {
   newArrivals,
   highestSelling,
   topRated,
-  priceHigh,
-  priceLow,
   discountHigh,
   discountLow,
+  priceLow,
+  priceHigh,
+  nameAZ,
+  nameZA
 }
 
 extension GetStringValforSortOption on SortOptions {
@@ -25,6 +27,10 @@ extension GetStringValforSortOption on SortOptions {
         return "Discount Low-High";
       case SortOptions.discountHigh:
         return "Discount High-low";
+      case SortOptions.nameAZ:
+        return "Name A-Z";
+      case SortOptions.nameZA:
+        return "Name Z-A";
       default:
         return "";
     }
@@ -32,29 +38,23 @@ extension GetStringValforSortOption on SortOptions {
 }
 
 enum FilterOptions {
-  delivery,
-  shippingOptions,
   categories,
-  healthPersonalCare,
   brands,
-  priceDeals
+  type,
+  weight,
 }
 
 extension GetStringValforFilterOption on FilterOptions {
   String get value {
     switch (this) {
-      case FilterOptions.delivery:
-        return "Delivery";
-      case FilterOptions.shippingOptions:
-        return "Shipping Options";
+      case FilterOptions.type:
+        return "Type";
+      case FilterOptions.weight:
+        return "Weight";
       case FilterOptions.categories:
-        return "Categories";
-      case FilterOptions.healthPersonalCare:
-        return "Health & Personal Care";
+        return "Category";
       case FilterOptions.brands:
-        return "Brands";
-      case FilterOptions.priceDeals:
-        return "Price Deals";
+        return "Brand";
       default:
         return "";
     }

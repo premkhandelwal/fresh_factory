@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:fresh/businessLogic/blocs/product/product_bloc.dart';
 import 'package:fresh/data/models/item.dart';
 import 'package:fresh/data/models/item_categories.dart';
@@ -158,10 +159,37 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 SizedBox(height: 10),
-                const CustomHeaderWidget(
-                  title: "Flash Sales",
+                Row(
+                  children: [
+                    Expanded(
+                      child: const CustomHeaderWidget(
+                        title: "Flash Sales",
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        padding: EdgeInsets.all(8.0),
+                        height: 35,
+                        width: 132,
+                        decoration: BoxDecoration(
+                            color: Color(0xff02096B),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Row(
+                          children: [
+                            TimerChildWidget(text: "00"),
+                            SizedBox(width: 5),
+                            TimerChildWidget(text: "01"),
+                            SizedBox(width: 5),
+                            TimerChildWidget(text: "45"),
+                            SizedBox(width: 5),
+                            TimerChildWidget(text: "56"),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
                 ),
-
                 Container(
                     height: 152,
                     width: 380,
@@ -232,7 +260,8 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(height: 10),
                 const CustomHeaderWidget(
                   title: "Festival Offer",
-                ), SizedBox(height: 10),
+                ),
+                SizedBox(height: 10),
 
                 CustomCarouselWidget(showDots: false),
                 SizedBox(height: 10),
@@ -248,7 +277,7 @@ class _HomePageState extends State<HomePage> {
                         crossAxisCount: 3,
                         mainAxisSpacing: 4,
                         crossAxisSpacing: 4),
-                    children: List.generate(9, (index) => DealofDayWidget()),
+                    children: List.generate(18, (index) => DealofDayWidget()),
                   ),
                 ),
                 const CustomHeaderWidget(
@@ -286,12 +315,12 @@ class _HomePageState extends State<HomePage> {
                 ),
                 CustomCarouselWidget(showDots: false),
                 SizedBox(height: 10),
-                 
+
                 const CustomHeaderWidget(
                   title: "Sample1",
                 ),
                 CustomCarouselWidget(showDots: false),
-                SizedBox(height: 10), 
+                SizedBox(height: 10),
                 const CustomHeaderWidget(
                   title: "Sample1",
                 ),
@@ -346,9 +375,33 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+class TimerChildWidget extends StatelessWidget {
+  final String text;
+  const TimerChildWidget({
+    Key? key,
+    required this.text,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 21,
+      width: 25,
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(5)),
+      child: Center(
+          child: Text(
+        text,
+        style: TextStyle(fontWeight: FontWeight.bold),
+      )),
+    );
+  }
+}
+
 class CustomCarouselWidget extends StatefulWidget {
   final bool showDots;
-  const CustomCarouselWidget({Key? key, this.showDots = true}) : super(key: key);
+  const CustomCarouselWidget({Key? key, this.showDots = true})
+      : super(key: key);
 
   @override
   State<CustomCarouselWidget> createState() => _CustomCarouselWidgetState();
@@ -409,28 +462,31 @@ class _CustomCarouselWidgetState extends State<CustomCarouselWidget> {
                 });
               }),
         ),
-       widget.showDots ? Positioned(
-          bottom: 3,
-          left: 160,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: imgList.asMap().entries.map((entry) {
-              return GestureDetector(
-                onTap: () => _controller.animateToPage(entry.key),
-                child: Container(
-                  width: _current == entry.key ? 25.0 : 12,
-                  height: _current == entry.key ? 12 : 18.0,
-                  margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: _current == entry.key
-                          ? Color(0xff02096B)
-                          : Colors.black54),
+        widget.showDots
+            ? Positioned(
+                bottom: 3,
+                left: 160,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: imgList.asMap().entries.map((entry) {
+                    return GestureDetector(
+                      onTap: () => _controller.animateToPage(entry.key),
+                      child: Container(
+                        width: _current == entry.key ? 25.0 : 12,
+                        height: _current == entry.key ? 12 : 18.0,
+                        margin: EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 4.0),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: _current == entry.key
+                                ? Color(0xff02096B)
+                                : Colors.black54),
+                      ),
+                    );
+                  }).toList(),
                 ),
-              );
-            }).toList(),
-          ),
-        ): Container(),
+              )
+            : Container(),
       ],
     );
   }
