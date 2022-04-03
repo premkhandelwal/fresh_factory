@@ -82,7 +82,7 @@ class MyApp extends StatelessWidget {
                           bodyText1: TextStyle(), bodyText2: TextStyle())
                       .apply(bodyColor: const Color(0xff02096B))),
               //0xFF0D47A1
-              home: const MainHomePage(),
+              home: const NewWidget(),
             ),
           );
         });

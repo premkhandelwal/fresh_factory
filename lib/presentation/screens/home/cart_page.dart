@@ -59,12 +59,12 @@ class _CartPageState extends State<CartPage> {
             _handlePaymentSuccess(state.paymentSuccessResponse);
           } else if (state is PaymentErrorState) {
             _handlePaymentError(state.paymentFailureResponse);
-          } else if (state is GetOrderIdState) {
+          } else if (state is GetOrderIdSuccessState) {
             payCubit.openCheckOut(_amountTobePaid, state.orderId);
           }
         },
         builder: (context, state) {
-          if (state is GetOrderIdState) {
+          if (state is GetOrderIdInProgressState) {
             return Center(child: CircularProgressIndicator());
           }
           return Padding(
@@ -174,8 +174,8 @@ class _CartPageState extends State<CartPage> {
                                       SizedBox(height: 40),
                                       ElevatedButton(
                                         onPressed: () {
-                                          payCubit.getOrderId(_amountTobePaid);
-                                          Navigator.pop(ctx);
+                                          /* payCubit.getOrderId(_amountTobePaid);
+                                          Navigator.pop(ctx); */
                                         },
                                         child: Text("Place Order"),
                                         style: ElevatedButton.styleFrom(

@@ -56,7 +56,8 @@ class User {
       'password': password,
       'email': emailId,
       'number': phoneNumber,
-      'company_id': Secrets.companyId
+      'company_id': Secrets.companyId, 
+      "type": "b1338d92-feee-498b-b595-78bd572c2f75"
     };
   }
 

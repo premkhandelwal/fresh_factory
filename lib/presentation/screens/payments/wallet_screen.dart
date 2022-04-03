@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
+
+import 'package:fresh/businessLogic/cubits/payCubit/pay_cubit.dart';
+import 'package:fresh/globals/common_function.dart';
 import 'package:fresh/presentation/utils/custom_app_bar.dart';
 
 class WalletScreen extends StatefulWidget {
@@ -11,6 +16,9 @@ class WalletScreen extends StatefulWidget {
 
 class _WalletScreenState extends State<WalletScreen> {
   int currIndex = 0;
+
+  final walletController = TextEditingController();
+  final referralWalletController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +38,7 @@ class _WalletScreenState extends State<WalletScreen> {
                   borderRadius: const BorderRadius.all(
                     Radius.circular(20),
                   ),
-// backgroundBlendMode:
+                  // backgroundBlendMode:
                 ),
                 child: TabBar(
                   labelColor: Colors.white,
@@ -56,11 +64,12 @@ class _WalletScreenState extends State<WalletScreen> {
                 ),
               ),
             ),
-            const Expanded(
+            Expanded(
               child: TabBarView(children: [
-                WalletWidget(),
+                WalletWidget(controller: walletController),
                 WalletWidget(
                   isReferralWallet: true,
+                  controller: referralWalletController,
                 ),
               ]),
             )
@@ -71,116 +80,188 @@ class _WalletScreenState extends State<WalletScreen> {
   }
 }
 
-class WalletWidget extends StatelessWidget {
+class WalletWidget extends StatefulWidget {
   final bool isReferralWallet;
+  final TextEditingController controller;
   const WalletWidget({
-    this.isReferralWallet = false,
     Key? key,
+    this.isReferralWallet = false,
+    required this.controller,
   }) : super(key: key);
 
   @override
+  State<WalletWidget> createState() => _WalletWidgetState();
+}
+
+class _WalletWidgetState extends State<WalletWidget> {
+  late PayCubit payCubit;
+  @override
+  void initState() {
+    super.initState();
+    payCubit = BlocProvider.of<PayCubit>(context);
+    payCubit.initPay();
+  }
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    payCubit.capturePayment(
+        double.parse(widget.controller.text), response.paymentId);
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    print(response);
+
+    showSnackBar(context, "Failed to Add Money");
+
+    // Do something when payment fails
+  }
+
+  @override
+  void dispose() {
+    payCubit.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          SizedBox(height: 20),
-          Container(
-            height: 158,
-            width: 382,
-            decoration: BoxDecoration(
-              color: Color(0xff02096B),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Row(
+    return BlocConsumer<PayCubit, PayState>(
+      listener: (context, state) {
+        if (state is PaymentSuccessState) {
+          _handlePaymentSuccess(state.paymentSuccessResponse);
+
+          print(state.paymentSuccessResponse.paymentId);
+        } else if (state is PaymentErrorState) {
+          _handlePaymentError(state.paymentFailureResponse);
+        } else if (state is GetOrderIdSuccessState) {
+          if (widget.controller.text == "") {
+            widget.controller.text = "0.00";
+          }
+          payCubit.openCheckOut(
+              double.parse(widget.controller.text), state.orderId);
+        } else if (state is CapturePaymentSuccessState) {
+          showSnackBar(context, "Successfully Added Money");
+        }else if(state is CapturePaymentFailureState || state is GetOrderIdFailureState){
+    showSnackBar(context, "Failed to Add Money");
+
+        }
+      },
+      builder: (context, state) {
+        if (state is GetOrderIdInProgressState ||
+            state is CapturePaymentInProgressState) {
+          return Center(child: CircularProgressIndicator());
+        }
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 20),
+              Container(
+                height: 158,
+                width: 382,
+                decoration: BoxDecoration(
+                  color: Color(0xff02096B),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
                     children: [
-                      Icon(
-                        Icons.add_chart,
-                        color: Colors.white,
-                        size: 40,
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.add_chart,
+                            color: Colors.white,
+                            size: 40,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            "Your Balance",
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          )
+                        ],
                       ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        "Your Balance",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Container(
+                            width: 51,
+                          ),
+                          const Align(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                "\u{20B9}10,000.00",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold),
+                              )),
+                        ],
                       )
                     ],
                   ),
-                  SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Container(
-                        width: 51,
+                ),
+              ),
+              SizedBox(height: 15),
+              Container(
+                height: 195,
+                width: 382,
+                decoration:
+                    BoxDecoration(border: Border.all(color: Colors.black12)),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        controller: widget.controller,
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        decoration: const InputDecoration(
+                            prefixIcon: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 15.0, vertical: 8.0),
+                              child: Text(
+                                "\u{20B9}",
+                                style: TextStyle(fontSize: 25),
+                              ),
+                            ),
+                            border: OutlineInputBorder()),
                       ),
-                      const Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            "\u{20B9}10,000.00",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold),
-                          )),
-                    ],
-                  )
-                ],
+                    ),
+                    SizedBox(height: 30),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (widget.controller.text == "") {
+                          widget.controller.text == "0.00";
+                        }
+                        payCubit
+                            .getOrderId(double.parse(widget.controller.text));
+                      },
+                      child: const Text("Add Money"),
+                      style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(353, 49)),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ),
-          SizedBox(height: 15),
-          Container(
-            height: 195,
-            width: 382,
-            decoration:
-                BoxDecoration(border: Border.all(color: Colors.black12)),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                        prefixIcon: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 15.0, vertical: 8.0),
-                          child: Text(
-                            "\u{20B9}",
-                            style: TextStyle(fontSize: 25),
-                          ),
-                        ),
-                        border: OutlineInputBorder()),
+              SizedBox(height: 15),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  CardWidgetWallet(
+                    text: widget.isReferralWallet
+                        ? "Earning\nReport"
+                        : "Recharge\nHistory",
                   ),
-                ),
-                SizedBox(height: 30),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("Add Money"),
-                  style:
-                      ElevatedButton.styleFrom(fixedSize: const Size(353, 49)),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 15),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              CardWidgetWallet(
-                text:
-                    isReferralWallet ? "Earning\nReport" : "Recharge\nHistory",
-              ),
-              CardWidgetWallet(
-                  isRightSideWidget: true,
-                  text: isReferralWallet
-                      ? "WithDraw\nReport"
-                      : "Billing\nHistory"),
+                  CardWidgetWallet(
+                      isRightSideWidget: true,
+                      text: widget.isReferralWallet
+                          ? "WithDraw\nReport"
+                          : "Billing\nHistory"),
+                ],
+              )
             ],
-          )
-        ],
-      ),
+          ),
+        );
+      },
     );
   }
 }

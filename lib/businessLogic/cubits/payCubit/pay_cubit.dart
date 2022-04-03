@@ -33,10 +33,13 @@ class PayCubit extends Cubit<PayState> {
     };
     try {
       _razorpay.open(options);
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
   }
 
   void getOrderId(double amount) async {
+    emit(GetOrderIdInProgressState());
     String url = Secrets.host + "/api/generate_order_number";
     Uri uri = Uri.parse(url);
     var res = await http.post(uri,
@@ -46,10 +49,37 @@ class PayCubit extends Cubit<PayState> {
         body: jsonEncode(<String, dynamic>{"amount": amount * 100}));
 
     if (res.statusCode == 200) {
-      emit(GetOrderIdState(orderId: json.decode(res.body)['ordid']));
+      emit(GetOrderIdSuccessState(orderId: json.decode(res.body)['ordid']));
+    }else{
+      emit(GetOrderIdFailureState());
+
     }
   }
 
+  void capturePayment(double amount, String? paymentId) async {
+    emit(CapturePaymentInProgressState());
+    String url = Secrets.host + "/api/capture_payment";
+    Uri uri = Uri.parse(url);
+    var res = await http.post(
+      uri,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(
+        <String, dynamic>{
+          "amount": amount * 100,
+          "customerId": Secrets.companyId,
+          "razorpay_payment_id": paymentId
+        },
+      ),
+    );
+
+    if (res.statusCode == 200) {
+      emit(CapturePaymentSuccessState());
+    } else {
+      emit(CapturePaymentFailureState());
+    }
+  }
 
   void dispose() {
     _razorpay.clear();
