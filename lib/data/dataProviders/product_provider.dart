@@ -4,14 +4,14 @@ import 'package:fresh/data/dataProviders/auth_provider.dart';
 import 'package:fresh/data/models/item.dart';
 import 'package:fresh/data/models/item_categories.dart';
 import 'package:fresh/data/models/item_details.dart';
-import 'package:fresh/globals/constants/globals.dart';
+import 'package:fresh/globals/constants/secrets.dart';
 import 'package:fresh/globals/constants/sessionConstants.dart';
 import 'package:http/http.dart' as http;
 
 class ProductProvider {
   int attemptRefresh = 3;
   Future<List<ItemCategory>?> getItemCategories() async {
-    String url = Globals.host + "/api/getcate/";
+    String url = Secrets.host + "/api/getcate/";
     Uri uri = Uri.parse(url);
     var res = await http.post(
       uri,
@@ -21,7 +21,7 @@ class ProductProvider {
         'Authorization': "Bearer " + SessionConstants.user.accessToken!
       },
       body: jsonEncode(<String, dynamic>{
-        "company_id": Globals.companyId
+        "company_id": Secrets.companyId
       })
     );
     if (res.statusCode == 200) {
@@ -43,7 +43,7 @@ class ProductProvider {
   }
 
   Future<List<Item>?> getProducts() async {
-    String url = Globals.host + "/api/getpro/";
+    String url = Secrets.host + "/api/getpro/";
     Uri uri = Uri.parse(url);
     var res = await http.post(uri, headers: {
       'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ class ProductProvider {
       'Authorization': 'Bearer ${SessionConstants.user.accessToken}',
     },
     body: jsonEncode(<String, dynamic>{
-        "company_id": Globals.companyId
+        "company_id": Secrets.companyId
       })
     );
     if (res.statusCode == 200) {
@@ -73,7 +73,7 @@ class ProductProvider {
   }
 
   Future<ItemDetails?> getProductDetails(String itemId) async {
-    String url = Globals.host + "/api/pro_detail/$itemId";
+    String url = Secrets.host + "/api/pro_detail/$itemId";
     Uri uri = Uri.parse(url);
     var res = await http.post(uri, headers: {
       'Content-Type': 'application/json; charset=UTF-8',
@@ -81,7 +81,7 @@ class ProductProvider {
       // 'Authorization': "Bearer " + SessionConstants.user.accessToken!
     },
     body: jsonEncode(<String, dynamic>{
-        "company_id": Globals.companyId
+        "company_id": Secrets.companyId
       })
     );
     if (res.statusCode == 200) {
@@ -92,7 +92,7 @@ class ProductProvider {
   }
 
   Future<bool> addtoCart(Item item, int quantity) async{
-    String url = Globals.host + "/api/addToCart/";
+    String url = Secrets.host + "/api/addToCart/";
     Uri uri = Uri.parse(url);
     var res = await http.post(uri, headers: {
       'Content-Type': 'application/json; charset=UTF-8',

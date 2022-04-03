@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fresh/data/models/item.dart';
 
 import 'package:fresh/data/models/item_categories.dart';
-import 'package:fresh/globals/constants/globals.dart';
+import 'package:fresh/globals/constants/secrets.dart';
 import 'package:fresh/presentation/screens/home/home_screen.dart';
 import 'package:fresh/presentation/screens/products/product_detail_page.dart';
 import 'package:fresh/presentation/screens/products/sort_filter_product_page.dart';
@@ -97,8 +97,9 @@ class _ProductsPageState extends State<ProductsPage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (ctx) =>
-                                              TempPageForProduct(item: e,)),
+                                          builder: (ctx) => TempPageForProduct(
+                                                item: e,
+                                              )),
                                     );
                                   },
                                   child: ProductWidget(product: e),
@@ -131,10 +132,15 @@ class ProductWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 180,
-      width: 120,
+      // width: 120,
+       width: 129,
+       constraints: BoxConstraints(
+    maxHeight: double.infinity,
+    maxWidth: double.infinity,
+    ),
       decoration: BoxDecoration(
           border: Border.all(color: Colors.black54),
-
+    
           // color: Colors.blue,
           borderRadius: BorderRadius.circular(10)),
       child: Column(
@@ -148,8 +154,8 @@ class ProductWidget extends StatelessWidget {
               margin: EdgeInsets.fromLTRB(47, 30, 30, 0),
               child: product.image != null
                   ? Center(
-                    child: Image.network(
-                      Globals.mediaUrl + product.image!,
+                      child: Image.network(
+                        Secrets.mediaUrl + product.image!,
                         height: 100,
                         width: 129,
                         errorBuilder: (ctx, _, _1) {
@@ -159,7 +165,7 @@ class ProductWidget extends StatelessWidget {
                           );
                         },
                       ),
-                  )
+                    )
                   : Container(
                       height: 28,
                       width: 43,
@@ -174,57 +180,59 @@ class ProductWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      product.name,
-                      textAlign: TextAlign.start,
-                      style: TextStyle(color: Colors.black, fontSize: 18),
-                    ),
-                    SizedBox(height: 5),
-                    Text(
-                      "${product.minPurchaseQty}",
-                      style: TextStyle(color: Colors.grey[600], fontSize: 14),
-                    ),
-                    SizedBox(height: 7),
-                    isDiscount
-                        ? RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                    text: "MRP: \u{20B9}",
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        product.name,
+                        textAlign: TextAlign.start,
+                        style: TextStyle(color: Colors.black, fontSize: 18),
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        "${product.minPurchaseQty}",
+                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                      ),
+                      SizedBox(height: 7),
+                      isDiscount
+                          ? RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                      text: "MRP: \u{20B9}",
+                                      style: TextStyle(
+                                          color: Colors.black54, fontSize: 12)),
+                                  TextSpan(
+                                    text: "40.00",
                                     style: TextStyle(
-                                        color: Colors.black54, fontSize: 12)),
-                                TextSpan(
-                                  text: "40.00",
-                                  style: TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 12,
-                                      decoration: TextDecoration.lineThrough,
-                                      decorationThickness: 3.5,
-                                      decorationColor: Colors.grey),
-                                ),
-                              ],
-                            ),
-                          )
-                        : Container(),
-                    SizedBox(height: 10),
-                    Text(
-                      "\u{20B9}${product.mrp}",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    )
-                  ],
+                                        color: Colors.black54,
+                                        fontSize: 12,
+                                        decoration: TextDecoration.lineThrough,
+                                        decorationThickness: 3.5,
+                                        decorationColor: Colors.grey),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Container(),
+                      SizedBox(height: 10),
+                      Text(
+                        "\u{20B9}${product.mrp}",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      )
+                    ],
+                  ),
                 ),
                 SizedBox(height: 30),
                 Transform.translate(
                   offset: Offset(3, 10),
                   child: Column(
                     // crossAxisAlignment: CrossAxisAlignment.end,
-
+                
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Icon(Icons.favorite_border),

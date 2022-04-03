@@ -1,13 +1,13 @@
 import 'package:fresh/data/models/bank_details.dart';
 import 'package:fresh/data/models/user.dart';
-import 'package:fresh/globals/constants/globals.dart';
+import 'package:fresh/globals/constants/secrets.dart';
 import 'package:fresh/globals/constants/sessionConstants.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ProfileProvider {
   Future<String?> updateProfileDetails(User user) async {
-    String url = Globals.host + "/api/update/";
+    String url = Secrets.host + "/api/update/";
     Uri uri = Uri.parse(url);
     var res = await http.post(uri,
         headers: <String, String>{
@@ -35,7 +35,7 @@ class ProfileProvider {
 
     // send
 
-    String url = Globals.host + "/api/updateBankDetail/";
+    String url = Secrets.host + "/api/updateBankDetail/";
     Uri uri = Uri.parse(url);
     var request = new http.MultipartRequest("POST", uri);
     request.headers.addAll({

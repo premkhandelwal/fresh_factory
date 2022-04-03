@@ -4,7 +4,7 @@ import 'package:fresh/businessLogic/blocs/product/product_bloc.dart';
 import 'package:fresh/data/models/item.dart';
 import 'package:fresh/data/models/item_details.dart';
 import 'package:fresh/globals/common_function.dart';
-import 'package:fresh/globals/constants/globals.dart';
+import 'package:fresh/globals/constants/secrets.dart';
 import 'package:fresh/presentation/utils/custom_app_bar.dart';
 
 class ProductDetailPage4 extends StatefulWidget {
@@ -67,7 +67,7 @@ class _ProductDetailPage4State extends State<ProductDetailPage4> {
                       widget.item.image != null
                           ? Center(
                               child: Image.network(
-                                Globals.mediaUrl + widget.item.image!,
+                                Secrets.mediaUrl + widget.item.image!,
                                 // height: 500,
                                 // width: 309,
                                 errorBuilder: (ctx, _, _1) {
@@ -99,7 +99,7 @@ class _ProductDetailPage4State extends State<ProductDetailPage4> {
                                                   BorderRadius.circular(5)),
                                           child: Center(
                                             child: Image.network(
-                                              Globals.mediaUrl + e,
+                                              Secrets.mediaUrl + e,
                                               height: 100,
                                               width: 129,
                                               errorBuilder: (ctx, _, _1) {

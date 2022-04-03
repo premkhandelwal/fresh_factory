@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:fresh/data/models/item_categories.dart';
-import 'package:fresh/globals/constants/globals.dart';
+import 'package:fresh/globals/constants/secrets.dart';
 
 class CategoriesWidget extends StatelessWidget {
   final ItemCategory itemCategory;
@@ -32,7 +32,7 @@ class CategoriesWidget extends StatelessWidget {
           itemCategory.bannerImage != null
               ? Center(
                 child: Image.network(
-                itemCategory.bannerImage!.contains("media") ? Globals.host + itemCategory.bannerImage!:  Globals.mediaUrl + itemCategory.bannerImage!,
+                itemCategory.bannerImage!.contains("media") ? Secrets.host + itemCategory.bannerImage!:  Secrets.mediaUrl + itemCategory.bannerImage!,
                     height: 100,
                     width: 129,
                      errorBuilder: (ctx, _, _1) {

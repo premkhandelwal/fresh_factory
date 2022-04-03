@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:fresh/globals/constants/globals.dart';
+import 'package:fresh/globals/constants/secrets.dart';
 
 class User {
   int? userId;
@@ -56,7 +56,7 @@ class User {
       'password': password,
       'email': emailId,
       'number': phoneNumber,
-      'company_id': Globals.companyId
+      'company_id': Secrets.companyId
     };
   }
 

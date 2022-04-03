@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 import 'package:fresh/data/models/user.dart';
-import 'package:fresh/globals/constants/globals.dart';
+import 'package:fresh/globals/constants/secrets.dart';
 import 'package:fresh/globals/constants/sessionConstants.dart';
 import 'package:http/http.dart' as http;
 
 class AuthProvider {
   int attemptRefresh = 3;
   Future<String?> login(User user) async {
-    String url = Globals.host + "/api/login/";
+    String url = Secrets.host + "/api/login/";
     Uri uri = Uri.parse(url);
     var res = await http.post(uri,
         headers: <String, String>{
@@ -27,7 +27,7 @@ class AuthProvider {
   }
 
   Future<User> signUp(User user) async {
-    String url = Globals.host + "/api/register/";
+    String url = Secrets.host + "/api/register/";
     Uri uri = Uri.parse(url);
     var res = await http.post(uri,
         headers: <String, String>{
@@ -44,14 +44,14 @@ class AuthProvider {
   }
 
   Future<User?> generateToken(User user) async {
-    String url = Globals.host + "/api/api/token/";
+    String url = Secrets.host + "/api/api/token/";
     Uri uri = Uri.parse(url);
     var res = await http.post(uri,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, dynamic>{
-          "username": user.userName! + Globals.companyId,
+          "username": user.userName! + Secrets.companyId,
           "password": user.password
         }));
     print(res.body);
@@ -65,7 +65,7 @@ class AuthProvider {
   }
 
   Future<bool> refreshToken() async {
-    String url = Globals.host + "/api/api/token/refresh/";
+    String url = Secrets.host + "/api/api/token/refresh/";
     Uri uri = Uri.parse(url);
     var res = await http.post(uri,
         headers: <String, String>{
@@ -83,7 +83,7 @@ class AuthProvider {
 
   Future<bool> changePassword(
       String userName, String oldPassword, String newPassword) async {
-    String url = Globals.host + "/api/changepass/";
+    String url = Secrets.host + "/api/changepass/";
     Uri uri = Uri.parse(url);
     var res = await http.post(uri,
         headers: <String, String>{
@@ -94,14 +94,14 @@ class AuthProvider {
           "username": userName,
           "oldpass": oldPassword,
           "newpass": newPassword,
-          'company_id': Globals.companyId
+          'company_id': Secrets.companyId
         }));
     print(res.body);
     return res.statusCode == 201;
   }
 
   Future<bool> setPassword(String email, String password) async {
-    String url = Globals.host + "/api/setnewpass/";
+    String url = Secrets.host + "/api/setnewpass/";
     Uri uri = Uri.parse(url);
     var res = await http.post(uri,
         headers: <String, String>{
@@ -110,14 +110,14 @@ class AuthProvider {
         body: jsonEncode(<String, dynamic>{
           "email": email.trim(),
           "newpass": password,
-          'company_id': Globals.companyId
+          'company_id': Secrets.companyId
         }));
     print(res.body);
     return res.statusCode == 201;
   }
 
   Future<bool> resetPassword(String email) async {
-    String url = Globals.host + "/api/resetpass/";
+    String url = Secrets.host + "/api/resetpass/";
     Uri uri = Uri.parse(url);
     var res = await http.post(uri,
         headers: <String, String>{
@@ -125,14 +125,14 @@ class AuthProvider {
         },
         body: jsonEncode(<String, dynamic>{
           "email": email.trim(),
-          'company_id': Globals.companyId
+          'company_id': Secrets.companyId
         }));
     print(res.body);
     return res.statusCode == 201;
   }
 
   Future<bool> verifyOtp(String email, String otp) async {
-    String url = Globals.host + "/api/verifyotp/";
+    String url = Secrets.host + "/api/verifyotp/";
     Uri uri = Uri.parse(url);
     var res = await http.post(uri,
         headers: <String, String>{
@@ -141,7 +141,7 @@ class AuthProvider {
         body: jsonEncode(<String, dynamic>{
           "email": email.trim(),
           "otp": otp,
-          'company_id': Globals.companyId
+          'company_id': Secrets.companyId
         }));
     print(res.body);
     return res.statusCode == 200;
