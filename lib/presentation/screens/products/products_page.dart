@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fresh/businessLogic/blocs/product/product_bloc.dart';
 import 'package:fresh/data/models/item.dart';
 
 import 'package:fresh/data/models/item_categories.dart';
@@ -27,29 +29,36 @@ class ProductsPage extends StatefulWidget {
 
 class _ProductsPageState extends State<ProductsPage> {
   final sampleProduct = AssetImage('assets/sampleProduct.png');
-  final List<Widget> _itemSubCategory = [];
+  final List<ItemCategory> _itemSubCategory = [];
+  late ProductBloc productBloc;
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    productBloc = BlocProvider.of<ProductBloc>(context);
     print(widget.itemCategory.masterCategory);
+    // for (var item in widget.itemCategory.items) {}
     for (var item in widget.itemCategory.items) {
       if (item.subcategory != null) {
         for (var subCat in item.subcategory!) {
           ItemCategory _itemCat = ItemCategory(id: "", name: subCat['Name']);
+          //To get all the item subcategories
           if (!_itemSubCategory.contains(_itemCat)) {
-            _itemSubCategory.add(GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (ctx) => SortFilterProductPage()),
-                  );
-                },
-                child: CategoriesWidget(itemCategory: _itemCat)));
+            _itemSubCategory.add(_itemCat);
           }
         }
       }
     }
     print(_itemSubCategory);
+    if (_itemSubCategory.isNotEmpty) {
+      productBloc.add(GetProductsofCategoryEvent(
+          itemCategory: _itemSubCategory[0],
+          itemList: widget.itemCategory.items));
+    }
+  }
+
+  List<Item> categoryWiseProductList = [];
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: widget.itemCategory.name),
       body: widget.itemCategory.items.isEmpty
@@ -70,7 +79,24 @@ class _ProductsPageState extends State<ProductsPage> {
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: _itemSubCategory
-                                .map((e) => e)
+                                .map(
+                                  (e) => GestureDetector(
+                                    onTap: () {
+                                      productBloc.add(
+                                          GetProductsofCategoryEvent(
+                                              itemCategory: e,
+                                              itemList:
+                                                  widget.itemCategory.items));
+                                      /*  Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (ctx) =>
+                                                SortFilterProductPage()),
+                                      ); */
+                                    },
+                                    child: CategoriesWidget(itemCategory: e),
+                                  ),
+                                )
                                 .toList() /* [
                       CategoriesWidget(
                           itemCategory: ItemCategory(id: "", name: "Banana")),
@@ -88,29 +114,66 @@ class _ProductsPageState extends State<ProductsPage> {
                     SizedBox(height: 20),
                     CustomCarouselWidget(),
                     SizedBox(height: 20),
-                    Wrap(
-                        spacing: 5,
-                        runSpacing: 5,
-                        children: widget.itemCategory.items
-                            .map((e) => GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (ctx) => TempPageForProduct(
-                                                item: e,
-                                              )),
-                                    );
-                                  },
-                                  child: ProductWidget(product: e),
-                                ))
-                            .toList() /* [
-                  ProductWidget(sampleProduct: sampleProduct, productName: ""),
-                  ProductWidget(sampleProduct: sampleProduct, productName: ""),
-                  ProductWidget(sampleProduct: sampleProduct, productName: ""),
-                  ProductWidget(sampleProduct: sampleProduct, productName: "")
-                ], */
-                        )
+                    BlocConsumer<ProductBloc, ProductState>(
+                      listener: (context, state) {
+                         if (state is GetProductsofCategoriesState) {
+                                categoryWiseProductList =
+                                    List.from(state.itemList);
+                              }
+                      },
+                      builder: (context, state) {
+                        return Wrap(
+                            spacing: 5,
+                            runSpacing: 5,
+                            children: categoryWiseProductList
+                                .map((e) => GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (ctx) =>
+                                                  TempPageForProduct(
+                                                    item: e,
+                                                  )),
+                                        );
+                                      },
+                                      child: ProductWidget(product: e),
+                                    ))
+                                .toList() /* [
+                                                      ProductWidget(sampleProduct: sampleProduct, productName: ""),
+                                                      ProductWidget(sampleProduct: sampleProduct, productName: ""),
+                                                      ProductWidget(sampleProduct: sampleProduct, productName: ""),
+                                                      ProductWidget(sampleProduct: sampleProduct, productName: "")
+                                                    ], */
+
+                            /* return Wrap(
+                                            spacing: 5,
+                                            runSpacing: 5,
+                                            children: widget.itemCategory.items
+                                                .map((e) => GestureDetector(
+                                                      onTap: () {
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (ctx) =>
+                                                                  TempPageForProduct(
+                                                                    item: e,
+                                                                  )),
+                                                        );
+                                                      },
+                                                      child: ProductWidget(product: e),
+                                                    ))
+                                                .toList() /* [
+                                                      ProductWidget(sampleProduct: sampleProduct, productName: ""),
+                                                      ProductWidget(sampleProduct: sampleProduct, productName: ""),
+                                                      ProductWidget(sampleProduct: sampleProduct, productName: ""),
+                                                      ProductWidget(sampleProduct: sampleProduct, productName: "")
+                                                    ], */
+                                            );
+                     */
+                            );
+                      },
+                    )
                   ],
                 ),
               ),
@@ -133,14 +196,14 @@ class ProductWidget extends StatelessWidget {
     return Container(
       height: 180,
       // width: 120,
-       width: 129,
-       constraints: BoxConstraints(
-    maxHeight: double.infinity,
-    maxWidth: double.infinity,
-    ),
+      width: 129,
+      constraints: BoxConstraints(
+        maxHeight: double.infinity,
+        maxWidth: double.infinity,
+      ),
       decoration: BoxDecoration(
           border: Border.all(color: Colors.black54),
-    
+
           // color: Colors.blue,
           borderRadius: BorderRadius.circular(10)),
       child: Column(
@@ -232,7 +295,7 @@ class ProductWidget extends StatelessWidget {
                   offset: Offset(3, 10),
                   child: Column(
                     // crossAxisAlignment: CrossAxisAlignment.end,
-                
+
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Icon(Icons.favorite_border),

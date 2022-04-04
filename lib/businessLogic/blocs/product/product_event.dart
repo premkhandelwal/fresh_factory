@@ -22,3 +22,12 @@ class AddToCartEvent extends ProductEvent {
     required this.quantity,
   });
 }
+
+class GetProductsofCategoryEvent extends ProductEvent {
+  final ItemCategory itemCategory;
+  final List<Item> itemList;
+  GetProductsofCategoryEvent({
+    required this.itemCategory,
+    required this.itemList,
+  });
+}

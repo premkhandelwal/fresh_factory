@@ -61,6 +61,9 @@ class _SignupScreenState extends State<SignupScreen> {
                   MaterialPageRoute(builder: (ctx) => VerifyOtp(emailId: emailIdController.text,)),);
             } else if (state is SignUpFailureState) {
               showSnackBar(context, "Failed to sign up. Please try again");
+            }else if(state is UserAlreadyExistsState){
+              showSnackBar(context, "User email ID already exists. Please login using the same");
+
             }
           },
           builder: (context, state) {

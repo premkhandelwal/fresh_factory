@@ -33,6 +33,7 @@ class PayCubit extends Cubit<PayState> {
     };
     try {
       _razorpay.open(options);
+      
     } catch (e) {
       print(e);
     }

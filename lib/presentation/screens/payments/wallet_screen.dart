@@ -188,7 +188,7 @@ class _WalletWidgetState extends State<WalletWidget> {
                           const Align(
                               alignment: Alignment.topLeft,
                               child: Text(
-                                "\u{20B9}10,000.00",
+                                "\u{20B9}0.00",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 30,

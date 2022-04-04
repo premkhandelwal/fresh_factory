@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:fresh/businessLogic/blocs/auth/auth_bloc.dart';
 import 'package:fresh/globals/common_function.dart';
+import 'package:fresh/presentation/screens/auth/setPassword.dart';
 import 'package:fresh/presentation/screens/home/main_home_page.dart';
 import 'package:fresh/presentation/screens/home/uicomponents.dart';
 
@@ -55,7 +56,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
             if (state is VerifyOTPSuccessState) {
               Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (ctx) => MainHomePage()),
+                  MaterialPageRoute(builder: (ctx) => SetPassword()),
                   (route) => false);
             } else if (state is VerifyOTPFailureState) {
               showSnackBar(context, "Failed to verify OTP");
@@ -135,6 +136,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
                                     child: InkWell(
                                       radius: 30.0,
                                       onTap: () {
+                                        otpController.clear();
                                         authBloc.add(ForgotPasswordEvent(
                                             email: widget.emailId));
                                       },

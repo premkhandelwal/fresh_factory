@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fresh/businessLogic/blocs/auth/auth_bloc.dart';
 import 'package:fresh/globals/common_function.dart';
+import 'package:fresh/presentation/screens/auth/login.dart';
 import 'package:fresh/presentation/screens/home/uicomponents.dart';
 
 class SetPassword extends StatefulWidget {
@@ -48,6 +49,12 @@ class _SetPasswordState extends State<SetPassword> {
           listener: (context, state) {
             if (state is SetPasswordSuccessState) {
               showSnackBar(context, "Successfully generated password");
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (ctx) => LoginScreen()
+                ),
+              );
             } else if (state is SetPasswordFailureState) {
               showSnackBar(context, "Failed to generated password");
             }

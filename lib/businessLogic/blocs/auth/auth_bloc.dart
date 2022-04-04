@@ -29,7 +29,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(SignUpProgressState());
       User _user = await authProvider.signUp(event.user);
       if (_user.accessToken != null) {
+        if (_user.accessToken == "400|User already exists") {
+          emit(UserAlreadyExistsState());
+        }else{
         emit(SignUpSuccessState());
+        }
       } else {
         emit(SignUpFailureState());
       }

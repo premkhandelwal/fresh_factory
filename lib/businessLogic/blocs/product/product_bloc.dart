@@ -36,7 +36,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     });
     on<FetchProductDetailsEvent>((event, emit) async {
       emit(FetchProductDetailInProgressState());
-      ItemDetails? fetchItemDetails = await productProvider.getProductDetails(event.itemId);
+      ItemDetails? fetchItemDetails =
+          await productProvider.getProductDetails(event.itemId);
       if (fetchItemDetails != null) {
         emit(FetchProductDetailSuccessState(itemList: fetchItemDetails));
       } else {
@@ -45,12 +46,29 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     });
     on<AddToCartEvent>((event, emit) async {
       emit(AddtoCartInProgressState());
-      bool isAdded = await productProvider.addtoCart(event.item, event.quantity);
+      bool isAdded =
+          await productProvider.addtoCart(event.item, event.quantity);
       if (isAdded) {
         emit(AddtoCartSuccessState());
       } else {
         emit(AddtoCartFailureState());
       }
     });
+    on<GetProductsofCategoryEvent>(
+      ((event, emit) {
+        List<Item> _items = event.itemList.where((element) {
+          if (element.subcategory != null) {
+            for (var subCat in element.subcategory!) {
+              ItemCategory _itemCat =
+                  ItemCategory(id: "", name: subCat['Name']);
+              //To get all the item subcategories
+              return _itemCat.name == event.itemCategory.name;
+            }
+          }
+          return false;
+        }).toList();
+        emit(GetProductsofCategoriesState(itemList: _items));
+      }),
+    );
   }
 }

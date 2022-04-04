@@ -19,6 +19,8 @@ class SignUpSuccessState extends AuthState {}
 
 class SignUpFailureState extends AuthState {}
 
+class UserAlreadyExistsState extends AuthState{}
+
 class GenerateAccessTokenInProgressState extends AuthState {}
 
 class GenerateAccessTokenSuccessState extends AuthState {}
