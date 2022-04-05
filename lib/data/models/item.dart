@@ -1,6 +1,8 @@
 import 'dart:convert';
 
-class Item {
+import 'package:equatable/equatable.dart';
+
+class Item extends Equatable{
   String id;
   String name;
   String? tags;
@@ -157,6 +159,9 @@ static List<Item> fromJsonList(String source) =>
   String toString() {
     return 'Item(id: $id, name: $name, tags: $tags, mrp: $mrp, cessApplicable: $cessApplicable, applicableCess: $applicableCess, minPurchaseQty: $minPurchaseQty, sku: $sku, shippingCharges: $shippingCharges, image: $image, video: $video, videoLink: $videoLink, publish: $publish, cess: $cess, status: $status, desc: $desc, category: $category, subcategory: $subcategory, brand: $brand, taxPercent: $taxPercent)';
   }
+
+  @override
+  List<Object?> get props => [name, id];
 }
 /*  
 {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fresh/businessLogic/blocs/product/product_bloc.dart';
+import 'package:fresh/businessLogic/cubits/bottomNavigationBar/cart_cubit.dart';
 import 'package:fresh/data/models/item.dart';
 
 import 'package:fresh/data/models/item_categories.dart';
@@ -40,6 +41,8 @@ class _ProductsPageState extends State<ProductsPage> {
     for (var item in widget.itemCategory.items) {
       if (item.subcategory != null) {
         for (var subCat in item.subcategory!) {
+          // ItemCategory _itemCat = widget.allItemCategories
+          // .firstWhere((element) => element.name == subCat['Name']);
           ItemCategory _itemCat = ItemCategory(id: "", name: subCat['Name']);
           //To get all the item subcategories
           if (!_itemSubCategory.contains(_itemCat)) {
@@ -71,7 +74,7 @@ class _ProductsPageState extends State<ProductsPage> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    CustomHeaderWidget(title: "Categories"),
+                    CustomHeaderWidget(title: "Sub-Categories"),
                     Padding(
                       padding: const EdgeInsets.only(left: 16.0),
                       child: SingleChildScrollView(
@@ -94,7 +97,10 @@ class _ProductsPageState extends State<ProductsPage> {
                                                 SortFilterProductPage()),
                                       ); */
                                     },
-                                    child: CategoriesWidget(itemCategory: e),
+                                    child: CategoriesWidget(
+                                      itemCategory: e,
+                                      borderColor: Colors.green,
+                                    ),
                                   ),
                                 )
                                 .toList() /* [
@@ -116,10 +122,9 @@ class _ProductsPageState extends State<ProductsPage> {
                     SizedBox(height: 20),
                     BlocConsumer<ProductBloc, ProductState>(
                       listener: (context, state) {
-                         if (state is GetProductsofCategoriesState) {
-                                categoryWiseProductList =
-                                    List.from(state.itemList);
-                              }
+                        if (state is GetProductsofCategoriesState) {
+                          categoryWiseProductList = List.from(state.itemList);
+                        }
                       },
                       builder: (context, state) {
                         return Wrap(
@@ -193,10 +198,11 @@ class ProductWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final CartCubit cartCubit = BlocProvider.of<CartCubit>(context);
     return Container(
-      height: 180,
+      height: 250,
       // width: 120,
-      width: 129,
+      width: 150,
       constraints: BoxConstraints(
         maxHeight: double.infinity,
         maxWidth: double.infinity,
@@ -210,34 +216,33 @@ class ProductWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Flexible(
-            child: Container(
-              height: 100,
-              width: 129,
-              margin: EdgeInsets.fromLTRB(47, 30, 30, 0),
-              child: product.image != null
-                  ? Center(
-                      child: Image.network(
-                        Secrets.mediaUrl + product.image!,
-                        height: 100,
-                        width: 129,
-                        errorBuilder: (ctx, _, _1) {
-                          return Container(
-                            height: 28,
-                            width: 43,
-                          );
-                        },
-                      ),
-                    )
-                  : Container(
-                      height: 28,
-                      width: 43,
+          Container(
+            height: 100,
+            width: 150,
+            margin: EdgeInsets.fromLTRB(47, 30, 30, 0),
+            child: product.image != null
+                ? Center(
+                    child: Image.network(
+                      Secrets.mediaUrl + product.image!,
+                      height: 100,
+                      width: 129,
+                      errorBuilder: (ctx, _, _1) {
+                        return Container(
+                          height: 28,
+                          width: 43,
+                        );
+                      },
                     ),
-              decoration: BoxDecoration(
-                  // color: Colors.grey,
-                  borderRadius: BorderRadius.circular(10)),
-            ),
+                  )
+                : Container(
+                    height: 28,
+                    width: 43,
+                  ),
+            decoration: BoxDecoration(
+                // color: Colors.grey,
+                borderRadius: BorderRadius.circular(10)),
           ),
+          SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -250,7 +255,7 @@ class ProductWidget extends StatelessWidget {
                       Text(
                         product.name,
                         textAlign: TextAlign.start,
-                        style: TextStyle(color: Colors.black, fontSize: 18),
+                        style: TextStyle(color: Colors.black, fontSize: 15),
                       ),
                       SizedBox(height: 5),
                       Text(
@@ -300,13 +305,18 @@ class ProductWidget extends StatelessWidget {
                     children: [
                       Icon(Icons.favorite_border),
                       SizedBox(height: 20),
-                      CircleAvatar(
-                        maxRadius: 12,
-                        child: Icon(
-                          Icons.add,
-                          size: 18,
+                      Center(
+                        child: IconButton(
+                          onPressed: () {
+                            cartCubit.addToCart(product);
+                          },
+                          icon: Icon(
+                            Icons.add_circle,
+                            color: Colors.green,
+                            size: 28,
+
+                          ),
                         ),
-                        backgroundColor: Colors.green,
                       )
                     ],
                   ),
