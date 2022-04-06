@@ -15,6 +15,5 @@ class TabBarSelectionChanged extends SortFilterProductState {
     required this.tabIndex,
   });
   @override
-  // TODO: implement props
   List<Object> get props => [DateTime.now()];
 }

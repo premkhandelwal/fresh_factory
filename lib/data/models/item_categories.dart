@@ -4,18 +4,18 @@ import 'package:equatable/equatable.dart';
 import 'package:fresh/data/models/item.dart';
 
 class ItemCategory extends Equatable{
-  String id;
-  String name;
-  int? priorty;
-  String? bannerImage;
-  String? icon;
-  String? metaTitle;
-  String? metaDescription;
-  String? tags;
-  String? type;
-  String? masterCategory;
-  String? brandName;
-  List<Item> items;
+  final String id;
+  final String name;
+  final int? priorty;
+  final String? bannerImage;
+  final String? icon;
+  final String? metaTitle;
+  final String? metaDescription;
+  final String? tags;
+  final String? type;
+  final String? masterCategory;
+  final String? brandName;
+  final List<Item> items;
   ItemCategory(
       {required this.id,
       required this.name,

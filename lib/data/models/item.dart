@@ -3,27 +3,27 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class Item extends Equatable{
-  String id;
-  String name;
-  String? tags;
-  double? mrp;
-  bool? cessApplicable;
-  double? applicableCess;
-  int? minPurchaseQty;
-  String? sku;
-  bool? shippingCharges;
-  double? shippingChargesCost;
-  String? image;
-  String? video;
-  String? videoLink;
-  int? publish;
-  double? cess;
-  bool? status;
-  String? desc;
-  List<dynamic>? category;
-  List<dynamic>? subcategory;
-  List<dynamic>? brand;
-  double? taxPercent;
+  final String id;
+  final String name;
+  final String? tags;
+  final double? mrp;
+  final bool? cessApplicable;
+  final double? applicableCess;
+  final int? minPurchaseQty;
+  final String? sku;
+  final bool? shippingCharges;
+  final double? shippingChargesCost;
+  final String? image;
+  final String? video;
+  final String? videoLink;
+  final int? publish;
+  final double? cess;
+  final bool? status;
+  final String? desc;
+  final List<dynamic>? category;
+  final List<dynamic>? subcategory;
+  final List<dynamic>? brand;
+  final double? taxPercent;
   Item({
     required this.id,
     required this.name,

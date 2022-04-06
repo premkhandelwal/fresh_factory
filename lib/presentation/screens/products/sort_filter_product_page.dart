@@ -1,14 +1,11 @@
-import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fresh/businessLogic/cubits/radioButtonCubit/radio_button_cubit.dart';
 import 'package:fresh/businessLogic/cubits/sortFilterProduct/sort_filter_product_cubit.dart';
 import 'package:fresh/data/enums.dart';
 import 'package:fresh/data/models/item.dart';
 import 'package:fresh/presentation/screens/products/products_page.dart';
 import 'package:fresh/presentation/utils/custom_app_bar.dart';
-import 'package:fresh/presentation/utils/custom_header_widget.dart';
 
 class SortFilterProductPage extends StatefulWidget {
   const SortFilterProductPage({Key? key}) : super(key: key);

@@ -1,9 +1,6 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fresh/presentation/screens/orders/history_order_widget.dart';
-
-import 'package:fresh/presentation/screens/payments/wallet_screen.dart';
 import 'package:fresh/presentation/utils/custom_app_bar.dart';
 
 class OrderMainPage extends StatefulWidget {

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fresh/businessLogic/blocs/profile/profile_bloc.dart';
 import 'package:fresh/data/models/bank_details.dart';
 import 'package:fresh/data/models/image_to_file_api.dart';

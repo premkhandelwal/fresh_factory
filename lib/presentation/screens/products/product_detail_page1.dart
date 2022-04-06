@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fresh/data/models/item_categories.dart';
-import 'package:fresh/presentation/screens/products/products_page.dart';
 import 'package:fresh/presentation/utils/custom_app_bar.dart';
-import 'package:fresh/presentation/widgets/home/categories_widget.dart';
 
 class ProductDetailPage1 extends StatefulWidget {
   const ProductDetailPage1({Key? key}) : super(key: key);

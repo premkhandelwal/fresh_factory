@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fresh/businessLogic/blocs/product/product_bloc.dart';
 import 'package:fresh/businessLogic/cubits/bottomNavigationBar/cart_cubit.dart';
 import 'package:fresh/data/models/item.dart';
-
 import 'package:fresh/data/models/item_categories.dart';
 import 'package:fresh/globals/constants/secrets.dart';
+import 'package:fresh/globals/constants/sessionConstants.dart';
 import 'package:fresh/presentation/screens/home/home_screen.dart';
-import 'package:fresh/presentation/screens/products/product_detail_page.dart';
-import 'package:fresh/presentation/screens/products/sort_filter_product_page.dart';
 import 'package:fresh/presentation/screens/products/temp_product_page.dart';
 import 'package:fresh/presentation/utils/custom_app_bar.dart';
 import 'package:fresh/presentation/utils/custom_header_widget.dart';
@@ -200,7 +197,7 @@ class ProductWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final CartCubit cartCubit = BlocProvider.of<CartCubit>(context);
     return Container(
-      height: 250,
+      height: 260,
       // width: 120,
       width: 150,
       constraints: BoxConstraints(
@@ -308,13 +305,13 @@ class ProductWidget extends StatelessWidget {
                       Center(
                         child: IconButton(
                           onPressed: () {
+
                             cartCubit.addToCart(product);
                           },
                           icon: Icon(
                             Icons.add_circle,
                             color: Colors.green,
                             size: 28,
-
                           ),
                         ),
                       )

@@ -1,14 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:fresh/businessLogic/blocs/product/product_bloc.dart';
 import 'package:fresh/data/models/item.dart';
 import 'package:fresh/data/models/item_categories.dart';
 import 'package:fresh/presentation/screens/auth/changePassword.dart';
 import 'package:fresh/presentation/screens/home/app_bar_widgets_home.dart';
-import 'package:fresh/presentation/screens/home/main_home_page.dart';
 import 'package:fresh/presentation/screens/offers/offer_page.dart';
 import 'package:fresh/presentation/screens/orders/order_main_page.dart';
 import 'package:fresh/presentation/screens/payments/bank_details_screen.dart';
@@ -20,7 +17,6 @@ import 'package:fresh/presentation/widgets/home/brands_widget.dart';
 import 'package:fresh/presentation/widgets/home/categories_widget.dart';
 import 'package:fresh/presentation/widgets/home/deal_for_the_day_widget.dart';
 import 'package:fresh/presentation/widgets/home/exclusive_product_widget.dart';
-import 'package:fresh/presentation/widgets/home/featured_product_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

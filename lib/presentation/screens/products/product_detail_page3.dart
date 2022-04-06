@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fresh/presentation/utils/custom_app_bar.dart';
 
 class ProductDetailPage3 extends StatefulWidget {

@@ -12,17 +12,8 @@ import 'package:fresh/businessLogic/cubits/sortFilterProduct/sort_filter_product
 import 'package:fresh/data/dataProviders/auth_provider.dart';
 import 'package:fresh/data/dataProviders/product_provider.dart';
 import 'package:fresh/data/dataProviders/profile_provider.dart';
-import 'package:fresh/presentation/screens/auth/forgot_password_screen.dart';
 import 'package:fresh/presentation/screens/auth/login_sign_up.dart';
 import 'package:fresh/presentation/screens/auth/setPassword.dart';
-import 'package:fresh/presentation/screens/home/home_screen.dart';
-import 'package:fresh/presentation/screens/home/main_home_page.dart';
-import 'package:fresh/presentation/screens/payments/wallet_screen.dart';
-import 'package:fresh/presentation/screens/payments/bank_details_screen.dart';
-import 'package:fresh/presentation/screens/payments/payment_method_screen.dart';
-import 'package:fresh/presentation/screens/products/product_detail_page1.dart';
-import 'package:fresh/presentation/screens/products/product_detail_page4.dart';
-import 'package:fresh/presentation/widgets/home/fortune_wheel_widget.dart';
 
 void main() {
   runApp(MyApp(
