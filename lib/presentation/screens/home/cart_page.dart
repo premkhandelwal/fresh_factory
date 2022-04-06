@@ -77,28 +77,27 @@ class _CartPageState extends State<CartPage> {
     return Scaffold(
         appBar: CustomAppBar(title: "Cart Page"),
         body: BlocBuilder<CartCubit, CartState>(
-                buildWhen: (previous, current) {
-                  if (current is AddNewtoCartState) {
-                    _cartItems.add(Column(
-                      children: [
-                        CartItemWidget(
-                            cartItem: CartItem(
-                                item: current.item,
-                                quantity: current.quantity)),
-                        Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Divider(height: 10, color: Colors.black54),
-                        ),
-                        SizedBox(height: 20),
-                      ],
-                    ));
-                    return true;
-                  }
-                  return false;
-                },
-                builder: (context, state) {
-                  return _cartItems.isNotEmpty
-            ? BlocConsumer<PayCubit, PayState>(
+          buildWhen: (previous, current) {
+            if (current is AddNewtoCartState) {
+              _cartItems.add(Column(
+                children: [
+                  CartItemWidget(
+                      cartItem: CartItem(
+                          item: current.item, quantity: current.quantity)),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Divider(height: 10, color: Colors.black54),
+                  ),
+                  SizedBox(height: 20),
+                ],
+              ));
+              return true;
+            }
+            return false;
+          },
+          builder: (context, state) {
+            return _cartItems.isNotEmpty
+                ? BlocConsumer<PayCubit, PayState>(
                     listener: (context, state) {
                       if (state is PaymentSuccessState) {
                         _handlePaymentSuccess(state.paymentSuccessResponse);
@@ -117,7 +116,7 @@ class _CartPageState extends State<CartPage> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8.0, vertical: 20),
                         child: Stack(children: [
-                          Column(
+                          ListView(
                             children: _createChildren(),
                           ),
                           Positioned(
@@ -240,12 +239,12 @@ class _CartPageState extends State<CartPage> {
                         ]),
                       );
                     },
-                  ): Center(
-                child: Text("No Items in the Cart"),
-              );
-                },
-              )
-            );
+                  )
+                : Center(
+                    child: Text("No Items in the Cart"),
+                  );
+          },
+        ));
   }
 }
 

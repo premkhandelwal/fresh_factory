@@ -197,7 +197,7 @@ class ProductWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final CartCubit cartCubit = BlocProvider.of<CartCubit>(context);
     return Container(
-      height: 260,
+      height: 280,
       // width: 120,
       width: 150,
       constraints: BoxConstraints(
