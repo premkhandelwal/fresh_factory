@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fresh/businessLogic/cubits/bottomNavigationBar/cart_cubit.dart';
+import 'package:fresh/businessLogic/cubits/cartCubit/cart_cubit.dart';
 import 'package:fresh/data/models/cart_item.dart';
 import 'package:fresh/globals/constants/sessionConstants.dart';
+import 'package:fresh/presentation/screens/orders/order_main_page.dart';
+import 'package:fresh/presentation/screens/payments/wallet_screen.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 import 'package:fresh/businessLogic/cubits/payCubit/pay_cubit.dart';
@@ -123,7 +125,9 @@ class _CartPageState extends State<CartPage> {
                             bottom: 1,
                             left: 15,
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                _proceedToCheckOut(context);
+                              },
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -152,80 +156,7 @@ class _CartPageState extends State<CartPage> {
                                   IconButton(
                                     icon: Icon(Icons.arrow_forward_ios),
                                     onPressed: () {
-                                      showModalBottomSheet(
-                                          context: context,
-                                          builder: (ctx) {
-                                            return Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 16.0, top: 12),
-                                              child: Column(
-                                                children: [
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: [
-                                                      Expanded(
-                                                          child: CustomHeaderWidget(
-                                                              isPaddingReq:
-                                                                  false,
-                                                              title:
-                                                                  "Checkout")),
-                                                      IconButton(
-                                                          onPressed: () {
-                                                            Navigator.pop(ctx);
-                                                          },
-                                                          icon:
-                                                              Icon(Icons.close))
-                                                    ],
-                                                  ),
-                                                  SizedBox(height: 10),
-                                                  CheckOutModalItemWidget(
-                                                    leftHeading: "Delivery",
-                                                    rightHeading:
-                                                        "Select Method",
-                                                  ),
-                                                  SizedBox(height: 10),
-                                                  CheckOutModalItemWidget(
-                                                    leftHeading: "Wallet",
-                                                    rightHeading:
-                                                        "\u{20B9} 1040.00",
-                                                  ),
-                                                  SizedBox(height: 10),
-                                                  CheckOutModalItemWidget(
-                                                    leftHeading: "Promo Code",
-                                                    rightHeading:
-                                                        "Pick Discount",
-                                                    onTap: () {
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (ctx) =>
-                                                                OfferPage()),
-                                                      );
-                                                    },
-                                                  ),
-                                                  SizedBox(height: 10),
-                                                  CheckOutModalItemWidget(
-                                                    leftHeading: "Total Amount",
-                                                    rightHeading:
-                                                        "\u{20B9} ${cartCubit.totalAmount}",
-                                                  ),
-                                                  SizedBox(height: 40),
-                                                  ElevatedButton(
-                                                    onPressed: () {
-                                                      /* payCubit.getOrderId(_amountTobePaid);
-                                                            Navigator.pop(ctx); */
-                                                    },
-                                                    child: Text("Place Order"),
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                            fixedSize:
-                                                                Size(353, 50)),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          });
+                                      _proceedToCheckOut(context);
                                     },
                                   )
                                 ],
@@ -245,6 +176,86 @@ class _CartPageState extends State<CartPage> {
                   );
           },
         ));
+  }
+
+  Future<dynamic> _proceedToCheckOut(BuildContext context) {
+    return showModalBottomSheet(
+        context: context,
+        builder: (ctx) {
+          return StatefulBuilder(builder: (context, setState) {
+            return Padding(
+              padding: const EdgeInsets.only(left: 16.0, top: 12),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                          child: CustomHeaderWidget(
+                              isPaddingReq: false, title: "Checkout")),
+                      IconButton(
+                          onPressed: () {
+                            Navigator.pop(ctx);
+                          },
+                          icon: Icon(Icons.close))
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  CheckOutModalItemWidget(
+                    leftHeading: "Delivery",
+                    rightHeading: "Select Method",
+                  ),
+                  SizedBox(height: 10),
+                  CheckOutModalItemWidget(
+                    leftHeading: "Wallet",
+                    rightHeading: "\u{20B9} ${SessionConstants.walletAmount}",
+                  ),
+                  SizedBox(height: 10),
+                  CheckOutModalItemWidget(
+                    leftHeading: "Promo Code",
+                    rightHeading: "Pick Discount",
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (ctx) => OfferPage()),
+                      );
+                    },
+                  ),
+                  SizedBox(height: 10),
+                  CheckOutModalItemWidget(
+                    leftHeading: "Total Amount",
+                    rightHeading: "\u{20B9} ${cartCubit.totalAmount}",
+                  ),
+                  SizedBox(height: 40),
+                  ElevatedButton(
+                    onPressed: () {
+                      cartCubit.totalAmount > SessionConstants.walletAmount
+                          ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (ctx) => WalletScreen(
+                                        isRedirectedAutomatically: true,
+                                      )),
+                            ).then(
+                              (value) {
+                                setState(() {});
+                              },
+                            )
+                          : Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (ctx) => OrderMainPage()),
+                            );
+                      ;
+                    },
+                    child: Text("Place Order"),
+                    style: ElevatedButton.styleFrom(fixedSize: Size(353, 50)),
+                  ),
+                ],
+              ),
+            );
+          });
+        });
   }
 }
 

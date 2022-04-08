@@ -23,7 +23,9 @@ class PayCubit extends Cubit<PayState> {
   }
 
   void openCheckOut(double amount, String orderId) {
-    var options = {
+    
+    try {
+      var options = {
       'key': Secrets.razorPayKey,
       'amount': (amount * 100).toInt(),
       'name': 'Fresh From Factory',
@@ -31,7 +33,6 @@ class PayCubit extends Cubit<PayState> {
       'description': 'Checkout',
       'prefill': {'contact': '8888888888', 'email': 'test@razorpay.com'},
     };
-    try {
       _razorpay.open(options);
       
     } catch (e) {

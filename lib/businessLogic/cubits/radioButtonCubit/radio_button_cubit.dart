@@ -10,7 +10,13 @@ class RadioButtonCubit extends Cubit<RadioButtonState> {
   void sortOptionSelected(SortOptions? sortOption) {
     emit(SortSelectionChanged(sortOptionVal: sortOption));
   }
+
   void filterOptionSelected(FilterOptions? filterOption) {
     emit(FilterSelectionChanged(filterOptionVal: filterOption));
+  }
+
+  void walletTransferOptionSelected(WalletTransferOptions? transferOption) {
+    emit(WalletTransferSelectionChanged(
+        walletTransferOptionVal: transferOption));
   }
 }

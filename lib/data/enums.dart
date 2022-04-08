@@ -60,3 +60,8 @@ extension GetStringValforFilterOption on FilterOptions {
     }
   }
 }
+
+enum WalletTransferOptions{
+  toBank,
+  toWallet
+}

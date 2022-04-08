@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh/businessLogic/blocs/product/product_bloc.dart';
-import 'package:fresh/businessLogic/cubits/bottomNavigationBar/cart_cubit.dart';
+import 'package:fresh/businessLogic/cubits/cartCubit/cart_cubit.dart';
 import 'package:fresh/data/models/item.dart';
 import 'package:fresh/data/models/item_categories.dart';
 import 'package:fresh/globals/constants/secrets.dart';
@@ -305,7 +305,6 @@ class ProductWidget extends StatelessWidget {
                       Center(
                         child: IconButton(
                           onPressed: () {
-
                             cartCubit.addToCart(product);
                           },
                           icon: Icon(

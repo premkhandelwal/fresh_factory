@@ -4,10 +4,11 @@ abstract class RadioButtonState extends Equatable {
   const RadioButtonState();
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [DateTime.now()];
 
   SortOptions? get sortOptionVal => null;
   FilterOptions? get filterOptionVal => null;
+  WalletTransferOptions? get walletTransferOptionVal => null;
 }
 
 class RadioButtonInitial extends RadioButtonState {}
@@ -19,8 +20,6 @@ class SortSelectionChanged extends RadioButtonState {
     required this.sortOptionVal,
   });
 
-  @override
-  List<Object> get props => [DateTime.now()];
 }
 
 class FilterSelectionChanged extends RadioButtonState {
@@ -30,6 +29,13 @@ class FilterSelectionChanged extends RadioButtonState {
     required this.filterOptionVal,
   });
 
+}
+
+class WalletTransferSelectionChanged extends RadioButtonState {
   @override
-  List<Object> get props => [DateTime.now()];
+  final WalletTransferOptions? walletTransferOptionVal;
+  WalletTransferSelectionChanged({
+    required this.walletTransferOptionVal,
+  });
+
 }

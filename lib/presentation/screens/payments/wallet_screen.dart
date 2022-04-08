@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fresh/businessLogic/cubits/radioButtonCubit/radio_button_cubit.dart';
+import 'package:fresh/data/enums.dart';
+import 'package:fresh/globals/constants/sessionConstants.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:fresh/businessLogic/cubits/payCubit/pay_cubit.dart';
 import 'package:fresh/globals/common_function.dart';
 import 'package:fresh/presentation/utils/custom_app_bar.dart';
 
 class WalletScreen extends StatefulWidget {
-  const WalletScreen({Key? key}) : super(key: key);
+  final bool isRedirectedAutomatically;
+  const WalletScreen({Key? key, this.isRedirectedAutomatically = false})
+      : super(key: key);
 
   @override
   _WalletScreenState createState() => _WalletScreenState();
@@ -64,9 +69,13 @@ class _WalletScreenState extends State<WalletScreen> {
             ),
             Expanded(
               child: TabBarView(children: [
-                WalletWidget(controller: walletController),
+                WalletWidget(
+                    controller: walletController,
+                    isRedirectedAutomatically:
+                        widget.isRedirectedAutomatically),
                 WalletWidget(
                   isReferralWallet: true,
+                  isRedirectedAutomatically: widget.isRedirectedAutomatically,
                   controller: referralWalletController,
                 ),
               ]),
@@ -81,9 +90,11 @@ class _WalletScreenState extends State<WalletScreen> {
 class WalletWidget extends StatefulWidget {
   final bool isReferralWallet;
   final TextEditingController controller;
+  final bool isRedirectedAutomatically;
   const WalletWidget({
     Key? key,
     this.isReferralWallet = false,
+    this.isRedirectedAutomatically = false,
     required this.controller,
   }) : super(key: key);
 
@@ -93,10 +104,12 @@ class WalletWidget extends StatefulWidget {
 
 class _WalletWidgetState extends State<WalletWidget> {
   late PayCubit payCubit;
+  late RadioButtonCubit radioButtonCubit;
   @override
   void initState() {
     super.initState();
     payCubit = BlocProvider.of<PayCubit>(context);
+    radioButtonCubit = BlocProvider.of<RadioButtonCubit>(context);
     payCubit.initPay();
   }
 
@@ -125,8 +138,11 @@ class _WalletWidgetState extends State<WalletWidget> {
       listener: (context, state) {
         if (state is PaymentSuccessState) {
           _handlePaymentSuccess(state.paymentSuccessResponse);
-
-          print(state.paymentSuccessResponse.paymentId);
+          SessionConstants.walletAmount += double.parse(widget.controller.text);
+          if (widget.isRedirectedAutomatically) {
+            Navigator.pop(context, true);
+          }
+          // print(state.paymentSuccessResponse.paymentId);
         } else if (state is PaymentErrorState) {
           _handlePaymentError(state.paymentFailureResponse);
         } else if (state is GetOrderIdSuccessState) {
@@ -137,9 +153,9 @@ class _WalletWidgetState extends State<WalletWidget> {
               double.parse(widget.controller.text), state.orderId);
         } else if (state is CapturePaymentSuccessState) {
           showSnackBar(context, "Successfully Added Money");
-        }else if(state is CapturePaymentFailureState || state is GetOrderIdFailureState){
-    showSnackBar(context, "Failed to Add Money");
-
+        } else if (state is CapturePaymentFailureState ||
+            state is GetOrderIdFailureState) {
+          showSnackBar(context, "Failed to Add Money");
         }
       },
       builder: (context, state) {
@@ -183,10 +199,10 @@ class _WalletWidgetState extends State<WalletWidget> {
                           Container(
                             width: 51,
                           ),
-                          const Align(
+                          Align(
                               alignment: Alignment.topLeft,
                               child: Text(
-                                "\u{20B9}0.00",
+                                "\u{20B9}${SessionConstants.walletAmount}",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 30,
@@ -200,7 +216,7 @@ class _WalletWidgetState extends State<WalletWidget> {
               ),
               SizedBox(height: 15),
               Container(
-                height: 195,
+                height: 225,
                 width: 382,
                 decoration:
                     BoxDecoration(border: Border.all(color: Colors.black12)),
@@ -224,7 +240,48 @@ class _WalletWidgetState extends State<WalletWidget> {
                             border: OutlineInputBorder()),
                       ),
                     ),
-                    SizedBox(height: 30),
+                    SizedBox(height: 15),
+                    widget.isReferralWallet
+                        ? BlocBuilder<RadioButtonCubit, RadioButtonState>(
+                            builder: (context, state) {
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "To Bank",
+                                    style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Radio<WalletTransferOptions>(
+                                      value: WalletTransferOptions.toBank,
+                                      groupValue: state.walletTransferOptionVal,
+                                      onChanged: (val) {
+                                        radioButtonCubit
+                                            .walletTransferOptionSelected(val);
+                                      }),
+                                  SizedBox(width: 20),
+                                  Text(
+                                    "To Wallet",
+                                    style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Radio<WalletTransferOptions>(
+                                      value: WalletTransferOptions.toWallet,
+                                      groupValue: state.walletTransferOptionVal,
+                                      onChanged: (val) {
+                                        radioButtonCubit
+                                            .walletTransferOptionSelected(val);
+                                      }),
+                                ],
+                              );
+                            },
+                          )
+                        : Container(),
+                    SizedBox(height: 15),
                     ElevatedButton(
                       onPressed: () {
                         if (widget.controller.text == "") {
@@ -233,7 +290,9 @@ class _WalletWidgetState extends State<WalletWidget> {
                         payCubit
                             .getOrderId(double.parse(widget.controller.text));
                       },
-                      child: const Text("Add Money"),
+                      child: Text(widget.isReferralWallet
+                          ? "Transfer Money"
+                          : "Add Money"),
                       style: ElevatedButton.styleFrom(
                           fixedSize: const Size(353, 49)),
                     ),
