@@ -22,56 +22,57 @@ List<Widget> _pages = [
 ];
 
 class _MainHomePageState extends State<MainHomePage> {
+  int _bottomNavIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: PersistentTabView(
-        context,
-        controller: _persistentTabController,
-        navBarStyle: NavBarStyle.simple,
-        items: [
-          PersistentBottomNavBarItem(
-            icon: Icon(Icons.home),
-            title: "Home",
-            inactiveColorPrimary: Colors.grey,
-            // unselectedLabelStyle: TextStyle(color: Colors.black),
-            activeColorPrimary: Colors.red,
-          ),
-          PersistentBottomNavBarItem(
-            icon: Icon(Icons.category),
-            title: "Categories",
-            inactiveColorPrimary: Colors.grey,
-            // unselectedLabelStyle: TextStyle(color: Colors.black),
-            activeColorPrimary: Colors.red,
+    return PersistentTabView(
+      context,
+      controller: _persistentTabController,
+      navBarStyle: NavBarStyle.simple,
+      items: [
+        PersistentBottomNavBarItem(
+          icon: Icon(Icons.home),
+          title: "Home",
+          inactiveColorPrimary: Colors.grey,
+          // unselectedLabelStyle: TextStyle(color: Colors.black),
+          activeColorPrimary: Colors.red,
+        ),
+        PersistentBottomNavBarItem(
+          icon: Icon(Icons.category),
+          title: "Categories",
+          inactiveColorPrimary: Colors.grey,
+          // unselectedLabelStyle: TextStyle(color: Colors.black),
+          activeColorPrimary: Colors.red,
 
-            // backgroundColor: Colors.grey,
-          ),
-          PersistentBottomNavBarItem(
-            icon: Icon(Icons.badge),
-            title: "Wallet",
-            inactiveColorPrimary: Colors.grey,
-            // unselectedLabelStyle: TextStyle(color: Colors.black),
-            activeColorPrimary: Colors.red,
-          ),
-          PersistentBottomNavBarItem(
-            icon: Icon(Icons.shopping_cart_checkout),
-            title: "Cart",
-            inactiveColorPrimary: Colors.grey,
-            // unselectedLabelStyle: TextStyle(color: Colors.black),
-            activeColorPrimary: Colors.red,
-          ),
-          PersistentBottomNavBarItem(
-            icon: Icon(Icons.support_agent),
-            title: "Support",
-            inactiveColorPrimary: Colors.grey,
-            // unselectedLabelStyle: TextStyle(color: Colors.black),
-            activeColorPrimary: Colors.red,
-            // backgroundColor: Colors.grey,
-          ),
-        ],
-        screens: _pages,
-        confineInSafeArea: true,
-      ),
+          // backgroundColor: Colors.grey,
+        ),
+        PersistentBottomNavBarItem(
+          icon: Icon(Icons.badge),
+          title: "Wallet",
+          inactiveColorPrimary: Colors.grey,
+          // unselectedLabelStyle: TextStyle(color: Colors.black),
+          activeColorPrimary: Colors.red,
+        ),
+        PersistentBottomNavBarItem(
+          icon: Icon(Icons.shopping_cart_checkout),
+          title: "Cart",
+          inactiveColorPrimary: Colors.grey,
+          // unselectedLabelStyle: TextStyle(color: Colors.black),
+          activeColorPrimary: Colors.red,
+        ),
+        PersistentBottomNavBarItem(
+          icon: Icon(Icons.support_agent),
+          title: "Support",
+          inactiveColorPrimary: Colors.grey,
+          // unselectedLabelStyle: TextStyle(color: Colors.black),
+          activeColorPrimary: Colors.red,
+          // backgroundColor: Colors.grey,
+        ),
+      ],
+      screens: _pages,
+      confineInSafeArea: true,
     );
+    /* 
+ */
   }
 }

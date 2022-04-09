@@ -43,14 +43,14 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
- drawer: DrawerWidget(),
-          // bottomNavigationBar: BottomNavBarWidget(currentIndex: state.index),
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            foregroundColor: Colors.red,
-            // automaticallyImplyLeading: false,
-            title: const AppBarWidgets(),
-          ),
+      drawer: DrawerWidget(),
+      // bottomNavigationBar: BottomNavBarWidget(currentIndex: state.index),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.red,
+        // automaticallyImplyLeading: false,
+        title: const AppBarWidgets(),
+      ),
       body: BlocConsumer<ProductBloc, ProductState>(
         listener: (context, state) {
           if (state is FetchCategoriesSuccessState) {
@@ -362,7 +362,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
- */
+     */
                 const CustomHeaderWidget(
                   title: "Testimonial",
                 ),
@@ -455,7 +455,8 @@ class DrawerWidget extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (ctx) => EditProfileDetailsPage()),
+                  MaterialPageRoute(
+                      builder: (ctx) => EditProfileDetailsPage()),
                 );
               },
             ),
@@ -475,10 +476,10 @@ class DrawerWidget extends StatelessWidget {
           ],
         ),
         /*  ListTile(
-         leading: Icon(Icons.account_circle_outlined, color: Colors.pink),
-         title: Text("My Profile"),
-         minLeadingWidth: 8,
-       ), */
+           leading: Icon(Icons.account_circle_outlined, color: Colors.pink),
+           title: Text("My Profile"),
+           minLeadingWidth: 8,
+         ), */
         ListTile(
           leading: Icon(Icons.add_card, color: Colors.pink),
           title: Text("My Wallet"),
@@ -574,8 +575,6 @@ class DrawerWidget extends StatelessWidget {
     ));
   }
 }
-
-
 
 class TimerChildWidget extends StatelessWidget {
   final String text;

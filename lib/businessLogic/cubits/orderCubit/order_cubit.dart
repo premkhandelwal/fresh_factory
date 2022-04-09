@@ -7,7 +7,7 @@ part 'order_state.dart';
 class OrderCubit extends Cubit<OrderState> {
   OrderCubit() : super(OrderInitial());
 
-  void statusOrderWidgetClicked(Widget changeTo) {
-    emit(OrderWidgetClickedState(changeTo: changeTo));
+  void statusOrderWidgetClicked(int changeTo) {
+    emit(OrderWidgetClickedState(index: changeTo));
   }
 }

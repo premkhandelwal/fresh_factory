@@ -48,7 +48,8 @@ class MainPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SignupScreen()),
+                        MaterialPageRoute(
+                            builder: (context) => SignupScreen()),
                       );
                     },
                   ),
@@ -70,7 +71,8 @@ class MainPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                        MaterialPageRoute(
+                            builder: (context) => LoginScreen()),
                       );
                     },
                   ),

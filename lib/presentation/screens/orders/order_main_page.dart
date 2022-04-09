@@ -43,7 +43,7 @@ class _OrderMainPageState extends State<OrderMainPage> {
                   borderRadius: const BorderRadius.all(
                     Radius.circular(20),
                   ),
-// backgroundBlendMode:
+                  // backgroundBlendMode:
                 ),
                 child: TabBar(
                   labelColor: Colors.white,
@@ -75,30 +75,15 @@ class _OrderMainPageState extends State<OrderMainPage> {
                     ? BlocBuilder<OrderCubit, OrderState>(
                         builder: (context, state) {
                           if (state is OrderWidgetClickedState) {
-                            return state.changeTo;
+                            if (state.index == 0) {
+                              return GestureDetector(
+                                  onTap: () {
+                                    orderCubit.statusOrderWidgetClicked(1);
+                                  },
+                                  child: AllOrdersWidget());
+                            }
                           }
-                          return WillPopScope(
-                            onWillPop: () async {
-                              orderCubit
-                                  .statusOrderWidgetClicked(StatusofOrderWidget());
-                              return false;
-                            },
-                            child: Column(
-                              children: [
-                                GestureDetector(
-                                    onTap: () {
-                                      orderCubit.statusOrderWidgetClicked(
-                                          StatusofOrderWidget());
-                                    },
-                                    child: AllOrdersWidget()),
-                                Padding(
-                                  padding: const EdgeInsets.all(20.0),
-                                  child: Divider(
-                                      height: 10, color: Colors.black54),
-                                ),
-                              ],
-                            ),
-                          );
+                          return StatusofOrderWidget();
                         },
                       )
                     : Column(
@@ -162,7 +147,7 @@ class _OrderMainPageState extends State<OrderMainPage> {
                 /* LisView.builder(itemBuilder: ((context, index) {
                         return ListTile();
                       }))
- */
+               */
               ]),
             )
           ],
@@ -187,10 +172,9 @@ class StatusofOrderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final orderCubit = BlocProvider.of<OrderCubit>(context);
     return WillPopScope(
-      onWillPop: () async {
-        orderCubit.statusOrderWidgetClicked(AllOrdersWidget());
-        Navigator.pop(context);
-        return false;
+      onWillPop: () {
+        orderCubit.statusOrderWidgetClicked(0);
+        return Future.value(false);
       },
       child: SingleChildScrollView(
         child: Column(

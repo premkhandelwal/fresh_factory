@@ -17,6 +17,7 @@ import 'package:fresh/presentation/screens/auth/login_sign_up.dart';
 import 'package:fresh/presentation/screens/auth/setPassword.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp(
     authProvider: AuthProvider(),
     productProvider: ProductProvider(),

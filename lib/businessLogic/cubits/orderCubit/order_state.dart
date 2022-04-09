@@ -4,14 +4,14 @@ abstract class OrderState extends Equatable {
   const OrderState();
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [DateTime.now()];
 }
 
 class OrderInitial extends OrderState {}
 
 class OrderWidgetClickedState extends OrderState {
-  final Widget changeTo;
+  final int  index;
   OrderWidgetClickedState({
-    required this.changeTo,
+    required this.index,
   });
 }
