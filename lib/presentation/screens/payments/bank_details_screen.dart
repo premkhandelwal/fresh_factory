@@ -13,6 +13,8 @@ import 'package:fresh/presentation/utils/custom_header_widget.dart';
 import 'package:fresh/presentation/widgets/utils/custom_text_field_widget.dart';
 
 class BankDetailsScreen extends StatefulWidget {
+  static String route = '/bankDetailsScreen';
+
   const BankDetailsScreen({Key? key}) : super(key: key);
 
   @override

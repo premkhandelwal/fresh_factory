@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh/businessLogic/blocs/product/product_bloc.dart';
+import 'package:fresh/config/args.dart';
 import 'package:fresh/data/models/item.dart';
 import 'package:fresh/data/models/item_categories.dart';
 import 'package:fresh/presentation/screens/auth/changePassword.dart';
@@ -19,6 +20,8 @@ import 'package:fresh/presentation/widgets/home/deal_for_the_day_widget.dart';
 import 'package:fresh/presentation/widgets/home/exclusive_product_widget.dart';
 
 class HomePage extends StatefulWidget {
+  static String route = '/homeScreen';
+
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -42,346 +45,349 @@ class _HomePageState extends State<HomePage> {
   final ScrollController scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: DrawerWidget(),
-      // bottomNavigationBar: BottomNavBarWidget(currentIndex: state.index),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.red,
-        // automaticallyImplyLeading: false,
-        title: const AppBarWidgets(),
-      ),
-      body: BlocConsumer<ProductBloc, ProductState>(
-        listener: (context, state) {
-          if (state is FetchCategoriesSuccessState) {
-            _itemCategoryList = List.from(state.itemCategoryList);
-            print(_itemCategoryList);
-          } else if (state is FetchProductSuccessState) {
-            _itemList = List.from(state.itemList);
-            for (var item in _itemList) {
-              if (item.category != null) {
-                int ind = _itemCategoryList.indexWhere((element) {
-                  if (item.category![0]['Name'].toString().toLowerCase() ==
-                      element.name.toLowerCase()) {
-                    return true;
-                  }
-                  return false;
-                });
-                _itemCategoryList[ind].items.add(item);
+    return WillPopScope(
+      onWillPop: () {
+        return Future.value(false);
+      },
+      child: Scaffold(
+        drawer: DrawerWidget(),
+        // bottomNavigationBar: BottomNavBarWidget(currentIndex: state.index),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.red,
+          // automaticallyImplyLeading: false,
+          title: const AppBarWidgets(),
+        ),
+        body: BlocConsumer<ProductBloc, ProductState>(
+          listener: (context, state) {
+            if (state is FetchCategoriesSuccessState) {
+              _itemCategoryList = List.from(state.itemCategoryList);
+              print(_itemCategoryList);
+            } else if (state is FetchProductSuccessState) {
+              _itemList = List.from(state.itemList);
+              for (var item in _itemList) {
+                if (item.category != null) {
+                  int ind = _itemCategoryList.indexWhere((element) {
+                    if (item.category![0]['Name'].toString().toLowerCase() ==
+                        element.name.toLowerCase()) {
+                      return true;
+                    }
+                    return false;
+                  });
+                  _itemCategoryList[ind].items.add(item);
+                }
               }
+              // 123456789
+              // print(_itemList);
+              print(_itemCategoryList);
             }
-            // 123456789
-            // print(_itemList);
-            print(_itemCategoryList);
-          }
-        },
-        builder: (context, state) {
-          if (state is FetchCategoriesInProgressState ||
-              state is FetchProductInProgressState) {
-            return Center(child: CircularProgressIndicator());
-          }
-          return SingleChildScrollView(
-            controller: scrollController,
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        suffixIcon: Icon(
-                          Icons.search,
-                          color: Colors.red,
-                          size: 30,
-                        )),
+          },
+          builder: (context, state) {
+            if (state is FetchCategoriesInProgressState ||
+                state is FetchProductInProgressState) {
+              return Center(child: CircularProgressIndicator());
+            }
+            return SingleChildScrollView(
+              controller: scrollController,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          suffixIcon: Icon(
+                            Icons.search,
+                            color: Colors.red,
+                            size: 30,
+                          )),
+                    ),
                   ),
-                ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.all(4),
-                  color: Color(0xff02096B),
-                  child: const Text(
-                    "",
-                    overflow: TextOverflow.clip,
-                    maxLines: 1,
-                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.all(4),
+                    color: Color(0xff02096B),
+                    child: const Text(
+                      "",
+                      overflow: TextOverflow.clip,
+                      maxLines: 1,
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
                   ),
-                ),
-                SizedBox(height: 10),
-                CustomCarouselWidget(),
-                SizedBox(height: 10),
-                /*  Container(
+                  SizedBox(height: 10),
+                  CustomCarouselWidget(),
+                  SizedBox(height: 10),
+                  /*  Container(
+                        height: 152,
+                        width: 380,
+                        decoration: const BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.all(Radius.circular(5)))), */
+                  // const SizedBox(height: 10),
+                  /* //?<Deal of the day 
+                 const CustomHeaderWidget(
+                    title: "Deal of the Day",
+                  ),
+                  Container(
+                    height: 152,
+                    width: 380,
+                    decoration: const BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(5),
+                      ),
+                    ),
+                  ),//?> 
+                  */
+                  const CustomHeaderWidget(
+                    title: "Categories",
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16.0),
+                    child: SizedBox(
+                      height: 131,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: _itemCategoryList.length,
+                        itemBuilder: (context, index) {
+                          return Row(
+                            children: [
+                              GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, ProductsPage.route,
+                                        arguments: ProductsPageArgs(
+                                            itemCategory:
+                                                _itemCategoryList[index],
+                                            allItemCategories:
+                                                _itemCategoryList));
+                                  },
+                                  child: CategoriesWidget(
+                                    itemCategory: _itemCategoryList[index],
+                                    // bgColor: Colors.gsreen[200],
+                                    borderColor: Colors.green,
+                                  )),
+                              SizedBox(width: 5),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: const CustomHeaderWidget(
+                          title: "Flash Sales",
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          padding: EdgeInsets.all(8.0),
+                          height: 35,
+                          width: 132,
+                          decoration: BoxDecoration(
+                              color: Color(0xff02096B),
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Row(
+                            children: [
+                              TimerChildWidget(text: "00"),
+                              SizedBox(width: 5),
+                              TimerChildWidget(text: "01"),
+                              SizedBox(width: 5),
+                              TimerChildWidget(text: "45"),
+                              SizedBox(width: 5),
+                              TimerChildWidget(text: "56"),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  Container(
                       height: 152,
                       width: 380,
                       decoration: const BoxDecoration(
                           color: Colors.grey,
-                          borderRadius: BorderRadius.all(Radius.circular(5)))), */
-                // const SizedBox(height: 10),
-                /* //?<Deal of the day 
-               const CustomHeaderWidget(
-                  title: "Deal of the Day",
-                ),
-                Container(
-                  height: 152,
-                  width: 380,
-                  decoration: const BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(5),
-                    ),
+                          borderRadius: BorderRadius.all(Radius.circular(5)))),
+                  SizedBox(height: 10),
+                  const CustomHeaderWidget(
+                    title: "New Arrivals",
                   ),
-                ),//?> 
-                */
-                const CustomHeaderWidget(
-                  title: "Categories",
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: SizedBox(
-                    height: 131,
-                    child: ListView.builder(
-                      shrinkWrap: true,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16.0, right: 5),
+                    child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
-                      itemCount: _itemCategoryList.length,
-                      itemBuilder: (context, index) {
-                        return Row(
-                          children: [
-                            GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (ctx) => ProductsPage(
-                                            allItemCategories:
-                                                _itemCategoryList,
-                                            itemCategory:
-                                                _itemCategoryList[index])),
-                                  );
-                                },
-                                child: CategoriesWidget(
-                                  itemCategory: _itemCategoryList[index],
-                                  // bgColor: Colors.gsreen[200],
-                                  borderColor: Colors.green,
-                                )),
-                            SizedBox(width: 5),
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10),
-                Row(
-                  children: [
-                    Expanded(
-                      child: const CustomHeaderWidget(
-                        title: "Flash Sales",
+                      child: Row(
+                        children: [
+                          ProductWidget(
+                              product: Item(
+                                  id: "",
+                                  name: "Banana",
+                                  minPurchaseQty: 2,
+                                  mrp: 20)),
+                          SizedBox(width: 5),
+                          ProductWidget(
+                              product: Item(
+                                  id: "",
+                                  name: "Banana",
+                                  minPurchaseQty: 2,
+                                  mrp: 20)),
+                          SizedBox(width: 5),
+                          ProductWidget(
+                              product: Item(
+                                  id: "",
+                                  name: "Banana",
+                                  minPurchaseQty: 2,
+                                  mrp: 20)),
+                          SizedBox(width: 5),
+                          ProductWidget(
+                              product: Item(
+                                  id: "",
+                                  name: "Banana",
+                                  minPurchaseQty: 2,
+                                  mrp: 20)),
+                        ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        padding: EdgeInsets.all(8.0),
-                        height: 35,
-                        width: 132,
-                        decoration: BoxDecoration(
-                            color: Color(0xff02096B),
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Row(
-                          children: [
-                            TimerChildWidget(text: "00"),
-                            SizedBox(width: 5),
-                            TimerChildWidget(text: "01"),
-                            SizedBox(width: 5),
-                            TimerChildWidget(text: "45"),
-                            SizedBox(width: 5),
-                            TimerChildWidget(text: "56"),
-                          ],
-                        ),
+                  ),
+                  SizedBox(height: 10),
+                  const CustomHeaderWidget(
+                    title: "Exclusive Offer",
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16.0),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          ExclusiveOfferWidget(),
+                          SizedBox(width: 7),
+                          ExclusiveOfferWidget(),
+                          SizedBox(width: 7),
+                          ExclusiveOfferWidget(),
+                          SizedBox(width: 7),
+                        ],
                       ),
-                    )
-                  ],
-                ),
-                Container(
-                    height: 152,
-                    width: 380,
-                    decoration: const BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.all(Radius.circular(5)))),
-                SizedBox(height: 10),
-                const CustomHeaderWidget(
-                  title: "New Arrivals",
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0, right: 5),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        ProductWidget(
-                            product: Item(
-                                id: "",
-                                name: "Banana",
-                                minPurchaseQty: 2,
-                                mrp: 20)),
-                        SizedBox(width: 5),
-                        ProductWidget(
-                            product: Item(
-                                id: "",
-                                name: "Banana",
-                                minPurchaseQty: 2,
-                                mrp: 20)),
-                        SizedBox(width: 5),
-                        ProductWidget(
-                            product: Item(
-                                id: "",
-                                name: "Banana",
-                                minPurchaseQty: 2,
-                                mrp: 20)),
-                        SizedBox(width: 5),
-                        ProductWidget(
-                            product: Item(
-                                id: "",
-                                name: "Banana",
-                                minPurchaseQty: 2,
-                                mrp: 20)),
-                      ],
                     ),
                   ),
-                ),
-                SizedBox(height: 10),
-                const CustomHeaderWidget(
-                  title: "Exclusive Offer",
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        ExclusiveOfferWidget(),
-                        SizedBox(width: 7),
-                        ExclusiveOfferWidget(),
-                        SizedBox(width: 7),
-                        ExclusiveOfferWidget(),
-                        SizedBox(width: 7),
-                      ],
-                    ),
+                  SizedBox(height: 10),
+                  const CustomHeaderWidget(
+                    title: "Festival Offer",
                   ),
-                ),
-                SizedBox(height: 10),
-                const CustomHeaderWidget(
-                  title: "Festival Offer",
-                ),
-                SizedBox(height: 10),
+                  SizedBox(height: 10),
 
-                CustomCarouselWidget(showDots: false),
-                SizedBox(height: 10),
-                const CustomHeaderWidget(
-                  title: "Deal for the Day",
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GridView(
-                    shrinkWrap: true,
-                    controller: scrollController,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 4,
-                        crossAxisSpacing: 4),
-                    children: List.generate(18, (index) => DealofDayWidget()),
+                  CustomCarouselWidget(showDots: false),
+                  SizedBox(height: 10),
+                  const CustomHeaderWidget(
+                    title: "Deal for the Day",
                   ),
-                ),
-                const CustomHeaderWidget(
-                  title: "Top Brands",
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        BrandsWidget(),
-                        SizedBox(width: 7),
-                        BrandsWidget(),
-                        SizedBox(width: 7),
-                        BrandsWidget(),
-                        SizedBox(width: 7),
-                        BrandsWidget(),
-                      ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GridView(
+                      shrinkWrap: true,
+                      controller: scrollController,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          mainAxisSpacing: 4,
+                          crossAxisSpacing: 4),
+                      children: List.generate(18, (index) => DealofDayWidget()),
                     ),
                   ),
-                ),
-                const CustomHeaderWidget(
-                  title: "Taste of India",
-                ),
-                CustomCarouselWidget(showDots: false),
-                SizedBox(height: 10),
-                const CustomHeaderWidget(
-                  title: "Organic Store",
-                ),
-                CustomCarouselWidget(showDots: false),
-                SizedBox(height: 10),
-                const CustomHeaderWidget(
-                  title: "Refer and Earn",
-                ),
-                CustomCarouselWidget(showDots: false),
-                SizedBox(height: 10),
+                  const CustomHeaderWidget(
+                    title: "Top Brands",
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16.0),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          BrandsWidget(),
+                          SizedBox(width: 7),
+                          BrandsWidget(),
+                          SizedBox(width: 7),
+                          BrandsWidget(),
+                          SizedBox(width: 7),
+                          BrandsWidget(),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const CustomHeaderWidget(
+                    title: "Taste of India",
+                  ),
+                  CustomCarouselWidget(showDots: false),
+                  SizedBox(height: 10),
+                  const CustomHeaderWidget(
+                    title: "Organic Store",
+                  ),
+                  CustomCarouselWidget(showDots: false),
+                  SizedBox(height: 10),
+                  const CustomHeaderWidget(
+                    title: "Refer and Earn",
+                  ),
+                  CustomCarouselWidget(showDots: false),
+                  SizedBox(height: 10),
 
-                const CustomHeaderWidget(
-                  title: "Sample1",
-                ),
-                CustomCarouselWidget(showDots: false),
-                SizedBox(height: 10),
-                const CustomHeaderWidget(
-                  title: "Sample1",
-                ),
-                CustomCarouselWidget(showDots: false),
-                SizedBox(height: 10),
-                const CustomHeaderWidget(
-                  title: "Sample1",
-                ),
-                CustomCarouselWidget(showDots: false),
-                /* SizedBox(height: 10),
-                const CustomHeaderWidget(
-                  title: "Featured Product",
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        FeaturedProductsWidget(),
-                        SizedBox(width: 7),
-                        FeaturedProductsWidget(),
-                        SizedBox(width: 7),
-                        FeaturedProductsWidget(),
-                        SizedBox(width: 7),
-                      ],
+                  const CustomHeaderWidget(
+                    title: "Sample1",
+                  ),
+                  CustomCarouselWidget(showDots: false),
+                  SizedBox(height: 10),
+                  const CustomHeaderWidget(
+                    title: "Sample1",
+                  ),
+                  CustomCarouselWidget(showDots: false),
+                  SizedBox(height: 10),
+                  const CustomHeaderWidget(
+                    title: "Sample1",
+                  ),
+                  CustomCarouselWidget(showDots: false),
+                  /* SizedBox(height: 10),
+                  const CustomHeaderWidget(
+                    title: "Featured Product",
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16.0),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          FeaturedProductsWidget(),
+                          SizedBox(width: 7),
+                          FeaturedProductsWidget(),
+                          SizedBox(width: 7),
+                          FeaturedProductsWidget(),
+                          SizedBox(width: 7),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-     */
-                const CustomHeaderWidget(
-                  title: "Testimonial",
-                ),
-                Container(
-                    height: 142,
-                    width: 380,
-                    decoration: const BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.all(Radius.circular(5)))),
-                SizedBox(height: 10),
-              ],
-            ),
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: Color(0xff02096B),
-        child: const Icon(Icons.add, color: Colors.white),
+       */
+                  const CustomHeaderWidget(
+                    title: "Testimonial",
+                  ),
+                  Container(
+                      height: 142,
+                      width: 380,
+                      decoration: const BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.all(Radius.circular(5)))),
+                  SizedBox(height: 10),
+                ],
+              ),
+            );
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          backgroundColor: Color(0xff02096B),
+          child: const Icon(Icons.add, color: Colors.white),
+        ),
       ),
     );
   }
@@ -453,10 +459,9 @@ class DrawerWidget extends StatelessWidget {
               contentPadding: EdgeInsets.symmetric(horizontal: 64),
               visualDensity: VisualDensity(horizontal: 1, vertical: -4),
               onTap: () {
-                Navigator.push(
+                Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(
-                      builder: (ctx) => EditProfileDetailsPage()),
+                  EditProfileDetailsPage.route,
                 );
               },
             ),
@@ -466,9 +471,9 @@ class DrawerWidget extends StatelessWidget {
               contentPadding: EdgeInsets.symmetric(horizontal: 64),
               visualDensity: VisualDensity(horizontal: 1, vertical: -4),
               onTap: () {
-                Navigator.push(
+                Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(builder: (ctx) => BankDetailsScreen()),
+                  BankDetailsScreen.route,
                 );
               },
             ),
@@ -485,9 +490,9 @@ class DrawerWidget extends StatelessWidget {
           title: Text("My Wallet"),
           minLeadingWidth: 8,
           onTap: () {
-            Navigator.push(
+            Navigator.pushNamed(
               context,
-              MaterialPageRoute(builder: (ctx) => WalletScreen()),
+              WalletScreen.route,
             );
           },
         ),
@@ -496,10 +501,14 @@ class DrawerWidget extends StatelessWidget {
           title: Text("My Orders"),
           minLeadingWidth: 8,
           onTap: () {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (ctx) => OrderMainPage()),
             );
+            /* Navigator.pushNamed(
+              context,
+              OrderMainPage.route,
+            ); */
           },
         ),
         ListTile(
@@ -507,9 +516,9 @@ class DrawerWidget extends StatelessWidget {
           title: Text("My Offers"),
           minLeadingWidth: 8,
           onTap: () {
-            Navigator.push(
+            Navigator.pushNamed(
               context,
-              MaterialPageRoute(builder: (ctx) => OfferPage()),
+              OfferPage.route,
             );
           },
         ),
@@ -543,9 +552,9 @@ class DrawerWidget extends StatelessWidget {
           title: Text("Change Password"),
           minLeadingWidth: 8,
           onTap: () {
-            Navigator.push(
+            Navigator.pushNamed(
               context,
-              MaterialPageRoute(builder: (ctx) => ChangePassword()),
+              ChangePassword.route,
             );
           },
         ),

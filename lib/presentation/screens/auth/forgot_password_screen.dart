@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh/businessLogic/blocs/auth/auth_bloc.dart';
+import 'package:fresh/config/args.dart';
 import 'package:fresh/globals/common_function.dart';
 import 'package:fresh/presentation/screens/home/uicomponents.dart';
 import 'package:fresh/presentation/screens/auth/veriify.dart';
 
 class ForgotPass extends StatefulWidget {
+  static String route = '/forgotPasswordScreen';
+
   const ForgotPass({Key? key}) : super(key: key);
 
   @override
@@ -46,9 +49,10 @@ class _ForgotPassState extends State<ForgotPass> {
         body: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is ResetPasswordSuccessState) {
-              Navigator.push(
+              Navigator.pushNamed(
                 context,
-                MaterialPageRoute(builder: (context) => VerifyOtp(emailId: emailController.text,)),
+                VerifyOtp.route,
+                arguments: VerifyOTPArgs(emailId: emailController.text)
               );
             } else if (state is ResetPasswordFailureState) {
               showSnackBar(

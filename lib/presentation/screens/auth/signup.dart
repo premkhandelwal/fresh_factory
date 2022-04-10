@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh/businessLogic/blocs/auth/auth_bloc.dart';
+import 'package:fresh/config/args.dart';
 import 'package:fresh/data/models/user.dart';
 import 'package:fresh/globals/common_function.dart';
 import 'package:fresh/presentation/screens/auth/veriify.dart';
@@ -8,6 +9,8 @@ import 'package:fresh/presentation/screens/home/uicomponents.dart';
 import 'package:fresh/presentation/utils/custom_header_widget.dart';
 
 class SignupScreen extends StatefulWidget {
+  static String route = '/signUpScreen';
+
   const SignupScreen({Key? key}) : super(key: key);
 
   @override
@@ -55,9 +58,11 @@ class _SignupScreenState extends State<SignupScreen> {
         body: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is SignUpSuccessState) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (ctx) => VerifyOtp(emailId: emailIdController.text,)),);
+              Navigator.pushNamed(
+                context,
+                VerifyOtp.route,
+                arguments: VerifyOTPArgs(emailId: emailIdController.text)
+              );
             } else if (state is SignUpFailureState) {
               showSnackBar(context, "Failed to sign up. Please try again");
             }else if(state is UserAlreadyExistsState){

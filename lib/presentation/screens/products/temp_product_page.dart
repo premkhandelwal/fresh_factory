@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fresh/config/args.dart';
 import 'package:fresh/data/models/item.dart';
 
 import 'package:fresh/presentation/screens/products/product_detail_page.dart';
@@ -8,10 +9,10 @@ import 'package:fresh/presentation/screens/products/product_detail_page3.dart';
 import 'package:fresh/presentation/screens/products/product_detail_page4.dart';
 
 class TempPageForProduct extends StatefulWidget {
-  final Item item;
+  static String route = '/tempPageForProductScreen';
+
   const TempPageForProduct({
     Key? key,
-    required this.item,
   }) : super(key: key);
 
   @override
@@ -21,6 +22,8 @@ class TempPageForProduct extends StatefulWidget {
 class _TempPageForProductState extends State<TempPageForProduct> {
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as TempPageForProductArgs;
+
     return Scaffold(
       body: Center(
         child: Column(
@@ -28,9 +31,9 @@ class _TempPageForProductState extends State<TempPageForProduct> {
           children: [
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
+                Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(builder: (ctx) => ProductDetailPage()),
+                  ProductDetailPage.route,
                 );
               },
               child: Text("Product Detail Page"),
@@ -38,9 +41,9 @@ class _TempPageForProductState extends State<TempPageForProduct> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
+                Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(builder: (ctx) => ProductDetailPage1()),
+                  ProductDetailPage1.route,
                 );
               },
               child: Text("Product Detail Page 1"),
@@ -48,9 +51,9 @@ class _TempPageForProductState extends State<TempPageForProduct> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
+                Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(builder: (ctx) => ProductDetailPage2()),
+                  ProductDetailPage2.route,
                 );
               },
               child: Text("Product Detail Page 2"),
@@ -58,9 +61,9 @@ class _TempPageForProductState extends State<TempPageForProduct> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
+                Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(builder: (ctx) => ProductDetailPage3()),
+                  ProductDetailPage3.route,
                 );
               },
               child: Text("Product Detail Page 3"),
@@ -68,9 +71,10 @@ class _TempPageForProductState extends State<TempPageForProduct> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
+                Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(builder: (ctx) => ProductDetailPage4(item: widget.item,)),
+                  ProductDetailPage4.route,
+                  arguments: ProductDetailPage4Args(item: args.item)
                 );
               },
               child: Text("Product Detail Page 4"),

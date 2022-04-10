@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fresh/presentation/utils/custom_app_bar.dart';
 
 class OfferPage extends StatefulWidget {
+  static String route = '/offerScreen';
+
   const OfferPage({Key? key}) : super(key: key);
 
   @override

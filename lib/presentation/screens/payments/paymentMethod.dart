@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class PaymentMethod extends StatefulWidget {
+  static String route = '/noOrderScreen';
+
   const PaymentMethod({Key? key}) : super(key: key);
 
   @override

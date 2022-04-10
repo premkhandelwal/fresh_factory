@@ -8,6 +8,8 @@ import 'package:fresh/presentation/screens/products/products_page.dart';
 import 'package:fresh/presentation/utils/custom_app_bar.dart';
 
 class SortFilterProductPage extends StatefulWidget {
+  static String route = '/sortFilterProductScreen';
+
   const SortFilterProductPage({Key? key}) : super(key: key);
 
   @override

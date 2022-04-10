@@ -10,6 +10,8 @@ import 'package:fresh/presentation/utils/custom_header_widget.dart';
 import 'package:fresh/presentation/widgets/utils/custom_text_field_widget.dart';
 
 class EditProfileDetailsPage extends StatefulWidget {
+  static String route = '/editProfileScreen';
+
   const EditProfileDetailsPage({Key? key}) : super(key: key);
 
   @override

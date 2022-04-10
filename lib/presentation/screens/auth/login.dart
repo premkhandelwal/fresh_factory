@@ -8,6 +8,8 @@ import 'package:fresh/presentation/screens/home/main_home_page.dart';
 import 'package:fresh/presentation/screens/home/uicomponents.dart';
 
 class LoginScreen extends StatefulWidget {
+  static String route = '/loginScreen';
+
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
@@ -49,10 +51,11 @@ class _LoginScreenState extends State<LoginScreen> {
         body: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is SignInSuccessState) {
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (ctx) => MainHomePage()),
-                  (route) => false);
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                MainHomePage.route,
+                (route) => false
+              );
             } else if (state is SignInFailureState) {
               showSnackBar(context, "Failed to sign in. Please try again");
             } else if (state is UserUnauthorizedState) {
@@ -153,11 +156,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                       const EdgeInsets.fromLTRB(0, 30, 0, 0),
                                   child: InkWell(
                                     onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => ForgotPass()),
-                                      );
+                                      Navigator.pushNamed(
+                        context,
+                        ForgotPass.route,
+                      );
+                                      
                                     },
                                     child: labelText("Forgot Password?"),
                                   ),

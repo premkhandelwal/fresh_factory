@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh/businessLogic/cubits/radioButtonCubit/radio_button_cubit.dart';
+import 'package:fresh/config/args.dart';
 import 'package:fresh/data/enums.dart';
 import 'package:fresh/globals/constants/sessionConstants.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -9,8 +10,9 @@ import 'package:fresh/globals/common_function.dart';
 import 'package:fresh/presentation/utils/custom_app_bar.dart';
 
 class WalletScreen extends StatefulWidget {
-  final bool isRedirectedAutomatically;
-  const WalletScreen({Key? key, this.isRedirectedAutomatically = false})
+  static String route = '/walletScreen';
+  
+  const WalletScreen({Key? key, })
       : super(key: key);
 
   @override
@@ -24,6 +26,7 @@ class _WalletScreenState extends State<WalletScreen> {
   final referralWalletController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final args =  WalletScreenArgs(isRedirectedAutomatically: false);
     return Scaffold(
       appBar: CustomAppBar(
           title: currIndex == 0 ? "My Wallet" : "My Referral Wallet"),
@@ -72,10 +75,10 @@ class _WalletScreenState extends State<WalletScreen> {
                 WalletWidget(
                     controller: walletController,
                     isRedirectedAutomatically:
-                        widget.isRedirectedAutomatically),
+                        args.isRedirectedAutomatically),
                 WalletWidget(
                   isReferralWallet: true,
-                  isRedirectedAutomatically: widget.isRedirectedAutomatically,
+                  isRedirectedAutomatically: args.isRedirectedAutomatically,
                   controller: referralWalletController,
                 ),
               ]),

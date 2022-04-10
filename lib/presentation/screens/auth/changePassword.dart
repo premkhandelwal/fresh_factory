@@ -5,6 +5,7 @@ import 'package:fresh/globals/common_function.dart';
 import 'package:fresh/presentation/screens/home/uicomponents.dart';
 
 class ChangePassword extends StatefulWidget {
+  static String route = '/changePasswordScreen';
   const ChangePassword({Key? key}) : super(key: key);
 
   @override

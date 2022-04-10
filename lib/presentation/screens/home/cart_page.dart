@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh/businessLogic/cubits/cartCubit/cart_cubit.dart';
+import 'package:fresh/config/args.dart';
 import 'package:fresh/data/models/cart_item.dart';
 import 'package:fresh/globals/constants/sessionConstants.dart';
 import 'package:fresh/presentation/screens/orders/order_main_page.dart';
@@ -14,7 +15,9 @@ import 'package:fresh/presentation/screens/offers/offer_page.dart';
 import 'package:fresh/presentation/utils/custom_app_bar.dart';
 import 'package:fresh/presentation/utils/custom_header_widget.dart';
 
-class CartPage extends StatefulWidget with RouteAware {
+class CartPage extends StatefulWidget{
+  static String route = '/cartScreen';
+
   const CartPage({Key? key}) : super(key: key);
 
   @override
@@ -215,9 +218,9 @@ class _CartPageState extends State<CartPage> {
                     leftHeading: "Promo Code",
                     rightHeading: "Pick Discount",
                     onTap: () {
-                      Navigator.push(
+                      Navigator.pushNamed(
                         context,
-                        MaterialPageRoute(builder: (ctx) => OfferPage()),
+                        OfferPage.route,
                       );
                     },
                   ),
@@ -230,21 +233,14 @@ class _CartPageState extends State<CartPage> {
                   ElevatedButton(
                     onPressed: () {
                       cartCubit.totalAmount > SessionConstants.walletAmount
-                          ? Navigator.push(
+                          ? Navigator.pushNamed(
+                            context,
+                            WalletScreen.route,
+                            arguments: WalletScreenArgs(isRedirectedAutomatically: true)
+                          )
+                          : Navigator.pushNamed(
                               context,
-                              MaterialPageRoute(
-                                  builder: (ctx) => WalletScreen(
-                                        isRedirectedAutomatically: true,
-                                      )),
-                            ).then(
-                              (value) {
-                                setState(() {});
-                              },
-                            )
-                          : Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (ctx) => OrderMainPage()),
+                              OrderMainPage.route,
                             );
                       ;
                     },

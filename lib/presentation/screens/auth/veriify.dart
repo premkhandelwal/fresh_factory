@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh/businessLogic/blocs/auth/auth_bloc.dart';
+import 'package:fresh/config/args.dart';
 import 'package:fresh/globals/common_function.dart';
 import 'package:fresh/presentation/screens/auth/setPassword.dart';
 import 'package:fresh/presentation/screens/home/uicomponents.dart';
 
 class VerifyOtp extends StatefulWidget {
-  final String emailId;
+  static String route = '/verifyOTPScreen';
+
   const VerifyOtp({
     Key? key,
-    required this.emailId,
   }) : super(key: key);
 
   @override
@@ -30,6 +31,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as VerifyOTPArgs;
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -51,10 +53,11 @@ class _VerifyOtpState extends State<VerifyOtp> {
         body: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is VerifyOTPSuccessState) {
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (ctx) => SetPassword()),
-                  (route) => false);
+              Navigator.pushNamedAndRemoveUntil(
+              context,
+              SetPassword.route,
+              (route) => false
+            );
             } else if (state is VerifyOTPFailureState) {
               showSnackBar(context, "Failed to verify OTP");
             } else if (state is ResetPasswordSuccessState) {
@@ -135,7 +138,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
                                       onTap: () {
                                         otpController.clear();
                                         authBloc.add(ForgotPasswordEvent(
-                                            email: widget.emailId));
+                                            email: args.emailId));
                                       },
                                       child: Icon(
                                         Icons.arrow_forward_ios,
@@ -154,7 +157,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
                           ElevatedButton(
                             onPressed: () {
                               authBloc.add(VerifyOtpEvent(
-                                  email: widget.emailId,
+                                  email: args.emailId,
                                   otp: otpController.text));
                             },
                             child: Text(

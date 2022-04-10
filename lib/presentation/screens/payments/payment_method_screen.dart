@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fresh/presentation/utils/custom_app_bar.dart';
 
 class PaymentMethodScreen extends StatefulWidget {
+  static String route = '/paymentMethodScreen';
+
   const PaymentMethodScreen({Key? key}) : super(key: key);
 
   @override

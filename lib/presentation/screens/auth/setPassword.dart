@@ -6,6 +6,8 @@ import 'package:fresh/presentation/screens/auth/login.dart';
 import 'package:fresh/presentation/screens/home/uicomponents.dart';
 
 class SetPassword extends StatefulWidget {
+  static String route = '/setPasswordScreen';
+
   const SetPassword({Key? key}) : super(key: key);
 
   @override
@@ -48,12 +50,10 @@ class _SetPasswordState extends State<SetPassword> {
           listener: (context, state) {
             if (state is SetPasswordSuccessState) {
               showSnackBar(context, "Successfully generated password");
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (ctx) => LoginScreen()
-                ),
-              );
+              Navigator.pushNamed(
+                        context,
+                        LoginScreen.route,
+                      );
             } else if (state is SetPasswordFailureState) {
               showSnackBar(context, "Failed to generated password");
             }

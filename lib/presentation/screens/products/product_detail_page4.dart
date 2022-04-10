@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh/businessLogic/blocs/product/product_bloc.dart';
+import 'package:fresh/config/args.dart';
 import 'package:fresh/data/models/item.dart';
 import 'package:fresh/data/models/item_details.dart';
 import 'package:fresh/globals/common_function.dart';
@@ -8,10 +9,10 @@ import 'package:fresh/globals/constants/secrets.dart';
 import 'package:fresh/presentation/utils/custom_app_bar.dart';
 
 class ProductDetailPage4 extends StatefulWidget {
-  final Item item;
+  static String route = '/productDetailPage4Screen';
+  
   const ProductDetailPage4({
     Key? key,
-    required this.item,
   }) : super(key: key);
 
   @override
@@ -23,10 +24,14 @@ class _ProductDetailPage4State extends State<ProductDetailPage4> {
   final productSmall = AssetImage("assets/product_detail_small.png");
 
   late ProductBloc productBloc;
+  late ProductDetailPage4Args args;
   @override
   void initState() {
+     WidgetsBinding.instance?.addPostFrameCallback((_) {
+      args = ModalRoute.of(context)!.settings.arguments as ProductDetailPage4Args;
+    });
     productBloc = BlocProvider.of<ProductBloc>(context);
-    productBloc.add(FetchProductDetailsEvent(itemId: widget.item.id));
+    productBloc.add(FetchProductDetailsEvent(itemId: args.item.id));
     super.initState();
   }
 
@@ -64,10 +69,10 @@ class _ProductDetailPage4State extends State<ProductDetailPage4> {
                           BorderRadius.vertical(bottom: Radius.circular(30))),
                   child: Stack(
                     children: [
-                      widget.item.image != null
+                      args.item.image != null
                           ? Center(
                               child: Image.network(
-                                Secrets.mediaUrl + widget.item.image!,
+                                Secrets.mediaUrl + args.item.image!,
                                 // height: 500,
                                 // width: 309,
                                 errorBuilder: (ctx, _, _1) {
@@ -171,7 +176,7 @@ class _ProductDetailPage4State extends State<ProductDetailPage4> {
                         children: [
                           Expanded(
                             child: Text(
-                              widget.item.name,
+                              args.item.name,
                               style:
                                   TextStyle(fontSize: 20, color: Colors.black),
                             ),
@@ -273,7 +278,7 @@ class _ProductDetailPage4State extends State<ProductDetailPage4> {
                       ElevatedButton(
                         onPressed: () {
                           productBloc.add(AddToCartEvent(
-                              item: widget.item, quantity: quantiy));
+                              item: args.item, quantity: quantiy));
                         },
                         child: Text("Add to Basket"),
                         style: ElevatedButton.styleFrom(

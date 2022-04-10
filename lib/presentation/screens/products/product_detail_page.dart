@@ -6,6 +6,8 @@ import 'package:fresh/presentation/utils/custom_app_bar.dart';
 import 'package:fresh/presentation/widgets/home/categories_widget.dart';
 
 class ProductDetailPage extends StatefulWidget {
+  static String route = '/productDetailPageScreen';
+
   const ProductDetailPage({Key? key}) : super(key: key);
 
   @override

@@ -3,6 +3,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fresh/presentation/utils/custom_app_bar.dart';
 
 class ProductDetailPage3 extends StatefulWidget {
+  static String route = '/productDetailPage3Screen';
+
   const ProductDetailPage3({Key? key}) : super(key: key);
 
   @override

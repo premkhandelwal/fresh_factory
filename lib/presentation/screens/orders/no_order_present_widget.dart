@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NoOrderPresentWidget extends StatefulWidget {
+  static String route = '/noOrderScreen';
   const NoOrderPresentWidget({ Key? key }) : super(key: key);
 
   @override

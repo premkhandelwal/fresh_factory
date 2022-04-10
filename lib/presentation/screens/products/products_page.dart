@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh/businessLogic/blocs/product/product_bloc.dart';
 import 'package:fresh/businessLogic/cubits/cartCubit/cart_cubit.dart';
+import 'package:fresh/config/args.dart';
 import 'package:fresh/data/models/item.dart';
 import 'package:fresh/data/models/item_categories.dart';
 import 'package:fresh/globals/constants/secrets.dart';
@@ -13,12 +14,10 @@ import 'package:fresh/presentation/utils/custom_header_widget.dart';
 import 'package:fresh/presentation/widgets/home/categories_widget.dart';
 
 class ProductsPage extends StatefulWidget {
-  final ItemCategory itemCategory;
-  final List<ItemCategory> allItemCategories;
+  static String route = '/productsPageScreen';
+
   const ProductsPage({
     Key? key,
-    required this.itemCategory,
-    required this.allItemCategories,
   }) : super(key: key);
 
   @override
@@ -29,13 +28,17 @@ class _ProductsPageState extends State<ProductsPage> {
   final sampleProduct = AssetImage('assets/sampleProduct.png');
   final List<ItemCategory> _itemSubCategory = [];
   late ProductBloc productBloc;
+  late ProductsPageArgs args;
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      args = ModalRoute.of(context)!.settings.arguments as ProductsPageArgs;
+    });
     productBloc = BlocProvider.of<ProductBloc>(context);
-    print(widget.itemCategory.masterCategory);
+    print(args.itemCategory.masterCategory);
     // for (var item in widget.itemCategory.items) {}
-    for (var item in widget.itemCategory.items) {
+    for (var item in args.itemCategory.items) {
       if (item.subcategory != null) {
         for (var subCat in item.subcategory!) {
           // ItemCategory _itemCat = widget.allItemCategories
@@ -52,7 +55,7 @@ class _ProductsPageState extends State<ProductsPage> {
     if (_itemSubCategory.isNotEmpty) {
       productBloc.add(GetProductsofCategoryEvent(
           itemCategory: _itemSubCategory[0],
-          itemList: widget.itemCategory.items));
+          itemList: args.itemCategory.items));
     }
   }
 
@@ -60,8 +63,8 @@ class _ProductsPageState extends State<ProductsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: widget.itemCategory.name),
-      body: widget.itemCategory.items.isEmpty
+      appBar: CustomAppBar(title: args.itemCategory.name),
+      body: args.itemCategory.items.isEmpty
           ? Center(
               child: Text("No Items Present in this Category"),
             )
@@ -86,7 +89,7 @@ class _ProductsPageState extends State<ProductsPage> {
                                           GetProductsofCategoryEvent(
                                               itemCategory: e,
                                               itemList:
-                                                  widget.itemCategory.items));
+                                                  args.itemCategory.items));
                                       /*  Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -130,13 +133,10 @@ class _ProductsPageState extends State<ProductsPage> {
                             children: categoryWiseProductList
                                 .map((e) => GestureDetector(
                                       onTap: () {
-                                        Navigator.push(
+                                        Navigator.pushNamed(
                                           context,
-                                          MaterialPageRoute(
-                                              builder: (ctx) =>
-                                                  TempPageForProduct(
-                                                    item: e,
-                                                  )),
+                                          TempPageForProduct.route,
+                                          arguments: TempPageForProductArgs(item: e)
                                         );
                                       },
                                       child: ProductWidget(product: e),

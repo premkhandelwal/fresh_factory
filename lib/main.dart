@@ -10,6 +10,7 @@ import 'package:fresh/businessLogic/cubits/orderCubit/order_cubit.dart';
 import 'package:fresh/businessLogic/cubits/payCubit/pay_cubit.dart';
 import 'package:fresh/businessLogic/cubits/radioButtonCubit/radio_button_cubit.dart';
 import 'package:fresh/businessLogic/cubits/sortFilterProduct/sort_filter_product_cubit.dart';
+import 'package:fresh/config/routes.dart';
 import 'package:fresh/data/dataProviders/auth_provider.dart';
 import 'package:fresh/data/dataProviders/product_provider.dart';
 import 'package:fresh/data/dataProviders/profile_provider.dart';
@@ -80,6 +81,8 @@ class MyApp extends StatelessWidget {
                       .apply(bodyColor: const Color(0xff02096B))),
               //0xFF0D47A1
               home: const MainPage(),
+              routes: namedRoutes,
+              
             ),
           );
         });

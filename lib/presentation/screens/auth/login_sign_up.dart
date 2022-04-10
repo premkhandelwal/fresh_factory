@@ -3,6 +3,8 @@ import 'package:fresh/presentation/screens/auth/login.dart';
 import 'package:fresh/presentation/screens/auth/signup.dart';
 
 class MainPage extends StatelessWidget {
+  static String route = '/mainPageScreen';
+
   const MainPage({Key? key}) : super(key: key);
 
   @override
@@ -46,10 +48,9 @@ class MainPage extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushNamed(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => SignupScreen()),
+                        SignupScreen.route,
                       );
                     },
                   ),
@@ -69,10 +70,9 @@ class MainPage extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushNamed(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => LoginScreen()),
+                        LoginScreen.route,
                       );
                     },
                   ),
