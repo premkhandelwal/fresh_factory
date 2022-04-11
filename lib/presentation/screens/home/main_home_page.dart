@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fresh/businessLogic/cubits/orderCubit/order_cubit.dart';
-import 'package:fresh/presentation/screens/home/cart_page.dart';
-import 'package:fresh/presentation/screens/home/home_screen.dart';
-import 'package:fresh/presentation/screens/orders/all_orders_widget.dart';
-import 'package:fresh/presentation/screens/orders/order_main_page.dart';
-import 'package:fresh/presentation/screens/payments/wallet_screen.dart';
+import 'package:fresh/presentation/utils/tab_navigator.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 PersistentTabController _persistentTabController = PersistentTabController();
@@ -18,13 +13,8 @@ class MainHomePage extends StatefulWidget {
   _MainHomePageState createState() => _MainHomePageState();
 }
 
-final _page1 = GlobalKey<NavigatorState>();
-final _page2 = GlobalKey<NavigatorState>();
-final _page3 = GlobalKey<NavigatorState>();
-final _page4 = GlobalKey<NavigatorState>();
-final _page5 = GlobalKey<NavigatorState>();
 
-List<Widget> _pages = [
+/* List<Widget> _pages = [
   Navigator(
     key: _page1,
     onGenerateRoute: (route) => MaterialPageRoute(
@@ -66,56 +56,198 @@ List<Widget> _pages = [
           Center(child: Container(child: Text("This is Support Page"))),
     ),
   ),
-];
+]; */
+
 
 class _MainHomePageState extends State<MainHomePage> {
-  int _bottomNavIndex = 0;
+  String _currentPage = "Page1";
+  List<String> pageKeys = ["Page1", "Page2", "Page3", "Page4"];
+  Map<String, GlobalKey<NavigatorState>> _navigatorKeys = {
+    "Page1": GlobalKey<NavigatorState>(),
+    "Page2": GlobalKey<NavigatorState>(),
+    "Page3": GlobalKey<NavigatorState>(),
+    "Page4": GlobalKey<NavigatorState>(),
+    "Page5": GlobalKey<NavigatorState>(),
+  };
+  int _selectedIndex = 0;
+
+  void _selectPage(String tabItem, int index) {
+    if (tabItem == _currentPage) {
+      _navigatorKeys[tabItem]!.currentState!.popUntil((route) => route.isFirst);
+    } else {
+      setState(() {
+        _currentPage = pageKeys[index];
+        _selectedIndex = index;
+      });
+    }
+  }
+
+  Widget _buildOffStageNavigator(String tabItem) {
+    return Offstage(
+      offstage: _currentPage != tabItem,
+      child: TabNavigator(
+          navigatorKey: _navigatorKeys[tabItem]!, tabItem: tabItem),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-            index: _bottomNavIndex,
-            children: _pages
-          ),
-      bottomNavigationBar: BottomNavigationBar(
-          // backgroundColor: Colors.red,
+    return WillPopScope(
+      onWillPop: () async {
+        final isFirstRoute =
+            !await _navigatorKeys[_currentPage]!.currentState!.maybePop();
+        if (isFirstRoute) {
+          if (_currentPage != "Page1") {
+            _selectPage("Page1", 1);
+            return false;
+          }
+        }
+        return isFirstRoute;
+      },
+      child: Scaffold(
+          // drawer: DrawerWidget(),
+          // bottomNavigationBar: BottomNavBarWidget(currentIndex: state.index),
 
-          unselectedItemColor: Colors.grey,
-          unselectedLabelStyle: TextStyle(color: Colors.black),
-          selectedItemColor: Colors.red,
-          showUnselectedLabels: true,
-          currentIndex: _bottomNavIndex,
-          onTap: (index) {
-            setState(() {
-              _bottomNavIndex = index;
-            });
-            ;
+          extendBodyBehindAppBar: true,
+          // bottomSheet: BottomNavBarWidget(),
+          bottomNavigationBar: BottomNavigationBar(
+             unselectedItemColor: Colors.grey,
+            unselectedLabelStyle: TextStyle(color: Colors.black),
+            selectedItemColor: Colors.red,
+            showUnselectedLabels: true,
+              onTap: (index) {
+                _selectPage(pageKeys[index], index);
+              },
+              currentIndex: _selectedIndex,
+              items: [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: "Home",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.category),
+                  label: "Categories",
+
+                  // backgroundColor: Colors.grey,
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.badge),
+                  label: "Wallet",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.shopping_cart_checkout),
+                  label: "Cart",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.support_agent),
+                  label: "Support",
+                  // backgroundColor: Colors.grey,
+                ),
+              ]),
+          body: Stack(
+            children: [
+              _buildOffStageNavigator("Page1"),
+              _buildOffStageNavigator("Page2"),
+              _buildOffStageNavigator("Page3"),
+              _buildOffStageNavigator("Page4"),
+              _buildOffStageNavigator("Page5"),
+            ],
+          )
+          /* [
+            PersistentTabView(
+          context,
+          controller: _persistentTabController,
+          navBarStyle: NavBarStyle.simple,
+          onWillPop: (po) {
+            return Future.value(false);
           },
           items: [
-            BottomNavigationBarItem(
+            PersistentBottomNavBarItem(
               icon: Icon(Icons.home),
-              label: "Home",
+              title: "Home",
+              inactiveColorPrimary: Colors.grey,
+              // unselectedLabelStyle: TextStyle(color: Colors.black),
+              activeColorPrimary: Colors.red,
             ),
-            BottomNavigationBarItem(
+            PersistentBottomNavBarItem(
               icon: Icon(Icons.category),
-              label: "Categories",
-
+              title: "Categories",
+              inactiveColorPrimary: Colors.grey,
+              // unselectedLabelStyle: TextStyle(color: Colors.black),
+              activeColorPrimary: Colors.red,
+          
               // backgroundColor: Colors.grey,
             ),
-            BottomNavigationBarItem(
+            PersistentBottomNavBarItem(
               icon: Icon(Icons.badge),
-              label: "Wallet",
+              title: "Wallet",
+              inactiveColorPrimary: Colors.grey,
+              // unselectedLabelStyle: TextStyle(color: Colors.black),
+              activeColorPrimary: Colors.red,
             ),
-            BottomNavigationBarItem(
+            PersistentBottomNavBarItem(
               icon: Icon(Icons.shopping_cart_checkout),
-              label: "Cart",
+              title: "Cart",
+              inactiveColorPrimary: Colors.grey,
+              // unselectedLabelStyle: TextStyle(color: Colors.black),
+              activeColorPrimary: Colors.red,
             ),
-            BottomNavigationBarItem(
+            PersistentBottomNavBarItem(
               icon: Icon(Icons.support_agent),
-              label: "Support",
+              title: "Support",
+              inactiveColorPrimary: Colors.grey,
+              // unselectedLabelStyle: TextStyle(color: Colors.black),
+              activeColorPrimary: Colors.red,
               // backgroundColor: Colors.grey,
             ),
-          ]),
+          ],
+          screens: _pages,
+          confineInSafeArea: true,
+            )
+          ] */
+          /* BottomNavigationBar(
+            // backgroundColor: Colors.red,
+          
+            unselectedItemColor: Colors.grey,
+            unselectedLabelStyle: TextStyle(color: Colors.black),
+            selectedItemColor: Colors.red,
+            showUnselectedLabels: true,
+            currentIndex: _bottomNavIndex,
+            onTap: (index) {
+              setState(() {
+                _bottomNavIndex = index;
+              });
+              ;
+            },
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: "Home",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.category),
+                label: "Categories",
+          
+                // backgroundColor: Colors.grey,
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.badge),
+                label: "Wallet",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_cart_checkout),
+                label: "Cart",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.support_agent),
+                label: "Support",
+                // backgroundColor: Colors.grey,
+              ),
+            ]),
+          );
+        },
+      ) */
+          ),
     );
   }
 }

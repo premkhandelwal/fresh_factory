@@ -30,135 +30,132 @@ class _OrderMainPageState extends State<OrderMainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () {
-        return Future.value(false);
-      },
-      child: Scaffold(
-        appBar: CustomAppBar(title: "Orders"),
-        body: DefaultTabController(
-          length: 2,
-          child: Column(
-            children: [
-              SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  padding: const EdgeInsets.all(2),
-                  decoration: BoxDecoration(
-                    color: Color(0xff02096B),
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                    // backgroundBlendMode:
+    return Scaffold(
+      appBar: CustomAppBar(title: "Orders"),
+      body: DefaultTabController(
+        length: 2,
+        child: Column(
+          children: [
+            SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                padding: const EdgeInsets.all(2),
+                decoration: BoxDecoration(
+                  color: Color(0xff02096B),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(20),
                   ),
-                  child: TabBar(
-                    labelColor: Colors.white,
-                    unselectedLabelColor: Colors.white,
-                    indicatorSize: TabBarIndicatorSize.tab,
-                    indicator: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: Colors.indigo),
-                    onTap: (index) {
-                      // Tab index when user select it, it start from zero
-                      setState(() {
-                        currIndex = index;
-                      });
-                    },
-                    tabs: const [
-                      Tab(
-                        child: Text("Status"),
+                  // backgroundBlendMode:
+                ),
+                child: TabBar(
+                  labelColor: Colors.white,
+                  unselectedLabelColor: Colors.white,
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  indicator: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Colors.indigo),
+                  onTap: (index) {
+                    // Tab index when user select it, it start from zero
+                    setState(() {
+                      currIndex = index;
+                    });
+                  },
+                  tabs: const [
+                    Tab(
+                      child: Text("Status"),
+                    ),
+                    Tab(
+                      child: Text("History"),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: TabBarView(children: [
+                orderPresent
+                    ? BlocBuilder<OrderCubit, OrderState>(
+                        builder: (context, state) {
+                          if (state is OrderWidgetClickedState) {
+                            if (state.index == 0) {
+                              return GestureDetector(
+                                  onTap: () {
+                                    orderCubit.statusOrderWidgetClicked(1);
+                                  },
+                                  child: AllOrdersWidget());
+                            }else if(state.index == -1){
+                              Navigator.pop(context);
+                            }
+                          }
+                          return AllOrdersWidget();
+                        },
+                      )
+                    : Column(
+                        children: [
+                          Image(image: noOrderImage),
+                          Text('There is no ongoing order right now.',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: const Color(0xff02096B))),
+                          SizedBox(height: 10),
+                          Text('You can order from home',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: const Color(0xff02096B))),
+                          RichText(
+                              text: TextSpan(children: [
+                            TextSpan(
+                                style: TextStyle(fontSize: 20),
+                                text:
+                                    "There is no ongoing order right now.\nYou can order from home"),
+                            TextSpan(
+                                text:
+                                    "There is no ongoing order right now.\nYou can order from home")
+                          ])),
+                          ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                orderPresent = true;
+                              });
+                            },
+                            child: Text("Change Status"),
+                            style: ElevatedButton.styleFrom(),
+                          ),
+                        ],
                       ),
-                      Tab(
-                        child: Text("History"),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    children: [
+                      HistoryItemWidget(),
+                      Divider(
+                        height: 40,
+                      ),
+                      HistoryItemWidget(),
+                      Divider(
+                        height: 40,
+                      ),
+                      HistoryItemWidget(),
+                      Divider(
+                        height: 40,
+                      ),
+                      HistoryItemWidget(),
+                      Divider(
+                        height: 40,
                       ),
                     ],
                   ),
-                ),
-              ),
-              Expanded(
-                child: TabBarView(children: [
-                  orderPresent
-                      ? BlocBuilder<OrderCubit, OrderState>(
-                          builder: (context, state) {
-                            if (state is OrderWidgetClickedState) {
-                              if (state.index == 0) {
-                                return GestureDetector(
-                                    onTap: () {
-                                      orderCubit.statusOrderWidgetClicked(1);
-                                    },
-                                    child: AllOrdersWidget());
-                              }
-                            }
-                            return StatusofOrderWidget();
-                          },
-                        )
-                      : Column(
-                          children: [
-                            Image(image: noOrderImage),
-                            Text('There is no ongoing order right now.',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                    color: const Color(0xff02096B))),
-                            SizedBox(height: 10),
-                            Text('You can order from home',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                    color: const Color(0xff02096B))),
-                            RichText(
-                                text: TextSpan(children: [
-                              TextSpan(
-                                  style: TextStyle(fontSize: 20),
-                                  text:
-                                      "There is no ongoing order right now.\nYou can order from home"),
-                              TextSpan(
-                                  text:
-                                      "There is no ongoing order right now.\nYou can order from home")
-                            ])),
-                            ElevatedButton(
-                              onPressed: () {
-                                setState(() {
-                                  orderPresent = true;
-                                });
-                              },
-                              child: Text("Change Status"),
-                              style: ElevatedButton.styleFrom(),
-                            ),
-                          ],
-                        ),
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      children: [
-                        HistoryItemWidget(),
-                        Divider(
-                          height: 40,
-                        ),
-                        HistoryItemWidget(),
-                        Divider(
-                          height: 40,
-                        ),
-                        HistoryItemWidget(),
-                        Divider(
-                          height: 40,
-                        ),
-                        HistoryItemWidget(),
-                        Divider(
-                          height: 40,
-                        ),
-                      ],
-                    ),
-                  )
-                  /* LisView.builder(itemBuilder: ((context, index) {
-                          return ListTile();
-                        }))
-                 */
-                ]),
-              )
-            ],
-          ),
+                )
+                /* LisView.builder(itemBuilder: ((context, index) {
+                        return ListTile();
+                      }))
+               */
+              ]),
+            )
+          ],
         ),
       ),
     );
@@ -181,6 +178,7 @@ class StatusofOrderWidget extends StatelessWidget {
     final orderCubit = BlocProvider.of<OrderCubit>(context);
     return WillPopScope(
       onWillPop: () {
+        
         orderCubit.statusOrderWidgetClicked(0);
         return Future.value(false);
       },

@@ -28,10 +28,10 @@ class _ProductDetailPage4State extends State<ProductDetailPage4> {
   @override
   void initState() {
      WidgetsBinding.instance?.addPostFrameCallback((_) {
-      args = ModalRoute.of(context)!.settings.arguments as ProductDetailPage4Args;
-    });
+    
     productBloc = BlocProvider.of<ProductBloc>(context);
     productBloc.add(FetchProductDetailsEvent(itemId: args.item.id));
+    });
     super.initState();
   }
 
@@ -39,6 +39,8 @@ class _ProductDetailPage4State extends State<ProductDetailPage4> {
   ItemDetails _itemList = ItemDetails(imageList: [], attributes: []);
   @override
   Widget build(BuildContext context) {
+      args = ModalRoute.of(context)!.settings.arguments as ProductDetailPage4Args;
+
     return Scaffold(
       appBar: CustomAppBar(title: "Vegetables"),
       body: BlocConsumer<ProductBloc, ProductState>(

@@ -28,7 +28,9 @@ import 'package:fresh/presentation/screens/products/temp_product_page.dart';
 import 'package:fresh/presentation/screens/profile/edit_profile_details_page.dart';
 
 Map<String, Widget Function(BuildContext context)> namedRoutes = {
-  ChangePassword.route: (ctx) => const ChangePassword(),
+  ChangePassword.route: (ctx) {
+    return const ChangePassword();
+  },
   ForgotPass.route: (ctx) => const ForgotPass(),
   SetPassword.route: (ctx) => const SetPassword(),
   MainPage.route: (ctx) => const MainPage(),
@@ -36,7 +38,7 @@ Map<String, Widget Function(BuildContext context)> namedRoutes = {
   SignupScreen.route: (ctx) => const SignupScreen(),
   VerifyOtp.route: (ctx) => const VerifyOtp(),
   CartPage.route: (ctx) => const CartPage(),
-  HomePage.route: (ctx) => const HomePage(),
+  HomePage.route: (ctx) =>  HomePage(naviKey: GlobalKey<NavigatorState>()),
   MainHomePage.route: (ctx) => const MainHomePage(),
   OfferPage.route: (ctx) => const OfferPage(),
   NoOrderPresentWidget.route: (ctx) => const NoOrderPresentWidget(),

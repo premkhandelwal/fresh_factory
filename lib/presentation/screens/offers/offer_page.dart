@@ -16,6 +16,7 @@ class _OfferPageState extends State<OfferPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: "Offers"),
+      
       body: Padding(
         padding: const EdgeInsets.all(26.0),
         child: SingleChildScrollView(

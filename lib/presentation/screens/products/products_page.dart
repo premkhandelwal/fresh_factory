@@ -7,6 +7,7 @@ import 'package:fresh/data/models/item.dart';
 import 'package:fresh/data/models/item_categories.dart';
 import 'package:fresh/globals/constants/secrets.dart';
 import 'package:fresh/globals/constants/sessionConstants.dart';
+import 'package:fresh/globals/widgets/bottom_nav_bar.dart';
 import 'package:fresh/presentation/screens/home/home_screen.dart';
 import 'package:fresh/presentation/screens/products/temp_product_page.dart';
 import 'package:fresh/presentation/utils/custom_app_bar.dart';
@@ -33,8 +34,6 @@ class _ProductsPageState extends State<ProductsPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
-      args = ModalRoute.of(context)!.settings.arguments as ProductsPageArgs;
-    });
     productBloc = BlocProvider.of<ProductBloc>(context);
     print(args.itemCategory.masterCategory);
     // for (var item in widget.itemCategory.items) {}
@@ -57,13 +56,17 @@ class _ProductsPageState extends State<ProductsPage> {
           itemCategory: _itemSubCategory[0],
           itemList: args.itemCategory.items));
     }
+    });
   }
 
   List<Item> categoryWiseProductList = [];
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as ProductsPageArgs;
+
     return Scaffold(
       appBar: CustomAppBar(title: args.itemCategory.name),
+      // bottomNavigationBar: BottomNavBarWidget(),
       body: args.itemCategory.items.isEmpty
           ? Center(
               child: Text("No Items Present in this Category"),
@@ -134,10 +137,9 @@ class _ProductsPageState extends State<ProductsPage> {
                                 .map((e) => GestureDetector(
                                       onTap: () {
                                         Navigator.pushNamed(
-                                          context,
-                                          TempPageForProduct.route,
-                                          arguments: TempPageForProductArgs(item: e)
-                                        );
+                                            context, TempPageForProduct.route,
+                                            arguments: TempPageForProductArgs(
+                                                item: e));
                                       },
                                       child: ProductWidget(product: e),
                                     ))

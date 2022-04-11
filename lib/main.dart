@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fresh/businessLogic/blocs/auth/auth_bloc.dart';
 import 'package:fresh/businessLogic/blocs/product/product_bloc.dart';
 import 'package:fresh/businessLogic/blocs/profile/profile_bloc.dart';
+import 'package:fresh/businessLogic/cubits/bottomNavBarCubit/bottom_nav_bar_cubit.dart';
 import 'package:fresh/businessLogic/cubits/cartCubit/cart_cubit.dart';
 import 'package:fresh/businessLogic/cubits/orderCubit/order_cubit.dart';
 import 'package:fresh/businessLogic/cubits/payCubit/pay_cubit.dart';
@@ -70,9 +71,13 @@ class MyApp extends StatelessWidget {
               BlocProvider(
                 create: (context) => OrderCubit(),
               ),
+              BlocProvider(
+                create: (context) => BottomNavBarCubit(),
+              ),
             ],
             child: MaterialApp(
               title: 'Flutter Demo',
+              
               theme: ThemeData(
                   colorScheme:
                       const ColorScheme.light(primary: Color(0xff02096B)),

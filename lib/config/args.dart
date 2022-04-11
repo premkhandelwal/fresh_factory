@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import 'package:fresh/data/models/item.dart';
 import 'package:fresh/data/models/item_categories.dart';
 
@@ -35,5 +37,12 @@ class WalletScreenArgs {
   final bool isRedirectedAutomatically;
   WalletScreenArgs({
     this.isRedirectedAutomatically = false,
+  });
+}
+
+class HomeScreenArgs {
+  final GlobalKey<NavigatorState> naviKey;
+  HomeScreenArgs({
+    required this.naviKey,
   });
 }
