@@ -59,3 +59,18 @@ class ChangePasswordEvent extends AuthEvent {
     required this.newPassword,
   });
 }
+
+class SendOTPAfterSignUpEvent extends AuthEvent {
+  final String emailId;
+  SendOTPAfterSignUpEvent({
+    required this.emailId,
+  });
+}
+class VerifyOTPAfterSignUpEvent extends AuthEvent {
+  final String emailId;
+  final String otp;
+  VerifyOTPAfterSignUpEvent({
+    required this.emailId,
+    required this.otp,
+  });
+}

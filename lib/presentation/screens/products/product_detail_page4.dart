@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh/businessLogic/blocs/product/product_bloc.dart';
 import 'package:fresh/config/args.dart';
-import 'package:fresh/data/models/item.dart';
 import 'package:fresh/data/models/item_details.dart';
 import 'package:fresh/globals/common_function.dart';
 import 'package:fresh/globals/constants/secrets.dart';

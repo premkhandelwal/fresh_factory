@@ -1,13 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:fresh/businessLogic/blocs/product/product_bloc.dart';
-import 'package:fresh/businessLogic/cubits/bottomNavBarCubit/bottom_nav_bar_cubit.dart';
 import 'package:fresh/config/args.dart';
 import 'package:fresh/data/models/item.dart';
 import 'package:fresh/data/models/item_categories.dart';
-import 'package:fresh/globals/widgets/bottom_nav_bar.dart';
 import 'package:fresh/presentation/screens/auth/changePassword.dart';
 import 'package:fresh/presentation/screens/home/app_bar_widgets_home.dart';
 import 'package:fresh/presentation/screens/offers/offer_page.dart';
@@ -23,12 +20,10 @@ import 'package:fresh/presentation/widgets/home/deal_for_the_day_widget.dart';
 import 'package:fresh/presentation/widgets/home/exclusive_product_widget.dart';
 
 class HomePage extends StatefulWidget {
-  final GlobalKey<NavigatorState> naviKey;
   static String route = '/homeScreen';
 
   const HomePage({
     Key? key,
-    required this.naviKey,
   }) : super(key: key);
 
   @override
@@ -70,7 +65,6 @@ class _HomePageState extends State<HomePage> {
         listener: (context, state) {
           if (state is FetchCategoriesSuccessState) {
             _itemCategoryList = List.from(state.itemCategoryList);
-            print(_itemCategoryList);
           } else if (state is FetchProductSuccessState) {
             _itemList = List.from(state.itemList);
             for (var item in _itemList) {
@@ -87,7 +81,6 @@ class _HomePageState extends State<HomePage> {
             }
             // 123456789
             // print(_itemList);
-            print(_itemCategoryList);
           }
         },
         builder: (context, state) {
@@ -163,8 +156,8 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             GestureDetector(
                                 onTap: () {
-                                  widget.naviKey.currentState!
-                                      .pushNamed(ProductsPage.route,arguments: ProductsPageArgs(
+                                 Navigator
+                                      .pushNamed(context,ProductsPage.route,arguments: ProductsPageArgs(
                                           itemCategory:
                                               _itemCategoryList[index],
                                           allItemCategories:

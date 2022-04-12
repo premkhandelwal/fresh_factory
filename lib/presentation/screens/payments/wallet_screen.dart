@@ -119,10 +119,11 @@ class _WalletWidgetState extends State<WalletWidget> {
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     payCubit.capturePayment(
         double.parse(widget.controller.text), response.paymentId);
+
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
-    print(response);
+    print(response.message);
 
     showSnackBar(context, "Failed to Add Money");
 
@@ -141,7 +142,6 @@ class _WalletWidgetState extends State<WalletWidget> {
       listener: (context, state) {
         if (state is PaymentSuccessState) {
           _handlePaymentSuccess(state.paymentSuccessResponse);
-          SessionConstants.walletAmount += double.parse(widget.controller.text);
           if (widget.isRedirectedAutomatically) {
             Navigator.pop(context, true);
           }
@@ -159,6 +159,9 @@ class _WalletWidgetState extends State<WalletWidget> {
         } else if (state is CapturePaymentFailureState ||
             state is GetOrderIdFailureState) {
           showSnackBar(context, "Failed to Add Money");
+        }else if(state is CapturePaymentSuccessState){
+          SessionConstants.walletAmount += double.parse(widget.controller.text);
+
         }
       },
       builder: (context, state) {

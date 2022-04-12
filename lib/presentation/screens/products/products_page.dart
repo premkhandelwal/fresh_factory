@@ -6,8 +6,6 @@ import 'package:fresh/config/args.dart';
 import 'package:fresh/data/models/item.dart';
 import 'package:fresh/data/models/item_categories.dart';
 import 'package:fresh/globals/constants/secrets.dart';
-import 'package:fresh/globals/constants/sessionConstants.dart';
-import 'package:fresh/globals/widgets/bottom_nav_bar.dart';
 import 'package:fresh/presentation/screens/home/home_screen.dart';
 import 'package:fresh/presentation/screens/products/temp_product_page.dart';
 import 'package:fresh/presentation/utils/custom_app_bar.dart';
@@ -56,13 +54,16 @@ class _ProductsPageState extends State<ProductsPage> {
           itemCategory: _itemSubCategory[0],
           itemList: args.itemCategory.items));
     }
+    setState(() {
+      
+    });
     });
   }
 
   List<Item> categoryWiseProductList = [];
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as ProductsPageArgs;
+     args = ModalRoute.of(context)!.settings.arguments as ProductsPageArgs;
 
     return Scaffold(
       appBar: CustomAppBar(title: args.itemCategory.name),

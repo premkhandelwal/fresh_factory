@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:fresh/businessLogic/blocs/auth/auth_bloc.dart';
 import 'package:fresh/config/args.dart';
 import 'package:fresh/globals/common_function.dart';
-import 'package:fresh/presentation/screens/home/uicomponents.dart';
 import 'package:fresh/presentation/screens/auth/veriify.dart';
+import 'package:fresh/presentation/screens/home/uicomponents.dart';
 
 class ForgotPass extends StatefulWidget {
   static String route = '/forgotPasswordScreen';
-
-  const ForgotPass({Key? key}) : super(key: key);
+  const ForgotPass({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<ForgotPass> createState() => _ForgotPassState();
@@ -28,6 +30,7 @@ class _ForgotPassState extends State<ForgotPass> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as SendOTPArgs;
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -38,7 +41,9 @@ class _ForgotPassState extends State<ForgotPass> {
           ),
           centerTitle: true,
           title: Text(
-            "Forgot Password",
+            args.isForgotPassScreen
+                ? "Forgot Password"
+                : "Verify Email Address",
             style: TextStyle(
               color: Color(0xff02096B),
               fontWeight: FontWeight.bold,
@@ -49,11 +54,8 @@ class _ForgotPassState extends State<ForgotPass> {
         body: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is ResetPasswordSuccessState) {
-              Navigator.pushNamed(
-                context,
-                VerifyOtp.route,
-                arguments: VerifyOTPArgs(emailId: emailController.text)
-              );
+              Navigator.pushNamed(context, VerifyOtp.route,
+                  arguments: VerifyOTPArgs(emailId: emailController.text, isForgotPassword: args.isForgotPassScreen));
             } else if (state is ResetPasswordFailureState) {
               showSnackBar(
                   context, "Failed to reset password. Please try again later");

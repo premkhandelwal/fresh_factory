@@ -3,10 +3,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:fresh/data/models/item.dart';
 import 'package:fresh/data/models/item_categories.dart';
 
+class SendOTPArgs {
+  final bool isForgotPassScreen;
+  SendOTPArgs({
+    required this.isForgotPassScreen,
+  });
+}
+
 class VerifyOTPArgs {
   final String emailId;
+  final bool isForgotPassword;
   VerifyOTPArgs({
     required this.emailId,
+    required this.isForgotPassword,
   });
 }
 

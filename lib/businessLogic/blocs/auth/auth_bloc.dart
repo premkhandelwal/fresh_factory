@@ -31,13 +31,35 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (_user.accessToken != null) {
         if (_user.accessToken == "400|User already exists") {
           emit(UserAlreadyExistsState());
-        }else{
-        emit(SignUpSuccessState());
+        } else {
+          emit(SignUpSuccessState());
         }
       } else {
         emit(SignUpFailureState());
       }
     });
+    on<SendOTPAfterSignUpEvent>(
+      (event, emit) async {
+        emit(SendOTPInProgressState());
+        bool isSuccess = await authProvider.sendOtp(event.emailId);
+        if (isSuccess) {
+          emit(SendOTPSuccessState());
+        } else {
+          emit(SendOTPFailureState());
+        }
+      },
+    );
+    on<VerifyOTPAfterSignUpEvent>(
+      (event, emit) async {
+        emit(VerifyOTPInProgressState());
+        bool isSuccess = await authProvider.verifyOtp(event.emailId, event.otp);
+        if (isSuccess) {
+          emit(VerifyOTPSuccessState());
+        } else {
+          emit(VerifyOTPFailureState());
+        }
+      },
+    );
     on<GenerateAccessTokenEvent>((event, emit) async {
       emit(GenerateAccessTokenInProgressState());
       User? user = await authProvider.generateToken(event.user);

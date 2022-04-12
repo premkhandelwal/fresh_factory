@@ -34,7 +34,6 @@ class PayCubit extends Cubit<PayState> {
       'prefill': {'contact': '8888888888', 'email': 'test@razorpay.com'},
     };
       _razorpay.open(options);
-      
     } catch (e) {
       print(e);
     }

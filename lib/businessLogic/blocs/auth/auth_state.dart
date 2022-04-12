@@ -45,6 +45,14 @@ class VerifyOTPSuccessState extends AuthState {}
 
 class VerifyOTPFailureState extends AuthState {}
 
+class SendOTPInProgressState extends AuthState {}
+
+class SendOTPSuccessState extends AuthState {}
+
+class SendOTPFailureState extends AuthState {}
+
+
+
 class ChangePasswordInProgressState extends AuthState {}
 
 class ChangePasswordSuccessState extends AuthState {}

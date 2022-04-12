@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fresh/data/models/item.dart';
-import 'package:fresh/data/models/item_categories.dart';
 import 'package:fresh/presentation/screens/auth/changePassword.dart';
 import 'package:fresh/presentation/screens/auth/forgot_password_screen.dart';
 import 'package:fresh/presentation/screens/auth/login.dart';
@@ -31,14 +29,14 @@ Map<String, Widget Function(BuildContext context)> namedRoutes = {
   ChangePassword.route: (ctx) {
     return const ChangePassword();
   },
-  ForgotPass.route: (ctx) => const ForgotPass(),
+  ForgotPass.route: (ctx) =>  ForgotPass(),
   SetPassword.route: (ctx) => const SetPassword(),
   MainPage.route: (ctx) => const MainPage(),
   LoginScreen.route: (ctx) => const LoginScreen(),
   SignupScreen.route: (ctx) => const SignupScreen(),
   VerifyOtp.route: (ctx) => const VerifyOtp(),
   CartPage.route: (ctx) => const CartPage(),
-  HomePage.route: (ctx) =>  HomePage(naviKey: GlobalKey<NavigatorState>()),
+  HomePage.route: (ctx) =>  HomePage(),
   MainHomePage.route: (ctx) => const MainHomePage(),
   OfferPage.route: (ctx) => const OfferPage(),
   NoOrderPresentWidget.route: (ctx) => const NoOrderPresentWidget(),

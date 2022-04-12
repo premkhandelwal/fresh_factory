@@ -4,6 +4,7 @@ import 'package:fresh/businessLogic/blocs/auth/auth_bloc.dart';
 import 'package:fresh/config/args.dart';
 import 'package:fresh/globals/common_function.dart';
 import 'package:fresh/presentation/screens/auth/setPassword.dart';
+import 'package:fresh/presentation/screens/home/main_home_page.dart';
 import 'package:fresh/presentation/screens/home/uicomponents.dart';
 
 class VerifyOtp extends StatefulWidget {
@@ -53,9 +54,13 @@ class _VerifyOtpState extends State<VerifyOtp> {
         body: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is VerifyOTPSuccessState) {
-              Navigator.pushNamedAndRemoveUntil(
+            args.isForgotPassword ?  Navigator.pushNamedAndRemoveUntil(
               context,
               SetPassword.route,
+              (route) => false
+            ): Navigator.pushNamedAndRemoveUntil(
+              context,
+              MainHomePage.route,
               (route) => false
             );
             } else if (state is VerifyOTPFailureState) {

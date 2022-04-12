@@ -4,7 +4,7 @@ import 'package:fresh/businessLogic/blocs/auth/auth_bloc.dart';
 import 'package:fresh/config/args.dart';
 import 'package:fresh/data/models/user.dart';
 import 'package:fresh/globals/common_function.dart';
-import 'package:fresh/presentation/screens/auth/veriify.dart';
+import 'package:fresh/presentation/screens/auth/forgot_password_screen.dart';
 import 'package:fresh/presentation/screens/home/uicomponents.dart';
 import 'package:fresh/presentation/utils/custom_header_widget.dart';
 
@@ -58,16 +58,13 @@ class _SignupScreenState extends State<SignupScreen> {
         body: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is SignUpSuccessState) {
-              Navigator.pushNamed(
-                context,
-                VerifyOtp.route,
-                arguments: VerifyOTPArgs(emailId: emailIdController.text)
-              );
+              Navigator.pushNamed(context, ForgotPass.route,
+                  arguments: SendOTPArgs(isForgotPassScreen: false));
             } else if (state is SignUpFailureState) {
               showSnackBar(context, "Failed to sign up. Please try again");
-            }else if(state is UserAlreadyExistsState){
-              showSnackBar(context, "User email ID already exists. Please login using the same");
-
+            } else if (state is UserAlreadyExistsState) {
+              showSnackBar(context,
+                  "User email ID already exists. Please login using the same");
             }
           },
           builder: (context, state) {
@@ -308,7 +305,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                         if (_formKey.currentState!.validate()) {
                                           authBloc.add(SignUpRequestedEvent(
                                               user: User(
-                                                userName: nameController.text,
+                                                  userName: nameController.text,
                                                   phoneNumber:
                                                       phoneNoController.text,
                                                   password:

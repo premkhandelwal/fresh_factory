@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fresh/config/args.dart';
-import 'package:fresh/data/models/item.dart';
-
 import 'package:fresh/presentation/screens/products/product_detail_page.dart';
 import 'package:fresh/presentation/screens/products/product_detail_page1.dart';
 import 'package:fresh/presentation/screens/products/product_detail_page2.dart';

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fresh/presentation/utils/tab_navigator.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-
-PersistentTabController _persistentTabController = PersistentTabController();
 
 class MainHomePage extends StatefulWidget {
   static String route = '/mainHomeScreen';
