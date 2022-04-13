@@ -9,6 +9,7 @@ import 'package:fresh/businessLogic/cubits/cartCubit/cart_cubit.dart';
 import 'package:fresh/businessLogic/cubits/orderCubit/order_cubit.dart';
 import 'package:fresh/businessLogic/cubits/payCubit/pay_cubit.dart';
 import 'package:fresh/businessLogic/cubits/radioButtonCubit/radio_button_cubit.dart';
+import 'package:fresh/businessLogic/cubits/rechargeHistory/recharge_history_cubit.dart';
 import 'package:fresh/businessLogic/cubits/sortFilterProduct/sort_filter_product_cubit.dart';
 import 'package:fresh/config/routes.dart';
 import 'package:fresh/data/dataProviders/auth_provider.dart';
@@ -69,6 +70,9 @@ class MyApp extends StatelessWidget {
               ),
               BlocProvider(
                 create: (context) => OrderCubit(),
+              ),
+              BlocProvider(
+                create: (context) => RechargeHistoryCubit(),
               ),
             ],
             child: MaterialApp(

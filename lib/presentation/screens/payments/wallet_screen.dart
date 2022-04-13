@@ -4,6 +4,10 @@ import 'package:fresh/businessLogic/cubits/radioButtonCubit/radio_button_cubit.d
 import 'package:fresh/config/args.dart';
 import 'package:fresh/data/enums.dart';
 import 'package:fresh/globals/constants/sessionConstants.dart';
+import 'package:fresh/presentation/screens/reports/billing_history_page.dart';
+import 'package:fresh/presentation/screens/reports/earning_report_page.dart';
+import 'package:fresh/presentation/screens/reports/recharge_history_page.dart';
+import 'package:fresh/presentation/screens/reports/withdraw_report_page.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:fresh/businessLogic/cubits/payCubit/pay_cubit.dart';
 import 'package:fresh/globals/common_function.dart';
@@ -11,9 +15,10 @@ import 'package:fresh/presentation/utils/custom_app_bar.dart';
 
 class WalletScreen extends StatefulWidget {
   static String route = '/walletScreen';
-  
-  const WalletScreen({Key? key, })
-      : super(key: key);
+
+  const WalletScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _WalletScreenState createState() => _WalletScreenState();
@@ -26,7 +31,7 @@ class _WalletScreenState extends State<WalletScreen> {
   final referralWalletController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final args =  WalletScreenArgs(isRedirectedAutomatically: false);
+    final args = WalletScreenArgs(isRedirectedAutomatically: false);
     return Scaffold(
       appBar: CustomAppBar(
           title: currIndex == 0 ? "My Wallet" : "My Referral Wallet"),
@@ -74,8 +79,7 @@ class _WalletScreenState extends State<WalletScreen> {
               child: TabBarView(children: [
                 WalletWidget(
                     controller: walletController,
-                    isRedirectedAutomatically:
-                        args.isRedirectedAutomatically),
+                    isRedirectedAutomatically: args.isRedirectedAutomatically),
                 WalletWidget(
                   isReferralWallet: true,
                   isRedirectedAutomatically: args.isRedirectedAutomatically,
@@ -119,7 +123,6 @@ class _WalletWidgetState extends State<WalletWidget> {
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     payCubit.capturePayment(
         double.parse(widget.controller.text), response.paymentId);
-
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
@@ -159,9 +162,8 @@ class _WalletWidgetState extends State<WalletWidget> {
         } else if (state is CapturePaymentFailureState ||
             state is GetOrderIdFailureState) {
           showSnackBar(context, "Failed to Add Money");
-        }else if(state is CapturePaymentSuccessState){
+        } else if (state is CapturePaymentSuccessState) {
           SessionConstants.walletAmount += double.parse(widget.controller.text);
-
         }
       },
       builder: (context, state) {
@@ -309,16 +311,54 @@ class _WalletWidgetState extends State<WalletWidget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  CardWidgetWallet(
-                    text: widget.isReferralWallet
-                        ? "Earning\nReport"
-                        : "Recharge\nHistory",
-                  ),
-                  CardWidgetWallet(
-                      isRightSideWidget: true,
-                      text: widget.isReferralWallet
-                          ? "WithDraw\nReport"
-                          : "Billing\nHistory"),
+                  widget.isReferralWallet
+                      ? GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              EarningReportPage.route,
+                            );
+                          },
+                          child: CardWidgetWallet(
+                            text: "Earning\nReport",
+                          ),
+                        )
+                      : GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              RechargeHistoryPage.route,
+                            );
+                          },
+                          child: CardWidgetWallet(
+                            text: "Recharge\nHistory",
+                          ),
+                        ),
+                  widget.isReferralWallet
+                      ? GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              WithdrawReportPage.route,
+                            );
+                          },
+                          child: CardWidgetWallet(
+                            isRightSideWidget: true,
+                            text: "WithDraw\nReport",
+                          ),
+                        )
+                      : GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              BillingHistoryPage.route,
+                            );
+                          },
+                          child: CardWidgetWallet(
+                            isRightSideWidget: true,
+                            text: "Billing\nHistory",
+                          ),
+                        ),
                 ],
               )
             ],

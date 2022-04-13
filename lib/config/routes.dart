@@ -24,6 +24,10 @@ import 'package:fresh/presentation/screens/products/products_page.dart';
 import 'package:fresh/presentation/screens/products/sort_filter_product_page.dart';
 import 'package:fresh/presentation/screens/products/temp_product_page.dart';
 import 'package:fresh/presentation/screens/profile/edit_profile_details_page.dart';
+import 'package:fresh/presentation/screens/reports/billing_history_page.dart';
+import 'package:fresh/presentation/screens/reports/earning_report_page.dart';
+import 'package:fresh/presentation/screens/reports/recharge_history_page.dart';
+import 'package:fresh/presentation/screens/reports/withdraw_report_page.dart';
 
 Map<String, Widget Function(BuildContext context)> namedRoutes = {
   ChangePassword.route: (ctx) {
@@ -53,5 +57,9 @@ Map<String, Widget Function(BuildContext context)> namedRoutes = {
   ProductsPage.route: (ctx) => ProductsPage(),
   SortFilterProductPage.route: (ctx) => const SortFilterProductPage(),
   EditProfileDetailsPage.route: (ctx) => const EditProfileDetailsPage(),
-  TempPageForProduct.route: (ctx) => const TempPageForProduct()
+  TempPageForProduct.route: (ctx) => const TempPageForProduct(),
+  BillingHistoryPage.route: (ctx) =>const BillingHistoryPage(),
+  EarningReportPage.route: (ctx) =>const EarningReportPage(),
+  RechargeHistoryPage.route: (ctx) =>const RechargeHistoryPage(),
+  WithdrawReportPage.route: (ctx) =>const WithdrawReportPage(),
 };
