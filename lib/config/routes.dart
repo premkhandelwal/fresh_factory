@@ -9,6 +9,7 @@ import 'package:fresh/presentation/screens/auth/veriify.dart';
 import 'package:fresh/presentation/screens/home/cart_page.dart';
 import 'package:fresh/presentation/screens/home/home_screen.dart';
 import 'package:fresh/presentation/screens/home/main_home_page.dart';
+import 'package:fresh/presentation/screens/miscellaneous/category_page.dart';
 import 'package:fresh/presentation/screens/offers/offer_page.dart';
 import 'package:fresh/presentation/screens/orders/no_order_present_widget.dart';
 import 'package:fresh/presentation/screens/orders/order_main_page.dart';
@@ -62,4 +63,5 @@ Map<String, Widget Function(BuildContext context)> namedRoutes = {
   EarningReportPage.route: (ctx) =>const EarningReportPage(),
   RechargeHistoryPage.route: (ctx) =>const RechargeHistoryPage(),
   WithdrawReportPage.route: (ctx) =>const WithdrawReportPage(),
+  CategoryPage.route: (ctx)=>const CategoryPage(),
 };

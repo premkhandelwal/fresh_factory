@@ -86,38 +86,48 @@ class _RechargeHistoryPageState extends State<RechargeHistoryPage> {
     super.initState();
   }
 
-  List<String> headerNameList = [];
+  Map<String, List<RechargeHistoryItem>> _recharges = {};
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: "Recharge History"),
-      body: BlocBuilder<RechargeHistoryCubit, RechargeHistoryState>(
+      body: BlocConsumer<RechargeHistoryCubit, RechargeHistoryState>(
+        listener: (context, state) {
+          print(state);
+        },
         builder: (context, state) {
-          return Column(
-            children: [
-              for (var i = 0; i < headerNameList.length; i++) ...[
-                Container(
-                  height: 50,
-                  padding: EdgeInsets.all(8),
-                  width: MediaQuery.of(context).size.width,
-                  color: Color(0xff02096B),
-                  child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(headerNameList[i],
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold))),
-                ),
-                Flexible(
-                  child: ListView.builder(itemBuilder: (ctx, ind) {
-                    return ListTile();
-                  }),
-                )
+          if (_recharges.isNotEmpty) {
+            return Column(
+              children: [
+                for (var i = 0; i < _recharges.length; i++) ...[
+                  Container(
+                    height: 50,
+                    padding: EdgeInsets.all(8),
+                    width: MediaQuery.of(context).size.width,
+                    color: Color(0xff02096B),
+                    child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(_recharges.keys.toList()[i],
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold))),
+                  ),
+                  Flexible(
+                    child: ListView.builder(
+                        itemCount: _recharges[i]!.length,
+                        itemBuilder: (ctx, ind) {
+                          return ListTile(
+                            title: Text(_recharges[i]![ind].srNo.toString()),
+                          );
+                        }),
+                  )
+                ],
               ],
-            ],
-          );
+            );
+          }
+          return Center(child: Text("Nothing to show here"));
         },
       ),
     );

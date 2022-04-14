@@ -126,9 +126,13 @@ class _WalletWidgetState extends State<WalletWidget> {
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
-    print(response.message);
+    try {
+      print(response.message);
 
-    showSnackBar(context, "Failed to Add Money");
+      showSnackBar(context, "Failed to Add Money");
+    } catch (e) {
+      print(e);
+    }
 
     // Do something when payment fails
   }
@@ -145,12 +149,14 @@ class _WalletWidgetState extends State<WalletWidget> {
       listener: (context, state) {
         if (state is PaymentSuccessState) {
           _handlePaymentSuccess(state.paymentSuccessResponse);
+          payCubit.dispose();
           if (widget.isRedirectedAutomatically) {
             Navigator.pop(context, true);
           }
           // print(state.paymentSuccessResponse.paymentId);
         } else if (state is PaymentErrorState) {
           _handlePaymentError(state.paymentFailureResponse);
+          payCubit.dispose();
         } else if (state is GetOrderIdSuccessState) {
           if (widget.controller.text == "") {
             widget.controller.text = "0.00";
@@ -158,12 +164,11 @@ class _WalletWidgetState extends State<WalletWidget> {
           payCubit.openCheckOut(
               double.parse(widget.controller.text), state.orderId);
         } else if (state is CapturePaymentSuccessState) {
+          SessionConstants.walletAmount += double.parse(widget.controller.text);
           showSnackBar(context, "Successfully Added Money");
         } else if (state is CapturePaymentFailureState ||
             state is GetOrderIdFailureState) {
           showSnackBar(context, "Failed to Add Money");
-        } else if (state is CapturePaymentSuccessState) {
-          SessionConstants.walletAmount += double.parse(widget.controller.text);
         }
       },
       builder: (context, state) {

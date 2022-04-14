@@ -58,7 +58,7 @@ class MainHomePage extends StatefulWidget {
 
 class _MainHomePageState extends State<MainHomePage> {
   String _currentPage = "Page1";
-  List<String> pageKeys = ["Page1", "Page2", "Page3", "Page4"];
+  List<String> pageKeys = ["Page1", "Page2", "Page3", "Page4", "Page5"];
   Map<String, GlobalKey<NavigatorState>> _navigatorKeys = {
     "Page1": GlobalKey<NavigatorState>(),
     "Page2": GlobalKey<NavigatorState>(),

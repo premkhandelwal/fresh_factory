@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fresh/config/routes.dart';
 import 'package:fresh/presentation/screens/home/cart_page.dart';
 import 'package:fresh/presentation/screens/home/home_screen.dart';
+import 'package:fresh/presentation/screens/miscellaneous/category_page.dart';
 import 'package:fresh/presentation/screens/payments/wallet_screen.dart';
 
 class TabNavigator extends StatelessWidget {
@@ -19,7 +20,7 @@ class TabNavigator extends StatelessWidget {
     if (tabItem == "Page1") {
       child1 = HomePage();
     } else if (tabItem == "Page2") {
-      child1 = Center(child: Container(child: Text("This is Categories Page")));
+      child1 = CategoryPage();
     } else if (tabItem == "Page3") {
       child1 = WalletScreen();
     } else if (tabItem == "Page4") {

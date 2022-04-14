@@ -8,8 +8,6 @@ class RechargeHistoryCubit extends Cubit<RechargeHistoryState> {
   RechargeHistoryCubit() : super(RechargeHistoryInitial());
 
   void separateList(List<RechargeHistoryItem> rechargeHostoryList) {
-    final List<String> cityNames =
-        rechargeHostoryList.map((city) => city.header).toSet().toList();
     String currentItem = rechargeHostoryList.first.header;
     Map<String, List<RechargeHistoryItem>> x = {};
 
@@ -18,13 +16,11 @@ class RechargeHistoryCubit extends Cubit<RechargeHistoryState> {
         currentItem = item.header;
       }
       if (x[currentItem] != null) {
-        List<RechargeHistoryItem> vals = x[currentItem]!;
-        vals.add(item);
-        x[currentItem] = vals;
+        x[currentItem]!.add(item);
       } else {
         x[currentItem] = [item];
       }
     }
-    print(x);
+    emit(ListSeparatedState(recharges: x));
   }
 }

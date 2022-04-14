@@ -13,26 +13,41 @@ class PayCubit extends Cubit<PayState> {
   PayCubit() : super(PayInitial());
 
   void initPay() {
-    _razorpay = Razorpay();
-    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, (PaymentSuccessResponse res) {
-      emit(PaymentSuccessState(paymentSuccessResponse: res));
-    });
-    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, (PaymentFailureResponse res) {
-      emit(PaymentErrorState(paymentFailureResponse: res));
-    });
+    try {
+      _razorpay = Razorpay();
+      _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
+          (PaymentSuccessResponse res) {
+        emit(PaymentSuccessState(paymentSuccessResponse: res));
+      });
+      _razorpay.on(
+        Razorpay.EVENT_PAYMENT_ERROR,
+        (PaymentFailureResponse res) {
+          try {
+            emit(PaymentErrorState(paymentFailureResponse: res));
+          } catch (e) {}
+        },
+      );
+    } catch (e) {
+      emit(PaymentErrorState(
+          paymentFailureResponse: PaymentFailureResponse(1, e.toString())));
+    }
   }
 
   void openCheckOut(double amount, String orderId) {
-    
     try {
       var options = {
-      'key': Secrets.razorPayKey,
-      'amount': (amount * 100).toInt(),
-      'name': 'Fresh From Factory',
-      'order_id': orderId,
-      'description': 'Checkout',
-      'prefill': {'contact': '8888888888', 'email': 'test@razorpay.com'},
-    };
+        'key': Secrets.razorPayKey,
+        'amount': (amount * 100).toInt(),
+        'name': 'Fresh From Factory',
+        'order_id': orderId,
+        'description': 'Checkout',
+        'retry': {'enabled': true, 'max_count': 1},
+        'send_sms_hash': true,
+        'prefill': {'contact': '8888888888', 'email': 'test@razorpay.com'},
+        'external': {
+        'wallets': ['paytm', 'gpay']
+      }
+      };
       _razorpay.open(options);
     } catch (e) {
       print(e);
@@ -51,9 +66,8 @@ class PayCubit extends Cubit<PayState> {
 
     if (res.statusCode == 200) {
       emit(GetOrderIdSuccessState(orderId: json.decode(res.body)['ordid']));
-    }else{
+    } else {
       emit(GetOrderIdFailureState());
-
     }
   }
 
@@ -68,7 +82,7 @@ class PayCubit extends Cubit<PayState> {
       },
       body: jsonEncode(
         <String, dynamic>{
-          "amount": amount * 100,
+          "amount": (amount * 100).toInt(),
           "customerId": Secrets.companyId,
           "razorpay_payment_id": paymentId
         },
