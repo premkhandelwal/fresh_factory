@@ -319,10 +319,10 @@ class _WalletWidgetState extends State<WalletWidget> {
                   widget.isReferralWallet
                       ? GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(
+                            /* Navigator.pushNamed(
                               context,
                               EarningReportPage.route,
-                            );
+                            ); */
                           },
                           child: CardWidgetWallet(
                             text: "Earning\nReport",
@@ -342,10 +342,10 @@ class _WalletWidgetState extends State<WalletWidget> {
                   widget.isReferralWallet
                       ? GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(
+                           /*  Navigator.pushNamed(
                               context,
                               WithdrawReportPage.route,
-                            );
+                            ); */
                           },
                           child: CardWidgetWallet(
                             isRightSideWidget: true,

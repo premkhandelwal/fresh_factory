@@ -15,16 +15,7 @@ class RechargeHistoryPage extends StatefulWidget {
 class _RechargeHistoryPageState extends State<RechargeHistoryPage> {
   List<RechargeHistoryItem> rechargeHistoryItem = [
     RechargeHistoryItem(
-      header: "Febrauray 2022",
-      srNo: 1,
-      date: "12/01/2022",
-      actualRechargeAmount: 500.00,
-      platformBonusAmount: 10.00,
-      totalAmount: 550.00,
-      paymentMethod: "PayTM",
-    ),
-    RechargeHistoryItem(
-      header: "January 2022",
+      header: "February 2022",
       srNo: 1,
       date: "12/01/2022",
       actualRechargeAmount: 500.00,
@@ -35,11 +26,11 @@ class _RechargeHistoryPageState extends State<RechargeHistoryPage> {
     RechargeHistoryItem(
       header: "January 2022",
       srNo: 2,
-      date: "11/01/2022",
+      date: "12/01/2022",
       actualRechargeAmount: 500.00,
       platformBonusAmount: 10.00,
       totalAmount: 550.00,
-      paymentMethod: "PayTM",
+      paymentMethod: "GPAY",
     ),
     RechargeHistoryItem(
       header: "January 2022",
@@ -51,8 +42,17 @@ class _RechargeHistoryPageState extends State<RechargeHistoryPage> {
       paymentMethod: "PayTM",
     ),
     RechargeHistoryItem(
+      header: "January 2022",
+      srNo: 4,
+      date: "11/01/2022",
+      actualRechargeAmount: 500.00,
+      platformBonusAmount: 10.00,
+      totalAmount: 550.00,
+      paymentMethod: "PayTM",
+    ),
+    RechargeHistoryItem(
       header: "December 2021",
-      srNo: 3,
+      srNo: 5,
       date: "12/12/2021",
       actualRechargeAmount: 500.00,
       platformBonusAmount: 10.00,
@@ -61,7 +61,7 @@ class _RechargeHistoryPageState extends State<RechargeHistoryPage> {
     ),
     RechargeHistoryItem(
       header: "December 2021",
-      srNo: 3,
+      srNo: 6,
       date: "12/12/2021",
       actualRechargeAmount: 500.00,
       platformBonusAmount: 10.00,
@@ -70,36 +70,45 @@ class _RechargeHistoryPageState extends State<RechargeHistoryPage> {
     ),
     RechargeHistoryItem(
       header: "December 2021",
-      srNo: 3,
+      srNo: 7,
       date: "12/12/2021",
       actualRechargeAmount: 500.00,
       platformBonusAmount: 10.00,
       totalAmount: 550.00,
-      paymentMethod: "PayTM",
+      paymentMethod: "Airtel Bank",
     ),
   ];
-  late RechargeHistoryCubit rechargeHistoryCubit;
   @override
   void initState() {
-    rechargeHistoryCubit = BlocProvider.of<RechargeHistoryCubit>(context);
-    rechargeHistoryCubit.separateList(rechargeHistoryItem);
+    separateList();
     super.initState();
   }
 
   Map<String, List<RechargeHistoryItem>> _recharges = {};
 
+  void separateList() {
+    String currentItem = rechargeHistoryItem.first.header;
+    for (var item in rechargeHistoryItem) {
+      if (item.header != currentItem) {
+        currentItem = item.header;
+      }
+      if (_recharges[currentItem] != null) {
+        _recharges[currentItem]!.add(item);
+      } else {
+        _recharges[currentItem] = [item];
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<String> _keys = _recharges.keys.toList();
+    List<List<RechargeHistoryItem>> _values = _recharges.values.toList();
     return Scaffold(
       appBar: CustomAppBar(title: "Recharge History"),
-      body: BlocConsumer<RechargeHistoryCubit, RechargeHistoryState>(
-        listener: (context, state) {
-          print(state);
-        },
-        builder: (context, state) {
-          if (_recharges.isNotEmpty) {
-            return Column(
-              children: [
+      body: _recharges.isNotEmpty
+          ? SingleChildScrollView(
+              child: (Column(children: [
                 for (var i = 0; i < _recharges.length; i++) ...[
                   Container(
                     height: 50,
@@ -107,29 +116,86 @@ class _RechargeHistoryPageState extends State<RechargeHistoryPage> {
                     width: MediaQuery.of(context).size.width,
                     color: Color(0xff02096B),
                     child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(_recharges.keys.toList()[i],
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold))),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        _keys[i],
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                   ),
-                  Flexible(
-                    child: ListView.builder(
-                        itemCount: _recharges[i]!.length,
-                        itemBuilder: (ctx, ind) {
-                          return ListTile(
-                            title: Text(_recharges[i]![ind].srNo.toString()),
-                          );
-                        }),
-                  )
+                  DataTable(
+                      dataRowHeight: 100,
+                      columnSpacing: 20,
+                      headingRowHeight: 0,
+                      border: TableBorder.symmetric(),
+                      columns: [
+                        DataColumn(
+                          label: Text(""),
+                        ),
+                        DataColumn(
+                          label: Text(""),
+                        ),
+                        DataColumn(
+                          label: Text(""),
+                        ),
+                        DataColumn(
+                          label: Text(""),
+                        ),
+                      ],
+                      rows: [
+                        for (var ind = 0; ind < _values[i].length; ind++) ...[
+                          DataRow(
+                            cells: [
+                              DataCell(Text(_values[i][ind].srNo.toString())),
+                              DataCell(Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(_values[i][ind].date.toString()),
+                                  SizedBox(height: 10),
+                                  Text("Payment Method")
+                                ],
+                              )),
+                              DataCell(Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Flexible(child: Text("Actual Recharge", overflow: TextOverflow.fade,)),
+                                    Text("Platform Bonus"),
+                                    Text("Total Amount"),
+                                  ],
+                                ),
+                              )),
+                              DataCell(Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Flexible(
+                                        child: Text(
+                                            "\u{20B9} ${_values[i][ind].actualRechargeAmount.toString()}")),
+                                    Text(
+                                        "+${_values[i][ind].platformBonusAmount.toString()}%"),
+                                    Text(
+                                        "\u{20B9} ${_values[i][ind].totalAmount.toString()}"),
+                                        SizedBox(height: 15),
+                                    Text("${_values[i][ind].paymentMethod}"),
+                                  ],
+                                ),
+                              )),
+                            ],
+                          ),
+                        ],
+                      ]),
                 ],
-              ],
-            );
-          }
-          return Center(child: Text("Nothing to show here"));
-        },
-      ),
+              ])),
+            )
+          : Center(
+              child: Text("Nothing to show here"),
+            ),
     );
   }
 }

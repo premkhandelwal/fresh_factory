@@ -7,7 +7,15 @@ abstract class RechargeHistoryState extends Equatable {
   List<Object> get props => [DateTime.now()];
 }
 
-class RechargeHistoryInitial extends RechargeHistoryState {}
+class RechargeHistoryInitial extends RechargeHistoryState {
+   @override
+  List<Object> get props => [DateTime.now()];
+}
+
+class ListSeparationInProgress extends RechargeHistoryState{
+   @override
+  List<Object> get props => [DateTime.now()];
+}
 
 class ListSeparatedState extends RechargeHistoryState {
   final Map<String, List<RechargeHistoryItem>> recharges;
@@ -15,5 +23,5 @@ class ListSeparatedState extends RechargeHistoryState {
     required this.recharges,
   });
    @override
-  List<Object> get props => [DateTime.now()];
+  List<Object> get props => [DateTime.now(), recharges];
 }

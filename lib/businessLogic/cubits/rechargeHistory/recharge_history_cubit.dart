@@ -8,6 +8,7 @@ class RechargeHistoryCubit extends Cubit<RechargeHistoryState> {
   RechargeHistoryCubit() : super(RechargeHistoryInitial());
 
   void separateList(List<RechargeHistoryItem> rechargeHostoryList) {
+    emit(ListSeparationInProgress());
     String currentItem = rechargeHostoryList.first.header;
     Map<String, List<RechargeHistoryItem>> x = {};
 
