@@ -7,6 +7,8 @@ import 'package:fresh/data/models/item.dart';
 import 'package:fresh/data/models/item_categories.dart';
 import 'package:fresh/presentation/screens/auth/changePassword.dart';
 import 'package:fresh/presentation/screens/home/app_bar_widgets_home.dart';
+import 'package:fresh/presentation/screens/miscellaneous/refer_earn_page.dart';
+import 'package:fresh/presentation/screens/miscellaneous/terms_conditions_page.dart';
 import 'package:fresh/presentation/screens/offers/offer_page.dart';
 import 'package:fresh/presentation/screens/orders/order_main_page.dart';
 import 'package:fresh/presentation/screens/payments/bank_details_screen.dart';
@@ -529,6 +531,70 @@ class DrawerWidget extends StatelessWidget {
           leading: Icon(Icons.attach_money, color: Colors.pink),
           title: Text("Refer & Earn"),
           minLeadingWidth: 8,
+           onTap: () {
+            Navigator.pushNamed(
+              context,
+              ReferandEarnPage.route,
+            );
+          },
+        ),
+         ExpansionTile(
+          leading: Icon(
+            Icons.account_box,
+            color: Colors.pink,
+          ),
+          // tilePadding: EdgeInsets.zero,
+          // childrenPadding: ,
+
+          title: Transform.translate(
+              offset: Offset(-16, 0),
+              child: Text(
+                "Legal",
+                style: TextStyle(color: const Color(0xff02096B)),
+              )),
+          collapsedIconColor: Colors.white,
+          iconColor: Colors.white,
+          expandedAlignment: Alignment.centerRight,
+          children: [
+            ListTile(
+              title: Text("Terms & Condition"),
+              dense: true,
+              minVerticalPadding: 0,
+              contentPadding: EdgeInsets.symmetric(horizontal: 64),
+              visualDensity: VisualDensity(horizontal: 1, vertical: -4),
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  TermsandConditionsPage.route,
+                );
+              },
+            ),
+            ListTile(
+              title: Text("Privacy Policy"),
+              dense: true,
+              contentPadding: EdgeInsets.symmetric(horizontal: 64),
+              visualDensity: VisualDensity(horizontal: 1, vertical: -4),
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  BankDetailsScreen.route,
+                );
+              },
+            ),
+            ListTile(
+              title: Text("Contact Us"),
+              dense: true,
+              contentPadding: EdgeInsets.symmetric(horizontal: 64),
+              visualDensity: VisualDensity(horizontal: 1, vertical: -4),
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  BankDetailsScreen.route,
+                );
+              },
+            ),
+            SizedBox(height: 15),
+          ],
         ),
         ListTile(
           leading: Icon(Icons.content_paste_go_rounded, color: Colors.pink),
