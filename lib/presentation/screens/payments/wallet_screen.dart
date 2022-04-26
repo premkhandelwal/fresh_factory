@@ -330,10 +330,10 @@ class _WalletWidgetState extends State<WalletWidget> {
                         )
                       : GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(
+                            /* Navigator.pushNamed(
                               context,
                               RechargeHistoryPage.route,
-                            );
+                            ); */
                           },
                           child: CardWidgetWallet(
                             text: "Recharge\nHistory",

@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:fresh/data/models/carousel_item.dart';
 import 'package:fresh/data/models/item.dart';
 import 'package:fresh/data/models/item_categories.dart';
 import 'package:fresh/data/models/item_details.dart';
@@ -30,6 +31,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       List<Item>? fetchItemCategory = await productProvider.getProducts();
       if (fetchItemCategory != null) {
         emit(FetchProductSuccessState(itemList: fetchItemCategory));
+        add(FetchNonLinkedCarouselDataEvent());
       } else {
         emit(FetchProductFailureState());
       }
@@ -69,6 +71,19 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         }).toList();
         emit(GetProductsofCategoriesState(itemList: _items));
       }),
+    );
+    on<FetchNonLinkedCarouselDataEvent>(
+      (event, emit) async {
+        emit(FetchNonLinkedCarouselDataInProgressState());
+        List<CarouselItem>? fetchItemDetails =
+            await productProvider.getNonLinkedCarouselItems();
+        if (fetchItemDetails != null) {
+          emit(FetchNonLinkedCarouselDataSuccessState(
+              carouselItemList: fetchItemDetails));
+        } else {
+          emit(FetchNonLinkedCarouselDataFailureState());
+        }
+      },
     );
   }
 }

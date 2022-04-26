@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:fresh/data/dataProviders/auth_provider.dart';
+import 'package:fresh/data/models/carousel_item.dart';
 import 'package:fresh/data/models/item.dart';
 import 'package:fresh/data/models/item_categories.dart';
 import 'package:fresh/data/models/item_details.dart';
@@ -13,17 +14,13 @@ class ProductProvider {
   Future<List<ItemCategory>?> getItemCategories() async {
     String url = Secrets.host + "/api/getcate/";
     Uri uri = Uri.parse(url);
-    var res = await http.post(
-      uri,
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        "Accept": "application/json",
-        'Authorization': "Bearer " + SessionConstants.user.accessToken!
-      },
-      body: jsonEncode(<String, dynamic>{
-        "company_id": Secrets.companyId
-      })
-    );
+    var res = await http.post(uri,
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Accept": "application/json",
+          'Authorization': "Bearer " + SessionConstants.user.accessToken!
+        },
+        body: jsonEncode(<String, dynamic>{"company_id": Secrets.companyId}));
     if (res.statusCode == 200) {
       attemptRefresh = 3;
       return ItemCategory.fromJsonList(res.body);
@@ -45,15 +42,13 @@ class ProductProvider {
   Future<List<Item>?> getProducts() async {
     String url = Secrets.host + "/api/getpro/";
     Uri uri = Uri.parse(url);
-    var res = await http.post(uri, headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer ${SessionConstants.user.accessToken}',
-    },
-    body: jsonEncode(<String, dynamic>{
-        "company_id": Secrets.companyId
-      })
-    );
+    var res = await http.post(uri,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ${SessionConstants.user.accessToken}',
+        },
+        body: jsonEncode(<String, dynamic>{"company_id": Secrets.companyId}));
     if (res.statusCode == 200) {
       attemptRefresh = 3;
       return Item.fromJsonList(res.body);
@@ -75,15 +70,13 @@ class ProductProvider {
   Future<ItemDetails?> getProductDetails(String itemId) async {
     String url = Secrets.host + "/api/pro_detail/$itemId";
     Uri uri = Uri.parse(url);
-    var res = await http.post(uri, headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-      "Accept": "application/json",
-      // 'Authorization': "Bearer " + SessionConstants.user.accessToken!
-    },
-    body: jsonEncode(<String, dynamic>{
-        "company_id": Secrets.companyId
-      })
-    );
+    var res = await http.post(uri,
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Accept": "application/json",
+          // 'Authorization': "Bearer " + SessionConstants.user.accessToken!
+        },
+        body: jsonEncode(<String, dynamic>{"company_id": Secrets.companyId}));
     if (res.statusCode == 200) {
       attemptRefresh = 3;
       return ItemDetails.fromJson(res.body);
@@ -91,20 +84,39 @@ class ProductProvider {
     return null;
   }
 
-  Future<bool> addtoCart(Item item, int quantity) async{
+  Future<bool> addtoCart(Item item, int quantity) async {
     String url = Secrets.host + "/api/addToCart/";
     Uri uri = Uri.parse(url);
-    var res = await http.post(uri, headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-      "Accept": "application/json",
-      'Authorization': "Bearer " + SessionConstants.user.accessToken!
-    },
-    body: jsonEncode(<String, dynamic>{
-        "productId": item.id,
-        "customerId": SessionConstants.user.userId,
-        "qty": quantity
-      })
-    );
+    var res = await http.post(uri,
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Accept": "application/json",
+          'Authorization': "Bearer " + SessionConstants.user.accessToken!
+        },
+        body: jsonEncode(<String, dynamic>{
+          "productId": item.id,
+          "customerId": SessionConstants.user.userId,
+          "qty": quantity
+        }));
     return res.statusCode == 200;
+  }
+
+  Future<List<CarouselItem>?> getNonLinkedCarouselItems() async {
+    String url = Secrets.host + "/api/non-linked-carousel/get/";
+    Uri uri = Uri.parse(url);
+    var res = await http.post(uri,
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Accept": "application/json",
+          // 'Authorization': "Bearer " + SessionConstants.user.accessToken!
+        },
+        body: jsonEncode(<String, dynamic>{
+          "company_id": Secrets.companyId,
+        }));
+    if (res.statusCode == 200) {
+      return CarouselItem.fromJsonList(res.body);
+    }
+    return null;
+    // return res.statusCode == 200;
   }
 }

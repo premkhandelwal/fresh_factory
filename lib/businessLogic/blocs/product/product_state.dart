@@ -50,3 +50,14 @@ class GetProductsofCategoriesState extends ProductState {
     required this.itemList,
   });
 }
+
+class FetchNonLinkedCarouselDataInProgressState extends ProductState {}
+
+class FetchNonLinkedCarouselDataSuccessState extends ProductState {
+  List<CarouselItem> carouselItemList;
+  FetchNonLinkedCarouselDataSuccessState({
+    required this.carouselItemList,
+  });
+}
+
+class FetchNonLinkedCarouselDataFailureState extends ProductState {}

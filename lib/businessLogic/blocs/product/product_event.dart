@@ -31,3 +31,5 @@ class GetProductsofCategoryEvent extends ProductEvent {
     required this.itemList,
   });
 }
+
+class FetchNonLinkedCarouselDataEvent extends ProductEvent{}

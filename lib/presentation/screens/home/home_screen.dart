@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh/businessLogic/blocs/product/product_bloc.dart';
 import 'package:fresh/config/args.dart';
+import 'package:fresh/data/models/carousel_item.dart';
 import 'package:fresh/data/models/item.dart';
 import 'package:fresh/data/models/item_categories.dart';
+import 'package:fresh/globals/constants/secrets.dart';
 import 'package:fresh/presentation/screens/auth/changePassword.dart';
 import 'package:fresh/presentation/screens/home/app_bar_widgets_home.dart';
 import 'package:fresh/presentation/screens/miscellaneous/refer_earn_page.dart';
@@ -46,6 +48,7 @@ class _HomePageState extends State<HomePage> {
 
   List<ItemCategory> _itemCategoryList = [];
   List<Item> _itemList = [];
+  List<CarouselItem> _carouselItemList = [];
   final ScrollController scrollController = ScrollController();
 
   @override
@@ -83,11 +86,14 @@ class _HomePageState extends State<HomePage> {
             }
             // 123456789
             // print(_itemList);
+          } else if (state is FetchNonLinkedCarouselDataSuccessState) {
+            _carouselItemList = List.from(state.carouselItemList);
           }
         },
         builder: (context, state) {
           if (state is FetchCategoriesInProgressState ||
-              state is FetchProductInProgressState) {
+              state is FetchProductInProgressState ||
+              state is FetchNonLinkedCarouselDataInProgressState) {
             return Center(child: CircularProgressIndicator());
           }
           return SingleChildScrollView(
@@ -118,7 +124,13 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 SizedBox(height: 10),
-                CustomCarouselWidget(),
+                _carouselItemList.isNotEmpty
+                    ? CustomCarouselWidget(
+                        imageUrls: _carouselItemList[0]
+                            .images
+                            .map((e1) => e1["carouselImage"]!)
+                            .toList())
+                    : CustomCarouselWidget(),
                 SizedBox(height: 10),
                 /*  Container(
                       height: 152,
@@ -158,8 +170,9 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             GestureDetector(
                                 onTap: () {
-                                 Navigator
-                                      .pushNamed(context,ProductsPage.route,arguments: ProductsPageArgs(
+                                  Navigator.pushNamed(
+                                      context, ProductsPage.route,
+                                      arguments: ProductsPageArgs(
                                           itemCategory:
                                               _itemCategoryList[index],
                                           allItemCategories:
@@ -334,21 +347,20 @@ class _HomePageState extends State<HomePage> {
                 ),
                 CustomCarouselWidget(showDots: false),
                 SizedBox(height: 10),
+                for (var i = 1; i < _carouselItemList.length; i++) ...[
+                  CustomHeaderWidget(
+                    title: _carouselItemList[i].name,
+                  ),
+                  CustomCarouselWidget(
+                      showDots: false,
+                      imageUrls: _carouselItemList[i]
+                          .images
+                          .map((e1) => e1["carouselImage"]!)
+                          .toList()),
+                  SizedBox(height: 10),
+                ],
 
-                const CustomHeaderWidget(
-                  title: "Sample1",
-                ),
-                CustomCarouselWidget(showDots: false),
-                SizedBox(height: 10),
-                const CustomHeaderWidget(
-                  title: "Sample1",
-                ),
-                CustomCarouselWidget(showDots: false),
-                SizedBox(height: 10),
-                const CustomHeaderWidget(
-                  title: "Sample1",
-                ),
-                CustomCarouselWidget(showDots: false),
+                // CustomCarouselWidget(showDots: false),
                 /* SizedBox(height: 10),
                 const CustomHeaderWidget(
                   title: "Featured Product",
@@ -531,14 +543,14 @@ class DrawerWidget extends StatelessWidget {
           leading: Icon(Icons.attach_money, color: Colors.pink),
           title: Text("Refer & Earn"),
           minLeadingWidth: 8,
-           onTap: () {
+          onTap: () {
             Navigator.pushNamed(
               context,
               ReferandEarnPage.route,
             );
           },
         ),
-         ExpansionTile(
+        ExpansionTile(
           leading: Icon(
             Icons.account_box,
             color: Colors.pink,
@@ -596,11 +608,11 @@ class DrawerWidget extends StatelessWidget {
             SizedBox(height: 15),
           ],
         ),
-        ListTile(
+        /*  ListTile(
           leading: Icon(Icons.content_paste_go_rounded, color: Colors.pink),
           title: Text("Legal"),
           minLeadingWidth: 8,
-        ),
+        ), */
         ListTile(
           leading: Icon(Icons.support_agent, color: Colors.pink),
           title: Text("Support"),
@@ -679,7 +691,9 @@ class TimerChildWidget extends StatelessWidget {
 
 class CustomCarouselWidget extends StatefulWidget {
   final bool showDots;
-  const CustomCarouselWidget({Key? key, this.showDots = true})
+  final List<String> imageUrls;
+  const CustomCarouselWidget(
+      {Key? key, this.showDots = true, this.imageUrls = const []})
       : super(key: key);
 
   @override
@@ -692,38 +706,58 @@ class _CustomCarouselWidgetState extends State<CustomCarouselWidget> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> imgList = [
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Container(
-            height: 152,
-            width: MediaQuery.of(context).size.width,
-            // margin: EdgeInsets.all(6.0),
-            decoration: const BoxDecoration(
-                color: Colors.grey,
-                borderRadius: BorderRadius.all(Radius.circular(5)))),
-      ),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Container(
-            height: 152,
-            // margin: EdgeInsets.all(6.0),
-            width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-                color: Colors.grey,
-                borderRadius: BorderRadius.all(Radius.circular(5)))),
-      ),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Container(
-            height: 152,
-            width: 380,
-            // margin: EdgeInsets.all(6.0),
-            decoration: const BoxDecoration(
-                color: Colors.grey,
-                borderRadius: BorderRadius.all(Radius.circular(5)))),
-      ),
-    ];
+    List<Widget> imgList = widget.imageUrls.isNotEmpty
+        ? widget.imageUrls
+            .map((e) => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Container(
+                      height: 152,
+                      width: MediaQuery.of(context).size.width,
+                      child: Image.network(
+                        Secrets.mediaUrl + e,
+                        errorBuilder: (ctx, _, _1) {
+                          return Container();
+                        },
+                      ),
+                      // margin: EdgeInsets.all(6.0),
+                      decoration: const BoxDecoration(
+                          // image: Image.network(src),
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.all(Radius.circular(5)))),
+                ))
+            .toList()
+        : [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Container(
+                  height: 152,
+                  width: MediaQuery.of(context).size.width,
+                  // margin: EdgeInsets.all(6.0),
+                  decoration: const BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.all(Radius.circular(5)))),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Container(
+                  height: 152,
+                  // margin: EdgeInsets.all(6.0),
+                  width: MediaQuery.of(context).size.width,
+                  decoration: const BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.all(Radius.circular(5)))),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Container(
+                  height: 152,
+                  width: 380,
+                  // margin: EdgeInsets.all(6.0),
+                  decoration: const BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.all(Radius.circular(5)))),
+            ),
+          ];
     return Stack(
       // mainAxisSize: MainAxisSize.min,
       children: [
