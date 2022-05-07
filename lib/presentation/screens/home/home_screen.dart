@@ -71,17 +71,19 @@ class _HomePageState extends State<HomePage> {
           if (state is FetchCategoriesSuccessState) {
             _itemCategoryList = List.from(state.itemCategoryList);
           } else if (state is FetchProductSuccessState) {
-            _itemList = List.from(state.itemList);
-            for (var item in _itemList) {
-              if (item.category != null) {
-                int ind = _itemCategoryList.indexWhere((element) {
-                  if (item.category![0]['Name'].toString().toLowerCase() ==
-                      element.name.toLowerCase()) {
-                    return true;
-                  }
-                  return false;
-                });
-                _itemCategoryList[ind].items.add(item);
+            if (_itemList.isEmpty) {
+              _itemList = List.from(state.itemList);
+              for (var item in _itemList) {
+                if (item.category != null) {
+                  int ind = _itemCategoryList.indexWhere((element) {
+                    if (item.category![0]['Name'].toString().toLowerCase() ==
+                        element.name.toLowerCase()) {
+                      return true;
+                    }
+                    return false;
+                  });
+                  _itemCategoryList[ind].items.add(item);
+                }
               }
             }
             // 123456789
@@ -92,8 +94,7 @@ class _HomePageState extends State<HomePage> {
         },
         builder: (context, state) {
           if (state is FetchCategoriesInProgressState ||
-              state is FetchProductInProgressState ||
-              state is FetchNonLinkedCarouselDataInProgressState) {
+              state is FetchProductInProgressState) {
             return Center(child: CircularProgressIndicator());
           }
           return SingleChildScrollView(
@@ -587,10 +588,10 @@ class DrawerWidget extends StatelessWidget {
               contentPadding: EdgeInsets.symmetric(horizontal: 64),
               visualDensity: VisualDensity(horizontal: 1, vertical: -4),
               onTap: () {
-                Navigator.pushNamed(
+               /*  Navigator.pushNamed(
                   context,
                   BankDetailsScreen.route,
-                );
+                ); */
               },
             ),
             ListTile(
@@ -599,10 +600,10 @@ class DrawerWidget extends StatelessWidget {
               contentPadding: EdgeInsets.symmetric(horizontal: 64),
               visualDensity: VisualDensity(horizontal: 1, vertical: -4),
               onTap: () {
-                Navigator.pushNamed(
+                /* Navigator.pushNamed(
                   context,
                   BankDetailsScreen.route,
-                );
+                ); */
               },
             ),
             SizedBox(height: 15),

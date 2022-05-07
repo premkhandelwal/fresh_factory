@@ -7,6 +7,7 @@ import 'package:fresh/data/models/item.dart';
 import 'package:fresh/data/models/item_categories.dart';
 import 'package:fresh/globals/constants/secrets.dart';
 import 'package:fresh/presentation/screens/home/home_screen.dart';
+import 'package:fresh/presentation/screens/products/product_detail_page4.dart';
 import 'package:fresh/presentation/screens/products/temp_product_page.dart';
 import 'package:fresh/presentation/utils/custom_app_bar.dart';
 import 'package:fresh/presentation/utils/custom_header_widget.dart';
@@ -32,38 +33,36 @@ class _ProductsPageState extends State<ProductsPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
-    productBloc = BlocProvider.of<ProductBloc>(context);
-    print(args.itemCategory.masterCategory);
-    // for (var item in widget.itemCategory.items) {}
-    for (var item in args.itemCategory.items) {
-      if (item.subcategory != null) {
-        for (var subCat in item.subcategory!) {
-          // ItemCategory _itemCat = widget.allItemCategories
-          // .firstWhere((element) => element.name == subCat['Name']);
-          ItemCategory _itemCat = ItemCategory(id: "", name: subCat['Name']);
-          //To get all the item subcategories
-          if (!_itemSubCategory.contains(_itemCat)) {
-            _itemSubCategory.add(_itemCat);
+      productBloc = BlocProvider.of<ProductBloc>(context);
+      print(args.itemCategory.masterCategory);
+      // for (var item in widget.itemCategory.items) {}
+      for (var item in args.itemCategory.items) {
+        if (item.subcategory != null) {
+          for (var subCat in item.subcategory!) {
+            // ItemCategory _itemCat = widget.allItemCategories
+            // .firstWhere((element) => element.name == subCat['Name']);
+            ItemCategory _itemCat = ItemCategory(id: "", name: subCat['Name']);
+            //To get all the item subcategories
+            if (!_itemSubCategory.contains(_itemCat)) {
+              _itemSubCategory.add(_itemCat);
+            }
           }
         }
       }
-    }
-    print(_itemSubCategory);
-    if (_itemSubCategory.isNotEmpty) {
-      productBloc.add(GetProductsofCategoryEvent(
-          itemCategory: _itemSubCategory[0],
-          itemList: args.itemCategory.items));
-    }
-    setState(() {
-      
-    });
+      print(_itemSubCategory);
+      if (_itemSubCategory.isNotEmpty) {
+        productBloc.add(GetProductsofCategoryEvent(
+            itemCategory: _itemSubCategory[0],
+            itemList: args.itemCategory.items));
+      }
+      setState(() {});
     });
   }
 
   List<Item> categoryWiseProductList = [];
   @override
   Widget build(BuildContext context) {
-     args = ModalRoute.of(context)!.settings.arguments as ProductsPageArgs;
+    args = ModalRoute.of(context)!.settings.arguments as ProductsPageArgs;
 
     return Scaffold(
       appBar: CustomAppBar(title: args.itemCategory.name),
@@ -128,6 +127,7 @@ class _ProductsPageState extends State<ProductsPage> {
                       listener: (context, state) {
                         if (state is GetProductsofCategoriesState) {
                           categoryWiseProductList = List.from(state.itemList);
+                          print(state.itemList);
                         }
                       },
                       builder: (context, state) {
@@ -138,9 +138,10 @@ class _ProductsPageState extends State<ProductsPage> {
                                 .map((e) => GestureDetector(
                                       onTap: () {
                                         Navigator.pushNamed(
-                                            context, TempPageForProduct.route,
-                                            arguments: TempPageForProductArgs(
-                                                item: e));
+                  context,
+                  ProductDetailPage4.route,
+                  arguments: ProductDetailPage4Args(item: e)
+                );
                                       },
                                       child: ProductWidget(product: e),
                                     ))

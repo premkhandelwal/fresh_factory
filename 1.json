@@ -1,0 +1,19 @@
+Item(id: 64ff9f12-d1a6-46c2-8d6b-6171b83c7259, name: product1, tags: msamlkasd, mrp: 1234.0, cessApplicable: false, applicableCess: null, minPurchaseQty: 123, sku: 213123sdw123123, shippingCharges: false, image: product_img/download_VMf8R7Q.jfif, video: /media/videos/SampleVideo_1280x720_1mb_VyW2P9Y.mp4, videoLink: , publish: 0, cess: 212.0, status: true, desc: sd;fjiohfiowefiuwefwenfkewlkfwef, category: [
+    {Name: Electronics
+    }
+], subcategory: [
+    {Name: Mobile phone1
+    }
+], brand: [
+    {BrandName: samsung
+    }
+], taxPercent: 2.0), Item(id: 3847baf3-bf8e-4a23-86da-622470d9414d, name: samsung, tags: samsung mobile,smartphone, mrp: 14500.0, cessApplicable: false, applicableCess: null, minPurchaseQty: 1, sku: JHFDJHOI, shippingCharges: false, image: product_img/download_dSeH20c.png, video: /media/videos/SampleVideo_1280x720_1mb_TWWTrAM.mp4, videoLink: , publish: 0, cess: null, status: true, desc: Power of technology, category: [
+    {Name: Electronics
+    }
+], subcategory: [
+    {Name: Mobile phone1
+    }
+], brand: [
+    {BrandName: samsung
+    }
+], taxPercent:

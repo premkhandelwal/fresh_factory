@@ -1,7 +1,9 @@
 part of 'product_bloc.dart';
 
 @immutable
-abstract class ProductState {}
+abstract class ProductState extends Equatable{
+  List<Object> get props => [DateTime.now()];
+}
 
 class ProductInitial extends ProductState {}
 
@@ -23,6 +25,9 @@ class FetchProductSuccessState extends ProductState {
   FetchProductSuccessState({
     required this.itemList,
   });
+
+  @override
+  List<Object> get props => [itemList];
 }
 
 class FetchProductFailureState extends ProductState {}

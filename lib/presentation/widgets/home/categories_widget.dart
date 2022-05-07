@@ -15,7 +15,7 @@ class CategoriesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if(itemCategory.bannerImage != null){
-      print(Secrets.host + itemCategory.bannerImage !);
+      print("Hello");
     }
     return Padding(
       padding: const EdgeInsets.all(3.0),

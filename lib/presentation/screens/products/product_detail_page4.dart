@@ -7,9 +7,11 @@ import 'package:fresh/globals/common_function.dart';
 import 'package:fresh/globals/constants/secrets.dart';
 import 'package:fresh/presentation/utils/custom_app_bar.dart';
 
+import '../../../businessLogic/cubits/cartCubit/cart_cubit.dart';
+
 class ProductDetailPage4 extends StatefulWidget {
   static String route = '/productDetailPage4Screen';
-  
+
   const ProductDetailPage4({
     Key? key,
   }) : super(key: key);
@@ -24,21 +26,23 @@ class _ProductDetailPage4State extends State<ProductDetailPage4> {
 
   late ProductBloc productBloc;
   late ProductDetailPage4Args args;
+  late CartCubit cartCubit;
   @override
   void initState() {
-     WidgetsBinding.instance?.addPostFrameCallback((_) {
-    
-    productBloc = BlocProvider.of<ProductBloc>(context);
-    productBloc.add(FetchProductDetailsEvent(itemId: args.item.id));
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      cartCubit = BlocProvider.of<CartCubit>(context);
+
+      productBloc = BlocProvider.of<ProductBloc>(context);
+      productBloc.add(FetchProductDetailsEvent(itemId: args.item.id));
     });
     super.initState();
   }
 
-  int quantiy = 1;
+  int quantity = 1;
   ItemDetails _itemList = ItemDetails(imageList: [], attributes: []);
   @override
   Widget build(BuildContext context) {
-      args = ModalRoute.of(context)!.settings.arguments as ProductDetailPage4Args;
+    args = ModalRoute.of(context)!.settings.arguments as ProductDetailPage4Args;
 
     return Scaffold(
       appBar: CustomAppBar(title: "Vegetables"),
@@ -185,7 +189,7 @@ class _ProductDetailPage4State extends State<ProductDetailPage4> {
                           GestureDetector(
                             onTap: () {
                               setState(() {
-                                quantiy -= 1;
+                                quantity -= 1;
                               });
                             },
                             child: Text(
@@ -201,13 +205,13 @@ class _ProductDetailPage4State extends State<ProductDetailPage4> {
                                 // Colors.grey
                                 border: Border.all(color: Color(0xFFBDBDBD)),
                                 borderRadius: BorderRadius.circular(15)),
-                            child: Text(quantiy.toString()),
+                            child: Text(quantity.toString()),
                           ),
                           SizedBox(width: 15),
                           GestureDetector(
                             onTap: () {
                               setState(() {
-                                quantiy += 1;
+                                quantity += 1;
                               });
                             },
                             child: Text(
@@ -240,23 +244,24 @@ class _ProductDetailPage4State extends State<ProductDetailPage4> {
                         ])), */
                       SizedBox(height: 20),
                       Column(
-                        children: List.from(_itemList.attributes)
-                            .map(
-                              (e) => RichText(
-                                  text: TextSpan(children: [
-                                TextSpan(
-                                    text: "Size: ",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold)),
-                                TextSpan(
-                                    text: "2GB",
-                                    style: TextStyle(
-                                        color: Colors.black54, fontSize: 15)),
-                              ])),
-                            )
-                            .toList(),
+                        children: List.from(_itemList.attributes).map(
+                          (e) {
+                            print(e);
+                            return RichText(
+                                text: TextSpan(children: [
+                              TextSpan(
+                                  text: "${e["value"]}: ",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold)),
+                              TextSpan(
+                                  text: e["unit"],
+                                  style: TextStyle(
+                                      color: Colors.black54, fontSize: 15)),
+                            ]));
+                          },
+                        ).toList(),
                       ),
                       /* RichText(
                             text: TextSpan(children: [
@@ -278,8 +283,11 @@ class _ProductDetailPage4State extends State<ProductDetailPage4> {
                       SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () {
+                          for (var i = 0; i < quantity; i++) {
+                            cartCubit.addToCart(args.item);
+                          }
                           productBloc.add(AddToCartEvent(
-                              item: args.item, quantity: quantiy));
+                              item: args.item, quantity: quantity));
                         },
                         child: Text("Add to Basket"),
                         style: ElevatedButton.styleFrom(
